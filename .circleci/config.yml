@@ -17,7 +17,7 @@ jobs:
     steps:
       - checkout
       - *install-deps
-      - run: yarn test:unit --ci --coverage && codecov
+      - run: yarn test:unit --ci --coverage && yarn codecov
 
 workflows:
   ci:
