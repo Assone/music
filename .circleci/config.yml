@@ -16,6 +16,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - *install_deps
       - run: yarn test:unit --ci
 
 workflows:
