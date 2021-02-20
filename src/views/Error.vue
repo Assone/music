@@ -8,6 +8,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
+import { RawLocation, Route } from 'vue-router';
 
 const { State } = namespace('config');
 const msgs = [
@@ -26,6 +27,15 @@ export default class Error extends Vue {
     return this.message
       ? this.message[getRandomIndex(this.message.length)]
       : msgs[getRandomIndex(msgs.length)];
+  }
+
+  beforeRouteUpdate(
+    _to: Route,
+    _from: Route,
+    next: (to?: RawLocation | false | ((vm: Vue) => void)) => void,
+  ) {
+    this.$forceUpdate();
+    next();
   }
 }
 </script>
