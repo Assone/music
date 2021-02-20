@@ -49,6 +49,7 @@
     "@vue/eslint-config-typescript": "^5.0.2",
     "@vue/test-utils": "^1.0.3",
     "chromedriver": "88",
+    "codecov": "^3.8.1",
     "commitizen": "^4.2.3",
     "conventional-changelog-cli": "^2.1.1",
     "cz-conventional-changelog": "^3.3.0",
