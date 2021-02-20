@@ -19,6 +19,6 @@ jobs:
       - run: yarn test:unit --ci
 
 workflows:
-  node-tests:
+  ci:
     jobs:
-      - node/test
+      - test
