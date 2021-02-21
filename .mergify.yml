@@ -5,3 +5,22 @@ pull_request_rules:
     actions:
       merge:
         method: merge
+
+pull_request_rules:
+  - name: automatic merge for ImgBot pull requests
+    conditions:
+      - author=imgbot[bot]
+      - check-success=Travis CI - Pull Request
+    actions:
+      merge:
+        method: merge
+
+pull_request_rules:
+  - name: automatic merge for Dependabot pull requests
+    conditions:
+      - author~=^dependabot(|-preview)\[bot\]$
+      - check-success=Travis CI - Pull Request
+      - title~=^Bump [^\s]+ from ([\d]+)\..+ to \1\.
+    actions:
+      merge:
+        method: merge
