@@ -1,0 +1,12 @@
+component_depth: 4
+default_excludes: true
+languages:
+  - typescript:
+      production:
+        include:
+          - .*/**/.*\.vue
+      test:
+        include:
+          - .*/**/.*\.vue
+  - javascript
+  - script
