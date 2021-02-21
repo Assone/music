@@ -8,5 +8,5 @@ languages:
       test:
         include:
           - .*/**/.*\.vue
-  - javascript
-  - script
+  - name: javascript
+  - name: script
