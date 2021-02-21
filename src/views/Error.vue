@@ -12,10 +12,10 @@ import { RawLocation, Route } from 'vue-router';
 
 const { State } = namespace('config');
 const msgs = [
-  `There's nothing here.`,
-  `How did we get here?`,
-  `That's a Four-Oh-Four.`,
-  `Looks like we've got some broken links.`,
+  "There's nothing here.",
+  'How did we get here?',
+  "That's a Four-Oh-Four.",
+  "Looks like we've got some broken links.",
 ];
 const getRandomIndex = (max: number) => Math.floor(Math.random() * max);
 
