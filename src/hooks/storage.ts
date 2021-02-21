@@ -51,8 +51,13 @@ export function useStorage<T extends string | number | object | boolean | null>(
       console.warn(error);
     }
   };
-  const setData = (data: unknown) =>
-    data === null ? storage.removeItem(key) : storage.setItem(key, write(data));
+  const setData = (data: unknown) => {
+    if (data === null) {
+      storage.removeItem(key);
+    } else {
+      storage.setItem(key, write(data));
+    }
+  };
 
   readData();
 

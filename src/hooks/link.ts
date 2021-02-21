@@ -10,7 +10,7 @@ export const useLink = (item: IappNavItemConfig) => {
     },
     href: item?.link,
     'aria-label': item?.ariaLabel,
-    target: item?.target || isExternal ? `_blank` : null,
+    target: item?.target || isExternal ? '_blank' : null,
   };
 
   return {

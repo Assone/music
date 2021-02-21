@@ -1,10 +1,8 @@
-const { toString } = Object.prototype;
-
-export const isUndefined = (val: unknown) => typeof val === 'undefined';
-export const isString = (val: unknown) => typeof val === 'string';
-export const isNumber = (val: unknown) => typeof val === 'number';
+export const isUndefined = (val: unknown): val is undefined => typeof val === 'undefined';
+export const isString = (val: unknown): val is string => typeof val === 'string';
+export const isNumber = (val: unknown): val is number => typeof val === 'number';
 export const isObject = (val: unknown) => val !== null && typeof val === 'object';
-export const isArray = (val: unknown) => toString.call(val) === '[object Array]';
+export const { isArray } = Array;
 
 export const isExternal = (val: string) => /^https?:\/\//i.test(val);
 
