@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const TerserPlugin = require('terser-webpack-plugin');
 const zlib = require('zlib');
@@ -120,7 +119,6 @@ module.exports = {
           minRatio: 0.8,
         },
       ]);
-      config.plugin('webpack-bundle-analyzer').use(new BundleAnalyzerPlugin());
 
       config.optimization
         .usedExports(true)

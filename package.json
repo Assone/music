@@ -79,8 +79,7 @@
     "vue-cli-plugin-pug": "~2.0.0",
     "vue-template-compiler": "^2.6.11",
     "wdio-chromedriver-service": "^7.0.0",
-    "wdio-geckodriver-service": "^1.1.0",
-    "webpack-bundle-analyzer": "^4.4.1"
+    "wdio-geckodriver-service": "^1.1.0"
   },
   "config": {
     "commitizen": {
