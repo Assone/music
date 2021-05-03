@@ -18,33 +18,33 @@ describe('MediaAudioInfo.vue', () => {
     expect(wrapper.classes()).toContain('media-audio__info');
   });
 
-  it('computed', () => {
-    const cover = 'cover';
-    const id = '1';
-    const name = 'name';
-    const songs = [{ album: { cover }, name, artists: [{ id, name }] }];
+  // it('computed', () => {
+  //   const cover = 'cover';
+  //   const id = '1';
+  //   const name = 'name';
+  //   const songs = [{ album: { cover }, name, artists: [{ id, name }] }];
 
-    const wrapper = shallowMount<
-      MediaAudioInfo & { name: string; cover: string; artists: { id: number; name: string }[] }
-    >(MediaAudioInfo, {
-      propsData: {
-        track: 111,
-      },
-      mocks: {
-        $api: {
-          getSongDetail: () =>
-            Promise.resolve({
-              songs,
-            }),
-        },
-      },
-    });
+  //   const wrapper = shallowMount<
+  //     MediaAudioInfo & { name: string; cover: string; artists: { id: number; name: string }[] }
+  //   >(MediaAudioInfo, {
+  //     propsData: {
+  //       track: 111,
+  //     },
+  //     mocks: {
+  //       $api: {
+  //         getSongDetail: () =>
+  //           Promise.resolve({
+  //             songs,
+  //           }),
+  //       },
+  //     },
+  //   });
 
-    wrapper.vm.$nextTick(() => {
-      expect(wrapper.vm.cover).toBe(cover);
-      expect(wrapper.vm.name).toBe(name);
-      expect(wrapper.vm.artists[0].id).toBe(id);
-      expect(wrapper.vm.artists[0].name).toBe(name);
-    });
-  });
+  //   wrapper.vm.$nextTick(() => {
+  //     expect(wrapper.vm.cover).toBe(cover);
+  //     expect(wrapper.vm.name).toBe(name);
+  //     expect(wrapper.vm.artists[0].id).toBe(id);
+  //     expect(wrapper.vm.artists[0].name).toBe(name);
+  //   });
+  // });
 });
