@@ -1,0 +1,23 @@
+version = 1
+
+test_patterns = ["src/**"]
+
+exclude_patterns = ["src/styles/vendors"]
+
+[[analyzers]]
+name = "javascript"
+enabled = true
+
+  [analyzers.meta]
+  environment = [
+    "nodejs",
+    "browser",
+    "jest"
+  ]
+  plugins = ["vue"]
+  style_guide = "airbnb"
+  dialect = "typescript"
+
+[[transformers]]
+name = "prettier"
+enabled = true
