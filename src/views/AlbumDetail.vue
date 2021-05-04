@@ -17,6 +17,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
+import { done } from 'nprogress';
 
 import AppButton from '@/components/common/AppButton.vue';
 import SourceHead from '@/components/SourceHead.vue';
@@ -50,6 +51,7 @@ export default class AlbumDetail extends Vue {
 
     this.model = album;
     this.songs = songs;
+    done();
   }
 
   get name() {

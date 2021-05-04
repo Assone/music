@@ -21,7 +21,7 @@ describe('SectionHead.vue', () => {
       stubs: ['router-link'],
     });
 
-    expect(wrapper.findComponent({ name: 'Avatar' }).exists()).toBeTruthy();
+    expect(wrapper.findComponent({ name: 'AppAvatar' }).exists()).toBeTruthy();
     expect(wrapper.find('.section-head__info h2').text()).toBe(title);
     expect(wrapper.find('.section-head__info p').text()).toBe(description);
     expect(wrapper.find('.section-head__link').text()).toBe(next.text);

@@ -1,5 +1,5 @@
 <template lang="pug">
-article.app-icon(v-on='$listeners')
+article.app-icon(v-on='$listeners', :style='{ width: `${size}px`, height: `${size}px` }')
   component(:is='type')
 </template>
 
@@ -19,6 +19,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 })
 export default class AppIcon extends Vue {
   @Prop({ type: String, required: true }) type!: string;
+
+  @Prop({ type: Number }) size?: number;
 }
 </script>
 
@@ -28,5 +30,6 @@ export default class AppIcon extends Vue {
   height: 24px;
 
   cursor: pointer;
+  fill: currentColor;
 }
 </style>

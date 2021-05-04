@@ -29,7 +29,7 @@ describe('NavBar.vue', () => {
   it('created', () => {
     const wrapper = shallowMount(NavBar, { localVue, store });
 
-    expect(wrapper.classes()).toContain('nav-bar');
+    expect(wrapper.classes()).toContain('nav-bar__container');
   });
 
   it('logo', () => {

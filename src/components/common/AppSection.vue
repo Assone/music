@@ -1,9 +1,6 @@
 <template lang="pug">
-section
-  slot(name='head')
-    h2(v-if='title') {{ title }}
-  .app-section__container(:class='containerClassName')
-    slot
+section.app-section
+  slot
 </template>
 
 <script lang="ts">

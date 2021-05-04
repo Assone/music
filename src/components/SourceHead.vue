@@ -26,13 +26,26 @@ export default class SourceHead extends Vue {
 @include b(source, head) {
   display: flex;
 
-  margin-top: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  @include media(xs) {
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+  }
 
   @include e(cover) {
     flex-shrink: 0;
 
     width: 20vw;
     margin-right: 20px;
+
+    @include media(xs) {
+      width: 60vw;
+      margin: 0;
+    }
   }
 }
 </style>

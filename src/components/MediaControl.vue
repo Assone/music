@@ -32,7 +32,20 @@ export default class MediaControl extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@mixin size($size) {
+  width: $size;
+  height: $size;
+}
+
 @include b(media, control) {
   display: flex;
+
+  @include media(xs) {
+    &__prev,
+    &__status,
+    &__next {
+      @include size(2em);
+    }
+  }
 }
 </style>

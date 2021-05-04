@@ -1,8 +1,7 @@
 <template lang="pug">
-header.nav-bar
-  .nav-bar__container
-    NavBarTitle(:logo='require("@/assets/logo.png")')
-    NavLink(:links='nav')
+.nav-bar__container
+  NavBarTitle(:logo='require("@/assets/logo.png")')
+  NavLink(:links='nav')
 </template>
 
 <script lang="ts">
@@ -28,20 +27,6 @@ export default class NavBar extends Vue {
 
 <style lang="scss" scoped>
 @include b(nav, bar) {
-  position: sticky;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-
-  width: 100%;
-  height: var(--nav-bar-height);
-  max-height: var(--nav-bar-max-height);
-
-  background: var(--nav-bar-bg-color);
-  backdrop-filter: saturate(180%) blur(15px);
-
-  user-select: none;
-
   @include e(container) {
     display: flex;
     align-items: center;

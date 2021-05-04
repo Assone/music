@@ -1,5 +1,5 @@
 <template lang="pug">
-article.track-list__item
+article.track-list__item(:class='{ "is-album": type === "album" }')
   .track-item__index(v-if='type === "album"') {{ index }}
   .track-item__cover(v-else) #[Cover(:src='cover')]
   .track-item__info
@@ -7,7 +7,7 @@ article.track-list__item
     .track-item__artists(v-if='type !== "album"')
       span.track-artists__item(v-for='{ id, name } in artists', :key='id')
         router-link(:to='`/artist/${id}`') {{ name }}
-  .track-item__album(v-if='type !== "album"') #[router-link(:to='`/album/${id}`') {{ albumName }}]
+  .track-item__album(v-if='type !== "album"') #[router-link(:to='`/album/${albumId}`') {{ albumName }}]
   .track-item__time {{ time }}
 </template>
 
@@ -44,6 +44,10 @@ export default class TrackListItem extends Vue {
     return this.album.cover;
   }
 
+  get albumId() {
+    return this.album.id;
+  }
+
   get albumName() {
     return this.album.name;
   }
@@ -60,10 +64,16 @@ export default class TrackListItem extends Vue {
     display: flex;
     align-items: center;
 
+    padding: 5px 10px;
+
     transition: 0.1s;
 
     &:hover {
-      background: #f00;
+      background: #f00 !important;
+    }
+
+    @include when(album) {
+      line-height: 1.6;
     }
   }
 }
@@ -75,12 +85,18 @@ export default class TrackListItem extends Vue {
   }
 
   @include e(cover) {
-    width: 5vw;
+    width: 3vw;
     margin-right: 10px;
+
+    @include media(xs) {
+      width: 15vw;
+    }
   }
 
   @include e(index) {
-    flex-basis: 2rem;
+    flex-basis: 1rem;
+
+    margin-right: 1rem;
 
     text-align: center;
   }

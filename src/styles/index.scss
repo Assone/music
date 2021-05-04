@@ -1,3 +1,14 @@
 @import './vendors/normalize.css';
+@import './vendors/nprogress.css';
 @import './base/reset';
 @import './variable';
+
+html {
+  font-family:
+    'Trebuchet MS',
+    'Lucida Sans Unicode',
+    'Lucida Grande',
+    'Lucida Sans',
+    Arial,
+    sans-serif;
+}

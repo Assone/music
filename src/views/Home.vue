@@ -5,34 +5,41 @@
     .item 添加到歌单1
     .item 添加到歌单2
   AppSection
-    template(#head)
-      SectionHead(title='Recommend Playlist', :next='{ link: "/playlist", text: "See All" }')
+    SectionHead(title='Recommend Playlist', :next='{ link: "/playlist", text: "See All" }')
     AppBanner(:options='options')
       AppBannerItem(v-for='{ id, name, cover } in playlist', :key='id')
         Cover(@menu='openMenu', :id='id', :src='cover', type='playlist')
           CoverMeta(:path='`/playlist/${id}`', :name='name')
-  AppSection(container-class-name='content')
-    template(#head)
-      SectionHead(title='Recommend Album', :next='{ link: "/album", text: "See All" }')
-    Cover(
-      v-for='{ id, name, cover, artists } in album',
-      :key='id',
-      @menu='openMenu',
-      :id='id',
-      :src='cover',
-      type='album'
-    )
-      CoverMeta(:path='`/album/${id}`', :name='name', :artists='artists')
-  AppSection(container-class-name='section-container__mv')
-    template(#head)
-      SectionHead(title='推荐MV')
-    Cover(v-for='{ id, cover, name } in mvs', :key='id', :src='cover', :id='id', type='mv', square)
-      CoverMeta(:path='`/mv/${id}`', :name='name')
+  AppSection
+    SectionHead(title='Recommend Album', :next='{ link: "/album", text: "See All" }')
+    .container__album
+      Cover(
+        v-for='{ id, name, cover, artists } in album',
+        :key='id',
+        @menu='openMenu',
+        :id='id',
+        :src='cover',
+        type='album'
+      )
+        CoverMeta(:path='`/album/${id}`', :name='name', :artists='artists')
+  AppSection
+    SectionHead(title='推荐MV')
+    .container__mv
+      Cover(
+        v-for='{ id, cover, name } in mvs',
+        :key='id',
+        :src='cover',
+        :id='id',
+        type='mv',
+        square
+      )
+        CoverMeta(:path='`/mv/${id}`', :name='name')
 </template>
 
 <script lang="ts">
 import { Component, Ref, Vue } from 'vue-property-decorator';
 import { SwiperOptions } from 'swiper';
+import { done } from 'nprogress';
 
 import Cover from '@/components/Cover.vue';
 import CoverMeta from '@/components/CoverMeta.vue';
@@ -70,15 +77,15 @@ export default class Home extends Vue {
     slidesPerView: 2,
     spaceBetween: 10,
     breakpoints: {
-      '@0.75': {
-        slidesPerView: 3,
+      320: {
+        slidesPerView: 2.2,
         spaceBetween: 20,
       },
-      '@1.00': {
-        slidesPerView: 4,
+      480: {
+        slidesPerView: 3.2,
         spaceBetween: 25,
       },
-      '@1.50': {
+      640: {
         slidesPerView: 5,
         spaceBetween: 30,
       },
@@ -89,6 +96,8 @@ export default class Home extends Vue {
     this.playlist = await this.$api.getRecPlaylist(10);
     this.mvs = await this.$api.getRecMV();
     this.album = await this.$api.getAlbumNewest();
+
+    done();
   }
 
   openMenu(evt: MouseEvent) {
@@ -97,18 +106,45 @@ export default class Home extends Vue {
 }
 </script>
 
-<style lang="scss">
-.content {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
-  gap: 20px;
-}
+<style lang="scss" scoped>
+@include b(container) {
+  @include e(album) {
+    display: grid;
+    gap: 50px 20px;
 
-@include b(section, container) {
+    @include media(xs) {
+      grid-template-columns: repeat(2, minmax(100px, 1fr));
+    }
+
+    @include media(sm) {
+      grid-template-columns: repeat(3, minmax(100px, 1fr));
+    }
+
+    @include media(md) {
+      grid-template-columns: repeat(4, minmax(100px, 1fr));
+    }
+
+    @include media(xl) {
+      grid-template-columns: repeat(6, minmax(100px, 1fr));
+    }
+  }
+
   @include e(mv) {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 30px 20px;
+    grid-template-rows: auto;
+
+    @include media(xs) {
+      grid-template-columns: repeat(1, minmax(100px, 1fr));
+    }
+
+    @include media(sm) {
+      grid-template-columns: repeat(2, minmax(100px, 1fr));
+    }
+
+    @include media(md) {
+      grid-template-columns: repeat(4, minmax(100px, 1fr));
+    }
   }
 }
 </style>

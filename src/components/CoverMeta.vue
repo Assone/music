@@ -53,6 +53,12 @@ export default class CoverMeta extends Vue {
 </script>
 
 <style lang="scss" scoped>
+%text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @include b(cover, meta) {
   display: flex;
   flex-direction: column;
@@ -60,13 +66,15 @@ export default class CoverMeta extends Vue {
   @include e(name) {
     font-weight: bold;
 
-    // overflow: hidden;
-    // text-overflow: ellipsis;
-    // white-space: nowrap;
+    line-height: 1.6;
+
+    @extend %text;
   }
 
   @include e(artists) {
     font-size: 14px;
+
+    @extend %text;
   }
 
   @include e(info) {
@@ -84,7 +92,7 @@ export default class CoverMeta extends Vue {
 
 @include b(artists, item) {
   &:not(:last-child)::after {
-    content: ',';
+    content: '，';
   }
 }
 

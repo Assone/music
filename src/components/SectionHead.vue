@@ -1,7 +1,7 @@
 <template lang="pug">
 article.section-head
   .section-head__meta
-    Avatar(v-if='avatar', :src='avatar')
+    AppAvatar(v-if='avatar', :src='avatar')
     .section-head__info
       h2 {{ title }}
       p {{ description }}
@@ -10,11 +10,11 @@ article.section-head
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Avatar from './Avatar.vue';
+import AppAvatar from './common/AppAvatar.vue';
 
 @Component({
   components: {
-    Avatar,
+    AppAvatar,
   },
 })
 export default class SectionHead extends Vue {

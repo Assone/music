@@ -12,6 +12,7 @@ article.track-list
       :index='index + 1',
       :type='type'
     )
+  .track-list__foot #[slot(name='foot')]
 </template>
 
 <script lang="ts">
@@ -92,9 +93,5 @@ export default class TrackList extends Vue {
       background: rgb(240, 240, 240);
     }
   }
-
-  // @include e(head) {
-  //   display: flex;
-  // }
 }
 </style>

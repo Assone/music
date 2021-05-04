@@ -1,8 +1,9 @@
 <template lang="pug">
 article.source-meta
   h1.source-meta__title {{ title }}
-  .source-meta__creator #[router-link(:to='`/${type === "album" ? "artist" : "user"}/${user.id}`') {{ user.name }}]
-  time.source-meta__time(v-if='time') {{ time }}
+  .source-meta__info
+    router-link.source-meta__creator(:to='`/${type === "album" ? "artist" : "user"}/${user.id}`') {{ user.name }}
+    time.source-meta__time(v-if='time') {{ time }}
   p.source-meta__description(v-html='formatDescription')
   slot
 </template>
@@ -27,3 +28,26 @@ export default class SourceHeadMeta extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@media screen and (max-width: 768px) {
+  @include b(source, meta) {
+    padding: 10px;
+
+    @include e(info) {
+      display: flex;
+      justify-content: center;
+    }
+
+    @include e(creator) {
+      &::after {
+        content: ' · ';
+      }
+    }
+
+    @include e(description) {
+      text-align: start;
+    }
+  }
+}
+</style>

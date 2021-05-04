@@ -1,6 +1,5 @@
-import { mount, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import ArtistMeta from '@/components/ArtistMeta.vue';
-import Avatar from '@/components/Avatar.vue';
 
 const options = {
   name: 'name',

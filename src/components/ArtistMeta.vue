@@ -1,6 +1,6 @@
 <template lang="pug">
 article.artist-meta
-  Avatar.artist-meta__avatar(:src='avatar', round)
+  Avatar.artist-meta__avatar(:src='avatar', :size='100')
   .artist-meta__info
     h1.meta-info__name {{ name }}
     .meta-info__source-count
@@ -12,7 +12,7 @@ article.artist-meta
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
-import Avatar from './Avatar.vue';
+import Avatar from './common/AppAvatar.vue';
 
 @Component({
   components: {
@@ -36,10 +36,15 @@ export default class ArtistMeta extends Vue {
 
 <style lang="scss" scoped>
 @include b(artist, meta) {
-  display: grid;
-  grid-template-columns: 12vw auto;
+  display: flex;
+  align-items: center;
 
-  margin-top: 10vh;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  @include e(avatar) {
+    margin-right: 20px;
+  }
 }
 
 @include b(meta, info) {

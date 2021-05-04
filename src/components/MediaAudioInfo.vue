@@ -1,6 +1,6 @@
 <template lang="pug">
 article.media-audio__info
-  Cover.media-audio__cover(:src='cover', fit='cover')
+  AppImage.media-audio__cover(:src='cover', fit='cover')
   CoverMeta(:name='name', :artists='artists')
 </template>
 
@@ -9,12 +9,19 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 import MSong from '@/models/Song';
 
-import Cover from './Cover.vue';
+import AppImage from './common/AppImage.vue';
 import CoverMeta from './CoverMeta.vue';
 
-@Component({ components: { Cover, CoverMeta } })
+@Component({
+  components: {
+    CoverMeta,
+    AppImage,
+  },
+})
 export default class MediaAudioInfo extends Vue {
   @Prop({ type: Number, required: true }) track!: number;
+
+  @Prop({ type: Boolean }) notification?: boolean;
 
   info: MSong | null = null;
 
@@ -52,8 +59,11 @@ export default class MediaAudioInfo extends Vue {
   }
 
   @include e(cover) {
-    width: 5vw;
-    height: 5vw;
+    width: 40px;
+    height: 40px;
+
+    border-radius: 2px;
+    margin-right: 10px;
   }
 }
 </style>

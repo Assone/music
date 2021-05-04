@@ -12,7 +12,7 @@ const config: IAppConfig = {
     { text: 'Home', link: '/' },
     // { text: 'Explore', link: '/explore' },
     // { text: 'Radio', link: '/radio' },
-    { text: 'Library', link: '/library' },
+    // { text: 'Library', link: '/library' },
   ],
 };
 

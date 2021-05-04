@@ -35,7 +35,7 @@ import MediaProgress from '@/components/MediaProgress.vue';
 import MediaControl from '@/components/MediaControl.vue';
 import MediaVolume from './MediaVolume.vue';
 
-const { State, Getter, Mutation } = namespace('media');
+const StoreMedia = namespace('media');
 
 @Component({
   components: {
@@ -49,21 +49,21 @@ const { State, Getter, Mutation } = namespace('media');
 export default class Player extends Vue {
   @Ref('audio') audio!: MediaAudioCore;
 
-  @State('play') status!: boolean;
+  @StoreMedia.State('play') status!: boolean;
 
-  @State('mute') mute!: boolean;
+  @StoreMedia.State('mute') mute!: boolean;
 
-  @State('volume') volume!: number;
+  @StoreMedia.State('volume') volume!: number;
 
-  @Getter('currentTrack') currentTrack!: number;
+  @StoreMedia.Getter('currentTrack') currentTrack!: number;
 
-  @Mutation(PLAY) play!: () => void;
+  @StoreMedia.Mutation(PLAY) play!: () => void;
 
-  @Mutation(PAUSE) pause!: () => void;
+  @StoreMedia.Mutation(PAUSE) pause!: () => void;
 
-  @Mutation(PLAY_PREV) prev!: () => void;
+  @StoreMedia.Mutation(PLAY_PREV) prev!: () => void;
 
-  @Mutation(PLAY_NEXT) next!: () => void;
+  @StoreMedia.Mutation(PLAY_NEXT) next!: () => void;
 
   currentTime = 0;
 
@@ -97,11 +97,13 @@ export default class Player extends Vue {
 
 <style lang="scss" scoped>
 @include b(player) {
-  position: fixed;
+  position: sticky;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 9999;
+
+  height: 50px;
 
   @include e(progress) {
     position: absolute;
@@ -112,6 +114,8 @@ export default class Player extends Vue {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    height: 100%;
 
     background: #cbd9f5;
   }

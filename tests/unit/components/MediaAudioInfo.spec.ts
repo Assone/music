@@ -10,7 +10,7 @@ describe('MediaAudioInfo.vue', () => {
       mocks: {
         $api: {
           getSongDetail: (value: number) =>
-            Promise.resolve({ songs: [{ album: { cover: value } }] }),
+            Promise.resolve({ songs: [{ album: { cover: String(value) } }] }),
         },
       },
     });

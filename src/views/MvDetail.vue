@@ -19,6 +19,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Route, NavigationGuardNext } from 'vue-router';
+import { done } from 'nprogress';
 
 import Cover from '@/components/Cover.vue';
 import CoverMeta from '@/components/CoverMeta.vue';
@@ -65,6 +66,8 @@ export default class MvDetail extends Vue {
     this.$api.getSimilarMV(id).then((simi) => {
       this.simi = simi;
     });
+
+    done();
   }
 
   created() {
@@ -83,7 +86,26 @@ export default class MvDetail extends Vue {
 <style lang="scss" scoped>
 @include b(mv, simi) {
   display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(5, 1fr);
+  gap: 50px 10px;
+
+  @include media(xs) {
+    grid-template-columns: repeat(1, minmax(100px, 1fr));
+  }
+
+  @include media(sm) {
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+  }
+
+  @include media(md) {
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+  }
+
+  @include media(lg) {
+    grid-template-columns: repeat(4, minmax(100px, 1fr));
+  }
+
+  @include media(xl) {
+    grid-template-columns: repeat(5, minmax(100px, 1fr));
+  }
 }
 </style>

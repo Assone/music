@@ -7,6 +7,18 @@ const zlib = require('zlib');
  * @type import('@vue/cli-service/types/ProjectOptions').ProjectOptions
  */
 module.exports = {
+  devServer: {
+    proxy: {
+      '^/api': {
+        target: process.env.VUE_APP_API_DEV,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/',
+        },
+      },
+    },
+  },
+
   pluginOptions: {
     i18n: {
       locale: 'zh-cmn-Hans',

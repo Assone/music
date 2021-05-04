@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import routes from './rules';
 
 import meta from './guards/meta';
+import loading from './guards/loading';
 
 Vue.use(VueRouter);
 
@@ -20,5 +21,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach(meta);
+router.afterEach(loading);
 
 export default router;
