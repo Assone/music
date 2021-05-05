@@ -9,8 +9,10 @@ article.track-list
       v-for='(track, index) in data',
       :key='track.id',
       v-bind='track',
+      :class='{ "is-active": track.id === activeTrack }',
       :index='index + 1',
-      :type='type'
+      :type='type',
+      @dblclick='$emit("dbclick", { index, track: track.id })'
     )
   .track-list__foot #[slot(name='foot')]
 </template>
@@ -36,6 +38,8 @@ export default class TrackList extends Vue {
   @Prop({ type: String, default: 'playlist' }) type!: string;
 
   @Prop({ type: Array, default: () => [] }) songs!: MSong[];
+
+  @Prop({ type: Number }) activeTrack?: number;
 
   ids = new Queue<number[]>();
 
@@ -92,6 +96,14 @@ export default class TrackList extends Vue {
     &:nth-child(2n) {
       background: rgb(240, 240, 240);
     }
+
+    @include when(active) {
+      background: #ff0 !important;
+    }
+  }
+
+  @include e(foot) {
+    padding: 5px 10px;
   }
 }
 </style>

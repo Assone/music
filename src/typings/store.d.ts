@@ -9,6 +9,8 @@ interface SMediaState {
   tracks: number[];
   volume: number;
   mute: boolean;
+  type?: 'playlist' | 'album';
+  id?: number;
 }
 
 type SConfigState = IAppConfig;

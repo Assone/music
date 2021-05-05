@@ -21,19 +21,20 @@
         :src='cover',
         type='album'
       )
+        template(#container) #[CoverControls]
         CoverMeta(:path='`/album/${id}`', :name='name', :artists='artists')
-  AppSection
-    SectionHead(title='推荐MV')
-    .container__mv
-      Cover(
-        v-for='{ id, cover, name } in mvs',
-        :key='id',
-        :src='cover',
-        :id='id',
-        type='mv',
-        square
-      )
-        CoverMeta(:path='`/mv/${id}`', :name='name')
+  //- AppSection
+  //-   SectionHead(title='推荐MV')
+  //-   .container__mv
+  //-     Cover(
+  //-       v-for='{ id, cover, name } in mvs',
+  //-       :key='id',
+  //-       :src='cover',
+  //-       :id='id',
+  //-       type='mv',
+  //-       square
+  //-     )
+  //-       CoverMeta(:path='`/mv/${id}`', :name='name')
 </template>
 
 <script lang="ts">
@@ -48,6 +49,7 @@ import AppSection from '@/components/common/AppSection.vue';
 import SectionHead from '@/components/SectionHead.vue';
 import AppBanner from '@/components/common/AppBanner.vue';
 import AppBannerItem from '@/components/common/AppBannerItem.vue';
+import CoverControls from '@/components/CoverControls.vue';
 
 import MRecPlaylist from '@/models/RecPlaylist';
 import MAlbum from '@/models/Album';
@@ -57,6 +59,7 @@ import MRecMV from '@/models/RecMV';
   components: {
     Cover,
     CoverMeta,
+    CoverControls,
     AppMenu,
     AppSection,
     SectionHead,
@@ -95,7 +98,7 @@ export default class Home extends Vue {
   async created() {
     this.playlist = await this.$api.getRecPlaylist(10);
     this.mvs = await this.$api.getRecMV();
-    this.album = await this.$api.getAlbumNewest();
+    this.album = await this.$api.getAlbumNew({ area: 'EA', limit: 12 });
 
     done();
   }
@@ -114,6 +117,7 @@ export default class Home extends Vue {
 
     @include media(xs) {
       grid-template-columns: repeat(2, minmax(100px, 1fr));
+      column-gap: 10px;
     }
 
     @include media(sm) {
@@ -129,22 +133,22 @@ export default class Home extends Vue {
     }
   }
 
-  @include e(mv) {
-    display: grid;
-    gap: 30px 20px;
-    grid-template-rows: auto;
+  // @include e(mv) {
+  //   display: grid;
+  //   gap: 30px 20px;
+  //   grid-template-rows: auto;
 
-    @include media(xs) {
-      grid-template-columns: repeat(1, minmax(100px, 1fr));
-    }
+  //   @include media(xs) {
+  //     grid-template-columns: repeat(1, minmax(100px, 1fr));
+  //   }
 
-    @include media(sm) {
-      grid-template-columns: repeat(2, minmax(100px, 1fr));
-    }
+  //   @include media(sm) {
+  //     grid-template-columns: repeat(2, minmax(100px, 1fr));
+  //   }
 
-    @include media(md) {
-      grid-template-columns: repeat(4, minmax(100px, 1fr));
-    }
-  }
+  //   @include media(md) {
+  //     grid-template-columns: repeat(4, minmax(100px, 1fr));
+  //   }
+  // }
 }
 </style>

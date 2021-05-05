@@ -8,6 +8,7 @@
       :class='{ "can-click": canTo, "is-square": square }',
       fit='cover'
     )
+    slot(name='container')
   slot
 </template>
 
@@ -52,10 +53,12 @@ export default class Cover extends Vue {
 }
 
 @include b(cover, container) {
+  position: relative;
+
   @extend %size;
 
   @include e(image) {
-    border-radius: 6px;
+    border-radius: 5px;
 
     @extend %size;
 

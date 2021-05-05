@@ -36,7 +36,7 @@ export default class AppLayoutDefault extends Vue {}
     position: sticky;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 9000;
 
     width: 100%;
     height: var(--nav-bar-height);

@@ -11,10 +11,11 @@ article.player
     :status='status',
     :mute='mute',
     :volume='volume',
-    @play='!status && play()',
-    @pause='status && pause()',
+    @play='handlePlay',
+    @pause='handlePause',
     @timeupdate='updateCurrentTIme',
-    @durationchange='updateDuration'
+    @durationchange='updateDuration',
+    @ended='handleEnded'
   )
   .player__controls
     MediaControl(:status='status', :play='play', :pause='pause', :next='next', :prev='prev')
@@ -91,6 +92,18 @@ export default class Player extends Vue {
     const { target } = evt;
 
     this.duration = (target as HTMLAudioElement).duration;
+  }
+
+  handlePlay() {
+    if (!this.audio.self.ended && !this.status) this.play();
+  }
+
+  handlePause() {
+    if (!this.audio.self.ended && this.status) this.pause();
+  }
+
+  handleEnded() {
+    this.next();
   }
 }
 </script>

@@ -89,7 +89,6 @@ export default class MediaProgress extends Vue {
 
     background: {
       position: center;
-      color: #737373;
     }
     outline: 1px solid transparent;
 

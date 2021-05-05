@@ -8,14 +8,11 @@ article.app-avatar(:class='avatarClass', :style='avatarStyle')
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-import AppImage from './AppImage.vue';
-import AppIcon from './AppIcon.vue';
-
 @Component({
   inheritAttrs: false,
   components: {
-    AppImage,
-    AppIcon,
+    AppImage: () => import('./AppImage.vue'),
+    AppIcon: () => import('./AppIcon.vue'),
   },
 })
 export default class AppAvatar extends Vue {

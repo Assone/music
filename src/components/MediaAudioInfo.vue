@@ -21,8 +21,6 @@ import CoverMeta from './CoverMeta.vue';
 export default class MediaAudioInfo extends Vue {
   @Prop({ type: Number, required: true }) track!: number;
 
-  @Prop({ type: Boolean }) notification?: boolean;
-
   info: MSong | null = null;
 
   @Watch('track', { immediate: true })

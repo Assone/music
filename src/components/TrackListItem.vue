@@ -1,11 +1,11 @@
 <template lang="pug">
-article.track-list__item(:class='{ "is-album": type === "album" }')
+article.track-list__item(:class='{ "is-album": type === "album" }', v-on='$listeners')
   .track-item__index(v-if='type === "album"') {{ index }}
   .track-item__cover(v-else) #[Cover(:src='cover')]
   .track-item__info
     .track-item__name {{ name }}
     .track-item__artists(v-if='type !== "album"')
-      span.track-artists__item(v-for='{ id, name } in artists', :key='id')
+      span.track-item__artists-item(v-for='{ id, name } in artists', :key='id')
         router-link(:to='`/artist/${id}`') {{ name }}
   .track-item__album(v-if='type !== "album"') #[router-link(:to='`/album/${albumId}`') {{ albumName }}]
   .track-item__time {{ time }}
@@ -63,6 +63,7 @@ export default class TrackListItem extends Vue {
   @include e(item) {
     display: flex;
     align-items: center;
+    user-select: none;
 
     padding: 5px 10px;
 
@@ -100,12 +101,10 @@ export default class TrackListItem extends Vue {
 
     text-align: center;
   }
-}
 
-@include b(track, artists) {
-  @include e(item) {
+  @include e(artists-item) {
     &:not(:last-child)::after {
-      content: ',';
+      content: ', ';
     }
   }
 }

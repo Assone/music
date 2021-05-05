@@ -9,7 +9,13 @@
     type='album'
   )
     AppButton(@click='handlePlay') play
-  TrackList(:songs='songs', type='album', #foot)
+  TrackList(
+    :songs='songs',
+    type='album',
+    :activeTrack='sourceId === id ? currentTrack : undefined',
+    @dbclick='handleDoubleClick',
+    #foot
+  )
     p 共{{ songs.length }}首，{{ duration }}
     p &copy; {{ company }}
 </template>
@@ -27,8 +33,9 @@ import MAlbum from '@/models/Album';
 import MSong from '@/models/Song';
 
 import { formatDate, formatTime } from '@/utils/format';
+import { PLAY, PLAY_SPECIFIC } from '@/store/type';
 
-const { Action } = namespace('media');
+const { State, Getter, Action } = namespace('media');
 
 @Component({
   components: {
@@ -40,7 +47,13 @@ const { Action } = namespace('media');
 export default class AlbumDetail extends Vue {
   @Prop({ type: Number, required: true }) id!: number;
 
-  @Action('PLAY') play!: (ids: number[]) => void;
+  @State('id') sourceId?: number;
+
+  @Getter('currentTrack') currentTrack!: number;
+
+  @Action(PLAY_SPECIFIC) playSpecific!: (index: number) => void;
+
+  @Action(PLAY) play!: (options: { ids: number[]; id: number; track?: number }) => void;
 
   model: MAlbum | null = null;
 
@@ -86,7 +99,12 @@ export default class AlbumDetail extends Vue {
   }
 
   handlePlay() {
-    this.play(this.songs.map((song) => song.id));
+    this.play({ id: this.id, ids: this.songs.map((song) => song.id) });
+  }
+
+  handleDoubleClick({ track }: { track: number }) {
+    if (this.sourceId === this.id) this.playSpecific(track);
+    else this.play({ id: this.id, ids: this.songs.map((song) => song.id), track });
   }
 }
 </script>

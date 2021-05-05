@@ -26,6 +26,11 @@ export default class NavBar extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@mixin padding($size) {
+  padding-left: $size;
+  padding-right: $size;
+}
+
 @include b(nav, bar) {
   @include e(container) {
     display: flex;
@@ -33,8 +38,21 @@ export default class NavBar extends Vue {
 
     max-width: var(--nav-bar__container-max-width);
     height: 100%;
-    padding: 0 10vw;
     margin: auto;
+
+    @include padding(10vw);
+
+    @include media(xs) {
+      @include padding(2vw);
+    }
+
+    @include media(sm) {
+      @include padding(4vw);
+    }
+
+    @include media(md) {
+      @include padding(6vw);
+    }
   }
 }
 </style>

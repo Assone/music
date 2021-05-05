@@ -2,7 +2,12 @@
 .view-playlist-detail
   SourceHead(:title='name', :cover='cover', :description='description', :user='creator')
     AppButton(@click='handlePlay') play
-  TrackList(v-if='track', :track-ids='track')
+  TrackList(
+    v-if='track',
+    :track-ids='track',
+    :activeTrack='sourceId === id ? currentTrack : undefined',
+    @dbclick='handleDoubleClick'
+  )
 </template>
 
 <script lang="ts">
@@ -14,8 +19,9 @@ import AppButton from '@/components/common/AppButton.vue';
 import SourceHead from '@/components/SourceHead.vue';
 import TrackList from '@/components/TrackList.vue';
 import MPlaylist from '@/models/Playlist';
+import { PLAY, PLAY_SPECIFIC } from '@/store/type';
 
-const { Action } = namespace('media');
+const { State, Getter, Action } = namespace('media');
 
 @Component({
   components: {
@@ -25,7 +31,13 @@ const { Action } = namespace('media');
   },
 })
 export default class PlaylistDetail extends Vue {
-  @Action('PLAY') play!: (ids: number[]) => void;
+  @State('id') sourceId?: number;
+
+  @Getter('currentTrack') currentTrack!: number;
+
+  @Action(PLAY) play!: (options: { ids: number[]; id: number; track?: number }) => void;
+
+  @Action(PLAY_SPECIFIC) playSpecific!: (index: number) => void;
 
   @Prop({ type: Number }) id!: number;
 
@@ -59,7 +71,12 @@ export default class PlaylistDetail extends Vue {
   }
 
   handlePlay() {
-    if (this.track) this.play(this.track);
+    if (this.track) this.play({ ids: this.track, id: this.id });
+  }
+
+  handleDoubleClick({ track }: { track: number }) {
+    if (this.sourceId === this.id) this.playSpecific(track);
+    else if (this.track) this.play({ id: this.id, ids: this.track, track });
   }
 
   // get trackCount() {

@@ -30,8 +30,9 @@
   AppSection(v-if='similarArtist.length !== 0', title='类似艺人')
     AppBanner(:options='{ slidesPerView: 6 }')
       AppBannerItem(v-for='{ id, avatar, name } in similarArtist', :key='id')
-        Avatar(:src='avatar')
-        router-link(:to='`/artist/${id}`') {{ name }}
+        .container__avatar
+          Avatar(:src='avatar', :size='128')
+          router-link(:to='`/artist/${id}`') {{ name }}
 </template>
 
 <script lang="ts">
@@ -181,6 +182,13 @@ export default class ArtistDetail extends Vue {
     @include media(xl) {
       grid-template-columns: repeat(5, minmax(100px, 1fr));
     }
+  }
+
+  @include e(avatar) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>

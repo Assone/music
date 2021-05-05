@@ -35,9 +35,11 @@ export const getAlbumNew = (options?: {
   offset?: number;
   area: 'ALL' | 'ZH' | 'EA' | 'KR' | 'JP';
 }) =>
-  http.get(ALBUM.new, {
-    params: { limit: options?.limit, offset: options?.offset, area: options?.area },
-  });
+  http
+    .get<{ albums: IrAlbumDetail[]; total: number }>(ALBUM.new, {
+      params: { limit: options?.limit, offset: options?.offset, area: options?.area },
+    })
+    .then(({ albums }) => albums.map((album) => new MAlbum(album)));
 
 /**
  * 获取最新专辑
