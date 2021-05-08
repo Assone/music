@@ -1,0 +1,25 @@
+version: 2.1
+orbs:
+  node: circleci/node@3.0.0
+
+defaults: &defaults
+  docker:
+    - image: circleci/node:latest
+
+step_install-deps: &install-deps
+  run:
+    name: Install Dependencies
+    command: yarn install
+
+jobs:
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - *install-deps
+      - run: yarn test:unit --ci --coverage && yarn codecov
+
+workflows:
+  ci:
+    jobs:
+      - test

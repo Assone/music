@@ -1,0 +1,30 @@
+@mixin transition($name) {
+  $space: $name !global;
+
+  .#{$space} {
+    @content;
+  }
+}
+
+@mixin direction($directions...) {
+  $length: length($directions);
+
+  @if $length > 1 {
+    $selector: '';
+    @each $s in $directions {
+      $selector: $selector + '.' + $space + '-' + $s + ', ';
+    }
+
+    @at-root {
+      #{$selector} {
+        @content;
+      }
+    }
+  } @else {
+    @at-root {
+      .#{$space + '-' + $directions} {
+        @content;
+      }
+    }
+  }
+}

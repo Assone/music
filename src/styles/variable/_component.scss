@@ -1,0 +1,18 @@
+$--theme-color: var(--theme-color);
+
+$--color-primary: #409eff !default;
+$--color-white: #ffffff !default;
+
+// app button
+$--button-hover-tint-percent: 20% !default;
+$--button-active-shade-percent: 10% !default;
+
+// nav bar
+$--nav-bar-width: 100%;
+$--nav-bar-height: 50px;
+// $--nav-bar-max-height:
+$--nav-bar-bg-color: $--theme-color;
+
+// player
+$--player-height: 50px;
+$--player-bg-color: $--theme-color;
