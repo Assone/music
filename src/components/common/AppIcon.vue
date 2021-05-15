@@ -1,6 +1,7 @@
-<template lang="pug">
-svg.app-icon(aria-hidden="true")
-  use(:xlink:href="symbolId" :fill="color")
+<template>
+  <svg class="app-icon" aria-hidden="true">
+    <use :xlink:href="symbolId" :fill="color" />
+  </svg>
 </template>
 
 <script lang="ts">

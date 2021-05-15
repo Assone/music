@@ -1,13 +1,20 @@
-<template lang="pug">
-.cover
-  .cover__container(@click='toDetail' )
-    AppImage.cover__image(:class='{ "can-click": canClick }', lazy, fit="cover" v-bind='$attrs',)
-    slot(name='container')
-  slot
+<template>
+  <div class="cover">
+    <div class="cover__container" @click="toDetail">
+      <AppImage
+        :class="['cover__image', { 'can-click': canClick }]"
+        lazy
+        fit="cover"
+        v-bind="$attrs"
+      />
+      <slot name="container" />
+    </div>
+    <slot />
+  </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue';
+import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
 import AppImage from './common/AppImage.vue';
@@ -24,12 +31,13 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { id, type } = toRefs(props);
     const router = useRouter();
 
-    const canClick = computed(() => type?.value !== undefined && id?.value !== undefined);
+    const canClick = props.type !== undefined && props.id !== undefined;
 
-    const toDetail = () => (canClick.value ? router.push(`/${type?.value}/${id?.value}`) : '');
+    const toDetail = () => {
+      if (canClick) router.push(`/${props.type}/${props.id}`);
+    };
 
     return {
       canClick,

@@ -1,19 +1,18 @@
-<template lang="pug">
-.view-album-detail
-  SourceHead(
-    :cover='cover',
-    :meta='{ title: name, description, time, type: "album", user: artist }'
-  )
-    AppButton(@click='handlePlay') play
-  TrackList(
-    :songs='songs',
-    type='album',
-    :activeTrack='activeTrack',
-    @dbclick='handleDoubleClick',
-    #foot
-  )
-    p 共{{ songs.length }}首，{{ duration }}
-    p &copy; {{ company }}
+<template>
+  <div class="view-album-detail">
+    <SourceHead
+      :cover="cover"
+      :meta="{ title: name, description, time, type: 'album', user: artist }"
+    >
+      <AppButton @click="handlePlay"> play</AppButton>
+    </SourceHead>
+    <TrackList :songs="songs" type="album" :activeTrack="activeTrack" @dbclick="handleDoubleClick">
+      <template #foot>
+        <p>共{{ songs.length }}首，{{ duration }}</p>
+        <p>&copy; {{ company }}</p>
+      </template>
+    </TrackList>
+  </div>
 </template>
 
 <script lang="ts">

@@ -1,13 +1,26 @@
-<template lang="pug">
-article.media-volume(@mouseenter='() => (show = true)', @mouseleave='() => (show = false)')
-  transition(name='fade')
-    Slider(v-show='show', :class='["media-volume__slider"]' v-model='value', :min='0', :max='1', :interval="0.01" :width='100' tooltip='none')
-  AppIcon.media-volume__icon(@click='handleClick', :type='mute ? "volume-mute" : "volume-play"')
+<template>
+  <article class="media-volume">
+    <AppIcon
+      class="media-volume__icon"
+      @click="handleClick"
+      :type="mute ? 'volume-mute' : 'volume-play'"
+    />
+    <AppSlider
+      :class="['media-volume__slider']"
+      v-model="value"
+      :min="0"
+      :max="1"
+      :step="0.01"
+      :width="100"
+      :show-tooltip="false"
+      @input="setVolume"
+    />
+  </article>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import Slider from 'vue-slider-component';
+import AppSlider from '@/components/common/AppSlider.vue';
 
 import AppIcon from '@/components/common/AppIcon.vue';
 import { useMediaControls, useMediaState, useMediaVolume } from '@/hooks/media';
@@ -15,14 +28,12 @@ import { useMediaControls, useMediaState, useMediaVolume } from '@/hooks/media';
 export default defineComponent({
   components: {
     AppIcon,
-    Slider,
+    AppSlider,
   },
   setup() {
-    const { value } = useMediaVolume();
+    const { value, setVolume } = useMediaVolume();
     const { setMute } = useMediaControls();
     const { mute } = useMediaState();
-
-    const show = ref(false);
 
     const handleClick = () => {
       setMute(!mute.value);
@@ -30,7 +41,7 @@ export default defineComponent({
 
     return {
       value,
-      show,
+      setVolume,
 
       mute,
 
@@ -41,29 +52,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import 'vue-slider-component/lib/theme/default.scss';
-
 @include b(media, volume) {
-  position: relative;
+  display: flex;
+  align-items: center;
 
   @include e(icon) {
     width: 25px;
-  }
-
-  @include e(slider) {
-    position: absolute;
-    top: 2px;
-    right: 35px;
-  }
-}
-
-@include transition(fade) {
-  @include direction(enter-active, leave-active) {
-    transition: opacity 0.5s;
-  }
-
-  @include direction(enter, leave-to) {
-    opacity: 0;
+    margin-right: 10px;
   }
 }
 </style>

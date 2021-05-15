@@ -1,21 +1,28 @@
-<template lang="pug">
-.view-home
-  AppSection
-    SectionHead(title="推荐歌单")
-    AppBanner(:options='options' :data="playlist" #default='{id, name, cover}')
-      Cover( :id='id', :src='cover', type='playlist')
-        CoverMeta(:path='`/playlist/${id}`', :name='name')
-  AppSection
-    SectionHead(title="专辑上新")
-    .container__album
-      Cover(
-        v-for='{ id, name, cover, artists } in album',
-        :key='id',
-        :id='id',
-        :src='cover',
-        type='album'
-      )
-        CoverMeta(:path='`/album/${id}`', :name='name', :artists='artists')
+<template>
+  <div class="view-home">
+    <AppSection>
+      <SectionHead title="推荐歌单" />
+      <AppBanner :options="options" :data="playlist" #default="{ id, name, cover }">
+        <Cover :id="id" :src="cover" type="playlist">
+          <CoverMeta :path="`/playlist/${id}`" :name="name" />
+        </Cover>
+      </AppBanner>
+    </AppSection>
+    <AppSection>
+      <SectionHead title="专辑上新" />
+      <div class="container__album">
+        <Cover
+          v-for="{ id, name, cover, artists } in album"
+          :key="id"
+          :id="id"
+          :src="cover"
+          type="album"
+        >
+          <CoverMeta :path="`/album/${id}`" :name="name" :artists="artists" />
+        </Cover>
+      </div>
+    </AppSection>
+  </div>
 </template>
 
 <script lang="ts">

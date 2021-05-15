@@ -1,8 +1,9 @@
-<template lang="pug">
-.view-setting
-  AppSection
-    SectionHead(title='外观设置')
-
+<template>
+  <div class="view-setting">
+    <AppSection>
+      <SectionHead title="外观设置" />
+    </AppSection>
+  </div>
 </template>
 
 <script lang="ts">

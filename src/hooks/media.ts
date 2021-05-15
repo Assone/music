@@ -64,6 +64,7 @@ export const useMediaVolume = () => {
 
   return {
     value,
+    setVolume,
   };
 };
 
@@ -81,9 +82,9 @@ export const useMediaControlsByView = () => {
 };
 
 export const useMediaAudioCore = (time: { currentTime: Ref<number>; duration: Ref<number> }) => {
+  const audio = new Audio();
   const { status, currentTrack, volume, mute } = useMediaState();
   const { play, pause, next } = useMediaControls();
-  const audio = new Audio();
   const { currentTime, duration } = time;
 
   watch(status, (state) => {

@@ -1,15 +1,26 @@
-<template lang="pug">
-Suspense
-  template(#default)
-    component(:is='`AppLayout${model}`')
-      template(#head)
-        NavBarTitle(:logo="logo" :title="title")
-        NavBarLinks(:links="nav")
-      router-view(v-slot="{ Component, route }")
-        transition(:name="route.meta.transition || 'fade'" mode="out-in")
-          component(v-if='route.meta.keepAlive', :is="Component", :key="route.meta.usePathKey ? route.path : undefined")
-          keep-alive(v-else)
-            component( :is="Component", :key="route.meta.usePathKey ? route.path : undefined")
+<template>
+  <Suspense>
+    <template #default>
+      <component :is="`AppLayout${model}`">
+        <template #head>
+          <NavBarTitle :logo="logo" :title="title" />
+          <NavBarLinks :links="nav" />
+        </template>
+        <router-view v-slot="{ Component, route }">
+          <transition :name="route.meta.transition || 'fade'" mode="out-in">
+            <component
+              v-if="route.meta.keepAlive"
+              :is="Component"
+              :key="route.meta.usePathKey ? route.path : undefined"
+            />
+            <keep-alive v-else>
+              <component :is="Component" :key="route.meta.usePathKey ? route.path : undefined" />
+            </keep-alive>
+          </transition>
+        </router-view>
+      </component>
+    </template>
+  </Suspense>
 </template>
 
 <script lang="ts">

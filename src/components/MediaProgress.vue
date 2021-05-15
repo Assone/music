@@ -1,15 +1,22 @@
-<template lang="pug">
-Slider(v-model='value', :process='true'  :min='0' :max='duration' :interval="0.01" tooltip='hover' :tooltip-formatter='format' :lazy="true")
+<template>
+  <AppSlider
+    class="media-progress"
+    v-model="value"
+    :min="0"
+    :max="duration"
+    :format-tooltip="format"
+  />
 </template>
 
 <script lang="ts">
 import { formatTime } from '@/utils';
 import { computed, defineComponent, toRefs } from 'vue';
-import Slider from 'vue-slider-component';
+import AppSlider from '@/components/common/AppSlider.vue';
 
 export default defineComponent({
+  inheritAttrs: false,
   components: {
-    Slider,
+    AppSlider,
   },
   props: {
     current: {
@@ -21,24 +28,26 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props, ctx) {
+  setup(props, { emit }) {
     const { current } = toRefs(props);
-
-    const format = (time: number) => formatTime(time * 1000);
 
     const value = computed({
       get: () => current.value,
-      set: (value) => ctx.emit('change', value),
+      set: (v) => emit('update', v),
     });
 
+    const format = (time: number) => formatTime(time * 1000);
+
     return {
-      format,
       value,
+      format,
     };
   },
 });
 </script>
 
 <style lang="scss">
-@import 'vue-slider-component/lib/theme/default.scss';
+@include b(media, progress) {
+  position: absolute;
+}
 </style>

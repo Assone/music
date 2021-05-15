@@ -1,13 +1,17 @@
-<template lang="pug">
-article.cover-meta
-  router-link.cover-meta__name(v-if='path', :to='path') {{ name }}
-  span.cover-meta__name(v-else) {{ name }}
-  .cover-meta__artists(v-if='artists')
-    span.artists-item(v-for='{ id, name } in artists', :key='id')
-      router-link.artists-item__link(:to='`/artist/${id}`') {{ name }}
-  .cover-meta__info(v-if='date || type')
-    span.cover-info__type(v-if='formatType') {{ formatType }}
-    time.cover-info__time(v-if='formatDate') {{ formatDate }}
+<template>
+  <article class="cover-meta">
+    <router-link class="cover-meta__name" v-if="path" :to="path"> {{ name }}</router-link>
+    <span class="cover-meta__name" v-else> {{ name }}</span>
+    <div class="cover-meta__artists" v-if="artists">
+      <span class="artists-item" v-for="{ id, name } in artists" :key="id">
+        <router-link class="artists-item__link" :to="`/artist/${id}`"> {{ name }}</router-link>
+      </span>
+    </div>
+    <div class="cover-meta__info" v-if="date || type">
+      <span class="cover-info__type" v-if="formatType"> {{ formatType }}</span>
+      <time class="cover-info__time" v-if="formatDate"> {{ formatDate }}</time>
+    </div>
+  </article>
 </template>
 
 <script lang="ts">

@@ -1,6 +1,7 @@
-<template lang="pug">
-footer.app-footer(:style='{height}')
-  slot
+<template>
+  <footer class="app-footer" :style="{ height }">
+    <slot />
+  </footer>
 </template>
 
 <script lang="ts">

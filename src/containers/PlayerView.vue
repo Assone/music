@@ -1,7 +1,9 @@
-<template lang="pug">
-transition(name="player-page")
-  .player-view(v-show='show')
-    p 111111
+<template>
+  <transition name="player-page">
+    <div class="player-view" v-show="show">
+      <p>1111</p>
+    </div>
+  </transition>
 </template>
 
 <script lang="ts">

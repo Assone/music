@@ -1,6 +1,7 @@
-<template lang="pug">
-section.app-section
-  slot
+<template>
+  <section class="app-section">
+    <slot />
+  </section>
 </template>
 
 <script lang="ts">

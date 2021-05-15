@@ -7,7 +7,7 @@ import media from './modules/media';
 
 const store = createStore({
   strict: isDev,
-  plugins: [createLogger()],
+  plugins: isDev ? [createLogger()] : [],
   state: {
     version: '0.01',
   },

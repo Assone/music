@@ -1,17 +1,19 @@
-<template lang="pug">
-.view-playlist-detail 
-  SourceHead(
-    :cover='cover',
-    :meta='{ title: name, description, type: "playlist", user: creator }'
-  )
-    AppButton(@click='handlePlay') play
-  TrackList(
-    v-if='tracks',
-    :track-ids='tracks',
-    type='playlist',
-    :activeTrack='activeTrack',
-    @dbclick='handleDoubleClick',
-  )
+<template>
+  <div class="view-playlist-detail">
+    <SourceHead
+      :cover="cover"
+      :meta="{ title: name, description, type: 'playlist', user: creator }"
+    >
+      <AppButton @click="handlePlay"> play</AppButton>
+    </SourceHead>
+    <TrackList
+      v-if="tracks"
+      type="playlist"
+      :track-ids="tracks"
+      :activeTrack="activeTrack"
+      @dbclick="handleDoubleClick"
+    />
+  </div>
 </template>
 
 <script lang="ts">

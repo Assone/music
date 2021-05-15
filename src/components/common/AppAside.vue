@@ -1,5 +1,7 @@
-<template lang="pug">
-aside.app-aside(:style='{ width }')
+<template>
+  <aside class="app-aside" :style="{ width }">
+    <slot />
+  </aside>
 </template>
 
 <script lang="ts">

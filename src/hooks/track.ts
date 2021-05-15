@@ -1,10 +1,8 @@
 import { getSongDetail } from '@/apis';
 import MSong from '@/models/Song';
 import Queue from '@/models/tools/Queue';
-import { throttle } from '@/utils';
-import { onDeactivated } from 'vue';
-import { onMounted } from 'vue';
-import { Ref, getCurrentInstance, reactive, watch } from 'vue';
+import { throttle } from 'lodash-es';
+import { Ref, getCurrentInstance, reactive, watch, onDeactivated, onMounted } from 'vue';
 import { useReachBottom } from '.';
 
 export const useTrackListData = ({

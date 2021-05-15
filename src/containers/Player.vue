@@ -1,12 +1,20 @@
-<template lang="pug">
-article.player
-  Teleport(to='#app')
-    PlayerView(:show="show")
-  MediaProgress.player__progress(:current="currentTime", :duration="duration", @change='setCurrentPlayTime')
-  .player__controls
-    MediaControl
-    MediaAudioInfo
-    MediaVolume
+<template>
+  <article class="player">
+    <teleport to="#app">
+      <PlayerView :show="show" />
+    </teleport>
+    <MediaProgress
+      class="player__progress"
+      :current="currentTime"
+      :duration="duration"
+      @update="setCurrentPlayTime"
+    />
+    <div class="player__controls">
+      <MediaControl />
+      <MediaAudioInfo />
+      <MediaVolume />
+    </div>
+  </article>
 </template>
 
 <script lang="ts">
@@ -66,7 +74,7 @@ export default defineComponent({
 
   @include e(progress) {
     position: absolute;
-    top: -10px;
+    top: -8px;
     right: 0;
     left: 0;
   }

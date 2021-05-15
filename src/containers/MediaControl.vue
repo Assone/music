@@ -1,12 +1,14 @@
-<template lang="pug">
-article.media-control
-  AppIcon.media-control__prev(@click='prev', type='media-prev')
-  AppIcon.media-control__status(
-    @click='status ? pause() : play()',
-    :type='status ? "media-pause" : "media-play"'
-  )
-  AppIcon.media-control__next(@click='next', type='media-next')
-  AppIcon(type='arrow' @click='show ? closePlayer() : openPlayer()')
+<template>
+  <article class="media-control">
+    <AppIcon class="media-control__prev" @click="prev" type="media-prev" />
+    <AppIcon
+      class="media-control__status"
+      @click="status ? pause() : play()"
+      :type="status ? 'media-pause' : 'media-play'"
+    />
+    <AppIcon class="media-control__next" @click="next" type="media-next" />
+    <AppIcon type="arrow" @click="show ? closePlayer() : openPlayer()" />
+  </article>
 </template>
 
 <script lang="ts">

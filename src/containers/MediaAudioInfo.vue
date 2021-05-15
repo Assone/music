@@ -1,7 +1,8 @@
-<template lang="pug">
-article.media-audio__info(v-show='cover')
-  AppImage.media-audio__cover(:class='$style.cover' :src='cover', fit='cover')
-  CoverMeta(:name='name', :artists='artists')
+<template>
+  <article class="media-audio__info" v-show="cover">
+    <AppImage :class="['media-audio__cover', $style.cover]" :src="cover" fit="cover" />
+    <CoverMeta :name="name" :artists="artists" />
+  </article>
 </template>
 
 <script lang="ts">

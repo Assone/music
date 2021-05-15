@@ -1,7 +1,9 @@
-<template lang="pug">
-Swiper(v-bind="options")
-  SwiperSlide(v-for="item in data")
-    slot(v-bind='item')
+<template>
+  <Swiper v-bind="options">
+    <SwiperSlide v-for="(item, index) in data" :key="index">
+      <slot v-bind="item" />
+    </SwiperSlide>
+  </Swiper>
 </template>
 
 <script lang="tsx">

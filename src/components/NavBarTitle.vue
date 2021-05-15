@@ -1,7 +1,8 @@
-<template lang="pug">
-router-link.nav-bar__title(to='/' :aria-label="`${title}, back to home`")
-  img.logo(v-if="logo" :src="logo" alg='logo')
-  | {{ title }}
+<template>
+  <router-link class="nav-bar__title" to="/" :aria-label="`${title}, back to home`">
+    <img class="logo" v-if="logo" :src="logo" alg="logo" />
+    {{ title }}
+  </router-link>
 </template>
 
 <script lang="ts">

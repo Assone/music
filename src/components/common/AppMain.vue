@@ -1,6 +1,7 @@
-<template lang="pug">
-main.app-main
-  slot
+<template>
+  <main class="app-main">
+    <slot />
+  </main>
 </template>
 
 <script lang="ts">

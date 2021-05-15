@@ -1,7 +1,12 @@
-<template lang="pug">
-.app-layout--default
-  AppHeader.app-layout--default__head(height='30px') #[slot(name='head')]
-  AppMain.app-layout--default__main #[slot]
+<template>
+  <div class="app-layout--default">
+    <AppHeader class="app-layout--default__head" height="30px">
+      <slot name="head" />
+    </AppHeader>
+    <AppMain class="app-layout--default__main">
+      <slot />
+    </AppMain>
+  </div>
 </template>
 
 <script lang="ts">

@@ -1,6 +1,9 @@
-<template lang="pug">
-nav.nav-bar__links
-  router-link.links-item(v-for="{text, link} in links" :key='link' :to='link') {{text}}
+<template>
+  <nav class="nav-bar__links">
+    <router-link class="links-item" v-for="{ text, link } in links" :key="link" :to="link"
+      >{{ text }}
+    </router-link>
+  </nav>
 </template>
 
 <script lang="ts">

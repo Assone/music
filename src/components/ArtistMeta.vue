@@ -1,12 +1,15 @@
-<template lang="pug">
-article.artist-meta
-  Avatar.artist-meta__avatar(:src='avatar', :size='100')
-  .artist-meta__info
-    h1.meta-info__name {{ name }}
-    .meta-info__source-count
-      span(v-if='music') {{ music }}首歌
-      span(v-if='album') {{ album }}张专辑
-      span(v-if='mv') {{ mv }}个MV
+<template>
+  <article class="artist-meta">
+    <Avatar class="artist-meta__avatar" :src="avatar" :size="100" />
+    <div class="artist-meta__info">
+      <h1 class="meta-info__name">{{ name }}</h1>
+      <div class="meta-info__source-count">
+        <span v-if="music">{{ music }}首歌</span>
+        <span v-if="album">{{ album }}张专辑</span>
+        <span v-if="mv">{{ mv }}个MV</span>
+      </div>
+    </div>
+  </article>
 </template>
 
 <script lang="ts">

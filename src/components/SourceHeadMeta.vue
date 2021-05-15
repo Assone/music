@@ -1,11 +1,18 @@
-<template lang="pug">
-article.source-meta
-  h1.source-meta__title {{ title }}
-  .source-meta__info
-    router-link.source-meta__creator(:to='`/${type === "album" ? "artist" : "user"}/${user.id}`') {{ user.name }}
-    time.source-meta__time(v-if='time') {{ time }}
-  p.source-meta__description(v-html='formatDescription')
-  slot
+<template>
+  <article class="source-meta">
+    <h1 class="source-meta__title">{{ title }}</h1>
+    <div class="source-meta__info">
+      <router-link
+        class="source-meta__creator"
+        :to="`/${type === 'album' ? 'artist' : 'user'}/${user.id}`"
+      >
+        {{ user.name }}</router-link
+      >
+      <time class="source-meta__time" v-if="time"> {{ time }}</time>
+    </div>
+    <p class="source-meta__description" v-html="formatDescription" />
+    <slot />
+  </article>
 </template>
 
 <script lang="ts">

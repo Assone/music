@@ -1,19 +1,25 @@
-<template lang="pug">
-.view-mv-detail
-  video(:src='src', controls, :poster='cover' :style='{width: "100%"}')
-  .mv-info
-    h1 #[router-link(v-if='artist', :to='`/artist/${artist.id}`') {{ artist.name }}] - {{ name }}
-    time {{ time }}
-  .mv-simi
-    Cover(
-      v-for='{ id, name, cover, artists } in simi',
-      :key='id',
-      :id='id',
-      :src='cover',
-      type='mv',
+<template>
+  <div class="view-mv-detail">
+    <video :src="src" , controls, :poster="cover" :style="{ width: '100%' }"></video>
+    <div class="mv-info">
+      <h1>
+        <router-link v-if="artist" , :to="`/artist/${artist.id}`">{{ artist.name }} </router-link>
+        - {{ name }}
+      </h1>
+      <time>{{ time }}</time>
+    </div>
+    div(class='mv-simi')
+    <Cover
+      v-for="{ id, name, cover, artists } in simi"
+      :key="id"
+      :id="id"
+      :src="cover"
+      type="mv"
       square
-    )
-      CoverMeta(:name='name', :artists='artists', :path='`/mv/${id}`')
+    >
+      <CoverMeta :name="name" :artists="artists" :path="`/mv/${id}`" />
+    </Cover>
+  </div>
 </template>
 
 <script lang="ts">

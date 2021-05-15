@@ -1,7 +1,10 @@
-<template lang="pug">
-article.source-head
-  Cover.source-head__cover(:src='cover')
-  SourceHeadMeta(v-bind='meta') #[slot]
+<template>
+  <article class="source-head">
+    <Cover class="source-head__cover" :src="cover" />
+    <SourceHeadMeta v-bind="meta">
+      <slot />
+    </SourceHeadMeta>
+  </article>
 </template>
 
 <script lang="ts">

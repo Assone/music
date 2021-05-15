@@ -1,8 +1,10 @@
-<template lang="pug">
-article.app-avatar(:class='avatarClass', :style='avatarStyle')
-  AppIcon(v-if='icon', :type='icon')
-  slot(v-else)
-    AppImage(v-bind='$attrs')
+<template>
+  <article :class="['app-avatar', avatarClass]" :style="avatarStyle">
+    <AppIcon v-if="icon" :type="icon" />
+    <slot v-else>
+      <AppImage v-bind="$attrs" />
+    </slot>
+  </article>
 </template>
 
 <script lang="ts">

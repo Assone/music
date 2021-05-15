@@ -1,12 +1,22 @@
-<template lang="pug">
-picture.app-image
-  template(v-if='source')
-    source(v-for='item in source', :key='item.src', v-bind='item')
-  slot(v-if="loading", name='loading')
-    .app-image__loading
-  slot(v-else-if="error", name='error')
-    .app-image__error Error
-  img.app-image__inner(v-else  :src='src' :loading='lazy ? "lazy" : "eager"', v-bind='$attrs')
+<template>
+  <picture class="app-image">
+    <template v-if="source">
+      <source v-for="item in source" :key="item.src" v-bind="item" />
+    </template>
+    <slot v-if="loading" name="loading">
+      <div class="app-image__loading"></div>
+    </slot>
+    <slot v-else-if="error" name="error">
+      <div class="app-image__error">Error</div>
+    </slot>
+    <img
+      class="app-image__inner"
+      v-else
+      :src="src"
+      :loading="lazy ? 'lazy' : 'eager'"
+      v-bind="$attrs"
+    />
+  </picture>
 </template>
 
 <script lang="ts">

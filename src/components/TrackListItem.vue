@@ -1,14 +1,22 @@
-<template lang="pug">
-article.track-list__item(:class='{ "is-album": type === "album" }', v-bind='$attrs')
-  .track-item__index(v-if='type === "album"') {{ index }}
-  .track-item__cover(v-else) #[Cover(:src='cover')]
-  .track-item__info
-    .track-item__name {{ name }}
-    .track-item__artists(v-if='type !== "album"')
-      span.track-item__artists-item(v-for='{ id, name } in artists', :key='id')
-        router-link(:to='`/artist/${id}`') {{ name }}
-  .track-item__album(v-if='type !== "album"') #[router-link(:to='`/album/${albumId}`') {{ albumName }}]
-  .track-item__time {{ time }}
+<template>
+  <article :class="['track-list__item', { 'is-album': type === 'album' }]" v-bind="$attrs">
+    <div class="track-item__index" v-if="type === 'album'">{{ index }}</div>
+    <div class="track-item__cover" v-else>
+      <Cover :src="cover" />
+    </div>
+    <div class="track-item__info">
+      <div class="track-item__name">{{ name }}</div>
+      <div class="track-item__artists" v-if="type !== 'album'">
+        <span class="track-item__artists-item" v-for="{ id, name } in artists" :key="id">
+          <router-link :to="`/artist/${id}`"> {{ name }}</router-link>
+        </span>
+      </div>
+    </div>
+    <div class="track-item__album" v-if="type !== 'album'">
+      <router-link :to="`/album/${albumId}`"> {{ albumName }}</router-link>
+    </div>
+    <div class="track-item__time">{{ time }}</div>
+  </article>
 </template>
 
 <script lang="ts">

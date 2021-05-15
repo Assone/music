@@ -1,20 +1,24 @@
-<template lang="pug">
-article.track-list
-  //- article.track-list__head
-  //-   .track-head__item Name
-  //-   .track-head__item(v-if='type !== "album"') Album
-  //-   .track-head__item Time
-  .track-list__container
-    TrackListItem(
-      v-for='(track, index) in data',
-      :key='track.id',
-      v-bind='track',
-      :class='{ "is-active": track.id === activeTrack }',
-      :index='index + 1',
-      :type='type',
-      @dblclick='$emit("dbclick", { index, track: track.id })'
-    )
-  .track-list__foot #[slot(name='foot')]
+<template>
+  <article class="track-list">
+    <div class="track-list__container">
+      <TrackListItem
+        v-for="({ album, artists, duration, id, name }, index) in data"
+        :key="id"
+        :class="{ 'is-active': id === activeTrack }"
+        :index="index + 1"
+        :type="type"
+        :album="album"
+        :artists="artists"
+        :duration="duration"
+        :id="id"
+        :name="name"
+        @dblclick="$emit('dbclick', { index, track: id })"
+      />
+    </div>
+    <div class="track-list__foot">
+      <slot name="foot" />
+    </div>
+  </article>
 </template>
 
 <script lang="ts">

@@ -1,11 +1,18 @@
-<template lang="pug">
-article.section-head
-  .section-head__meta
-    AppAvatar(v-if='avatar', :src='avatar')
-    .section-head__info
-      h2 {{ title }}
-      p(v-if='description') {{ description }}
-  .section-head__link(v-if='next') #[router-link(:to='next.link') {{ next.text }}]
+<template>
+  <article class="section-head">
+    <div class="section-head__meta">
+      <AppAvatar v-if="avatar" :src="avatar" />
+      <div class="section-head__info">
+        <h2>{{ title }}</h2>
+        <p v-if="description">{{ description }}</p>
+      </div>
+      <div class="section-head__link" v-if="next">
+        <router-link :to="next.link">
+          {{ next.text }}
+        </router-link>
+      </div>
+    </div>
+  </article>
 </template>
 
 <script lang="ts">

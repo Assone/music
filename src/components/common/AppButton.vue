@@ -1,11 +1,12 @@
-<template lang="pug">
-button.app-button(
-  :class='[type ? `app-button__type--${type}` : "", classList]',
-  :autofocus='autofocus',
-  :disabled='disabled',
-  :type='nativeType',
-)
-  slot
+<template>
+  <button
+    :class="['app-button', type ? `app-button__type--${type}` : '', classList]"
+    :autofocus="autofocus"
+    :disabled="disabled"
+    :type="nativeType"
+  >
+    <slot />
+  </button>
 </template>
 
 <script lang="ts">

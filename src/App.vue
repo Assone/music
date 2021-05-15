@@ -1,6 +1,6 @@
-<template lang="pug">
-AppLayout
-Player
+<template>
+  <AppLayout />
+  <Player />
 </template>
 
 <script lang="ts">

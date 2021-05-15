@@ -1,37 +1,48 @@
-<template lang="pug">
-.view-artist-detail
-  ArtistMeta(:avatar='avatar', :name='name', v-bind='size')
-  AppSection(v-if='album.length !== 0')
-    SectionHead(title='专辑')
-    AppBanner(:options='bannerAlbum' :data="album", #default='{ id, cover, name, time: { publish } }')
-      Cover(:src='cover', :id='id', type='album')
-        CoverMeta(:path='`/album/${id}`', :name='name', :date='publish')
-  AppSection(v-if='epAndSingle.length !== 0')
-    SectionHead(title='EP/Single')
-    AppBanner(
-      :options='bannerEP'
-      :data='epAndSingle'
-      #default='{id, cover, name, time: { publish }, type}'
-    )
-      Cover(:src='cover', :id='id', type='album')
-        CoverMeta(:path='`/album/${id}`', :name='name', :date='publish', :type='type')
-  AppSection(v-if='mv.length !== 0')
-    SectionHead(title='Video')
-    .container__mv
-      Cover(
-        v-for='{ id, cover, name } in mv',
-        :key='id',
-        :src='cover',
-        :id='id',
-        type='mv',
-      ) 
-        CoverMeta(:path='`/mv/${id}`', :name='name')
-  AppSection(v-if='similar.length !== 0')
-    SectionHead(title='类似艺人')
-    AppBanner(:options='{ slidesPerView: 6 }' :data='similar' #default='{id, avatar, name}')
-      .container__avatar
-        Avatar(:src='avatar', :size='128')
-        router-link(:to='`/artist/${id}`') {{ name }}
+<template>
+  <div class="view-artist-detail">
+    <ArtistMeta :avatar="avatar" :name="name" v-bind="size" />
+    <AppSection v-if="album.length !== 0">
+      <SectionHead title="专辑" />
+      <AppBanner
+        :options="bannerAlbum"
+        :data="album"
+        #default="{ id, cover, name, time: { publish } }"
+      >
+        <Cover :src="cover" :id="id" type="album">
+          <CoverMeta :path="`/album/${id}`" :name="name" :date="publish" />
+        </Cover>
+      </AppBanner>
+    </AppSection>
+    <AppSection v-if="epAndSingle.length !== 0">
+      <SectionHead title="EP/Single" />
+      <AppBanner
+        :options="bannerEP"
+        :data="epAndSingle"
+        #default="{ id, cover, name, time: { publish }, type }"
+      >
+        <Cover :src="cover" :id="id" type="album">
+          <CoverMeta :path="`/album/${id}`" :name="name" :date="publish" :type="type" />
+        </Cover>
+      </AppBanner>
+    </AppSection>
+    <AppSection v-if="mv.length !== 0">
+      <SectionHead title="Video" />
+      <div class="container__mv">
+        <Cover v-for="{ id, cover, name } in mv" :key="id" :src="cover" :id="id" type="mv">
+          <CoverMeta :path="`/mv/${id}`" :name="name" />
+        </Cover>
+      </div>
+    </AppSection>
+    <AppSection v-if="similar.length !== 0">
+      <SectionHead title="类似艺人" />
+      <AppBanner :options="{ slidesPerView: 6 }" :data="similar" #default="{ id, avatar, name }">
+        <div class="container__avatar">
+          <Avatar :src="avatar" :size="128" />
+          <router-link :to="`/artist/${id}`"> {{ name }}</router-link>
+        </div>
+      </AppBanner>
+    </AppSection>
+  </div>
 </template>
 
 <script lang="ts">

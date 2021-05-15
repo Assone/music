@@ -1,7 +1,8 @@
-<template lang="pug">
-.view-error
-  h1 404
-  p view not fount
+<template>
+  <div class="view-error">
+    <h1>404</h1>
+    <p>view not fount</p>
+  </div>
 </template>
 
 <script lang="ts">
