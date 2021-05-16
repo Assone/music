@@ -1,5 +1,9 @@
 <template>
-  <article :class="['track-list__item', { 'is-album': type === 'album' }]" v-bind="$attrs">
+  <article
+    class="track-list__item"
+    :class="{ 'is-album': type === 'album', 'is-disabled': disabled }"
+    v-bind="$attrs"
+  >
     <div class="track-item__index" v-if="type === 'album'">{{ index }}</div>
     <div class="track-item__cover" v-else>
       <Cover :src="cover" />
@@ -50,6 +54,7 @@ export default defineComponent({
       type: String as PropType<'playlist' | 'album'>,
     },
     index: Number,
+    disabled: Boolean,
   },
   setup(props) {
     const { album, duration } = toRefs(props);
@@ -86,6 +91,10 @@ export default defineComponent({
 
     @include when(album) {
       line-height: 1.6;
+    }
+
+    @include when(disabled) {
+      background-color: rgb(126, 126, 126) !important;
     }
   }
 }

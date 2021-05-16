@@ -42,17 +42,8 @@ export default defineComponent({
     const { id } = toRefs(props);
     const { activeTrack } = useMediaState(id.value);
     const { play, playSpecific } = useMediaControlsByView();
-    const {
-      name,
-      cover,
-      description,
-      company,
-      artist,
-      publish,
-      duration,
-      ids,
-      songs,
-    } = await useAlbumDetailData(id.value);
+    const { name, cover, description, company, artist, publish, duration, ids, songs } =
+      await useAlbumDetailData(id.value);
     done();
 
     const handlePlay = () => play({ id: id.value, ids });

@@ -1,7 +1,9 @@
 import { usePhotoResize } from '@/utils';
+import Mixins from '@/utils/Mixins';
 import MMeta from './Meta';
+import MPlayable from './Playable';
 
-export default class MSong extends MMeta {
+export default class MSong extends Mixins(MMeta, MPlayable) implements MMeta, MPlayable {
   artists: { id: number; name: string }[];
 
   mvId: number;
@@ -10,6 +12,14 @@ export default class MSong extends MMeta {
 
   duration: number;
 
+  id!: number;
+
+  name!: string;
+
+  playable!: boolean;
+
+  reason?: string | undefined;
+
   constructor({
     id,
     name,
@@ -17,8 +27,10 @@ export default class MSong extends MMeta {
     ar,
     mv,
     dt,
+    fee,
+    noCopyrightRcmd,
   }: IrSongDetail) {
-    super({ id, name });
+    super({ id, name, fee, noCopyrightRcmd });
 
     this.album = {
       id: alId,

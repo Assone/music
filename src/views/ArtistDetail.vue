@@ -35,7 +35,7 @@
     </AppSection>
     <AppSection v-if="similar.length !== 0">
       <SectionHead title="类似艺人" />
-      <AppBanner :options="{ slidesPerView: 6 }" :data="similar" #default="{ id, avatar, name }">
+      <AppBanner :options="bannerArtists" :data="similar" #default="{ id, avatar, name }">
         <div class="container__avatar">
           <Avatar :src="avatar" :size="128" />
           <router-link :to="`/artist/${id}`"> {{ name }}</router-link>
@@ -117,6 +117,35 @@ export default defineComponent({
         },
       },
     });
+    const bannerArtists = reactive<Options>({
+      slidesPerView: 6,
+      breakpoints: {
+        320: {
+          slidesPerView: 2.5,
+          spaceBetween: 10,
+        },
+        460: {
+          slidesPerView: 4,
+          spaceBetween: 15,
+        },
+        700: {
+          slidesPerView: 5,
+          spaceBetween: 20,
+        },
+        840: {
+          slidesPerView: 5.5,
+        },
+        980: {
+          slidesPerView: 6,
+        },
+        1120: {
+          slidesPerView: 7,
+        },
+        1260: {
+          slidesPerView: 8,
+        },
+      },
+    });
 
     fetch(id.value).then(() => done());
 
@@ -129,6 +158,7 @@ export default defineComponent({
     return {
       bannerAlbum,
       bannerEP,
+      bannerArtists,
 
       name,
       avatar,
@@ -173,6 +203,10 @@ export default defineComponent({
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 </style>

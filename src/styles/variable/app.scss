@@ -1,3 +1,4 @@
 :root {
-  --theme-color: #07bb58;
+  --theme-color-raw: 7, 187, 88;
+  --theme-color: rgb(var(--theme-color-raw));
 }

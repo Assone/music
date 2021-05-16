@@ -58,8 +58,7 @@ export default defineComponent({
     height: $--nav-bar-height;
 
     background-color: $--nav-bar-bg-color;
-    backdrop-filter: saturate(180%) blur(15px);
-    opacity: 0.8;
+    backdrop-filter: saturate(180%) blur(20px);
 
     user-select: none;
 

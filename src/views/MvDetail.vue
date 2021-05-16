@@ -1,24 +1,25 @@
 <template>
   <div class="view-mv-detail">
-    <video :src="src" , controls, :poster="cover" :style="{ width: '100%' }"></video>
+    <video :src="src" controls :poster="cover" :style="{ width: '100%' }"></video>
     <div class="mv-info">
       <h1>
-        <router-link v-if="artist" , :to="`/artist/${artist.id}`">{{ artist.name }} </router-link>
+        <router-link v-if="artist" :to="`/artist/${artist.id}`">{{ artist.name }} </router-link>
         - {{ name }}
       </h1>
       <time>{{ time }}</time>
     </div>
-    div(class='mv-simi')
-    <Cover
-      v-for="{ id, name, cover, artists } in simi"
-      :key="id"
-      :id="id"
-      :src="cover"
-      type="mv"
-      square
-    >
-      <CoverMeta :name="name" :artists="artists" :path="`/mv/${id}`" />
-    </Cover>
+    <div class="mv-simi">
+      <Cover
+        v-for="{ id, name, cover, artists } in simi"
+        :key="id"
+        :id="id"
+        :src="cover"
+        type="mv"
+        square
+      >
+        <CoverMeta :name="name" :artists="artists" :path="`/mv/${id}`" />
+      </Cover>
+    </div>
   </div>
 </template>
 

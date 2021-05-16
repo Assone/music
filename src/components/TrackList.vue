@@ -2,7 +2,7 @@
   <article class="track-list">
     <div class="track-list__container">
       <TrackListItem
-        v-for="({ album, artists, duration, id, name }, index) in data"
+        v-for="({ album, artists, duration, id, name, playable }, index) in data"
         :key="id"
         :class="{ 'is-active': id === activeTrack }"
         :index="index + 1"
@@ -12,7 +12,8 @@
         :duration="duration"
         :id="id"
         :name="name"
-        @dblclick="$emit('dbclick', { index, track: id })"
+        :disabled="!playable"
+        @dblclick="playable ? $emit('dbclick', { index, track: id }) : ''"
       />
     </div>
     <div class="track-list__foot">

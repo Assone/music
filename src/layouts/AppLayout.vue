@@ -8,13 +8,17 @@
         </template>
         <router-view v-slot="{ Component, route }">
           <transition :name="route.meta.transition || 'fade'" mode="out-in">
-            <component
+            <!-- <component
               v-if="route.meta.keepAlive"
               :is="Component"
               :key="route.meta.usePathKey ? route.path : undefined"
-            />
-            <keep-alive v-else>
-              <component :is="Component" :key="route.meta.usePathKey ? route.path : undefined" />
+            /> -->
+            <keep-alive>
+              <component
+                :is="Component"
+                :key="route.meta.usePathKey ? route.path : undefined"
+                class="view-container"
+              />
             </keep-alive>
           </transition>
         </router-view>
@@ -56,6 +60,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@include b(view, container) {
+  margin-bottom: $--nav-bar-height + 30px;
+}
+
 @include transition(fade) {
   @include direction(enter-active, leave-active) {
     transition: opacity 0.5s;

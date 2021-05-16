@@ -11,7 +11,7 @@ $--button-active-shade-percent: 10% !default;
 $--nav-bar-width: 100%;
 $--nav-bar-height: 50px;
 // $--nav-bar-max-height:
-$--nav-bar-bg-color: $--theme-color;
+$--nav-bar-bg-color: rgba(var(--theme-color-raw), 0.8);
 
 // player
 $--player-height: 64px;
