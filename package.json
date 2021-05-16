@@ -10,8 +10,6 @@
     "commit": "cz"
   },
   "dependencies": {
-    "@sentry/tracing": "^6.2.5",
-    "@sentry/vue": "^6.2.5",
     "@vueuse/core": "^4.9.1",
     "axios": "^0.21.1",
     "lodash-es": "^4.17.21",
