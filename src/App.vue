@@ -1,5 +1,6 @@
 <template>
   <AppLayout />
+  <ReloadPrompt />
   <Player />
 </template>
 
@@ -8,12 +9,14 @@ import { defineComponent } from 'vue';
 
 import AppLayout from '@/layouts/AppLayout.vue';
 import Player from '@/containers/Player.vue';
+import ReloadPrompt from '@/components/ReloadPrompt.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
     AppLayout,
     Player,
+    ReloadPrompt,
   },
 });
 </script>
