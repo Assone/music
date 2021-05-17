@@ -128,7 +128,7 @@ interface IrPlaylistDetail extends IrMetaSource, IrTime, IrCount {
   coverImgUrl: string;
   creator: IrUser;
   description: string;
-  englishTitle: null;
+  englishTitle: null | string;
   newImported: boolean;
   opRecommend: boolean;
   ordered: boolean;
@@ -143,13 +143,13 @@ interface IrPlaylistDetail extends IrMetaSource, IrTime, IrCount {
   titleImageUrl: null;
   trackIds: IrTrackIds[];
   tracks: IrTrack[];
-  updateFrequency: null;
+  updateFrequency: null | string;
   userId: number;
   videoIds: null;
   videos: null;
 }
 
-interface IrArtistDetail extends IrMeta, Pick<IrTime, "publishTime"> {
+interface IrArtistDetail extends IrMeta, Pick<IrTime, 'publishTime'> {
   albumSize: number;
   alias: string[];
   briefDesc: string;
@@ -176,19 +176,19 @@ interface IrArtistDetail extends IrMeta, Pick<IrTime, "publishTime"> {
 
 type GetRecPlaylistResponse = Pick<
   IrPlaylistDetail,
-  | "alg"
-  | "canDislike"
-  | "copywriter"
-  | "highQuality"
-  | "id"
-  | "name"
-  | "picUrl"
-  | "playCount"
-  | "trackCount"
-  | "trackNumberUpdateTime"
+  | 'alg'
+  | 'canDislike'
+  | 'copywriter'
+  | 'highQuality'
+  | 'id'
+  | 'name'
+  | 'picUrl'
+  | 'playCount'
+  | 'trackCount'
+  | 'trackNumberUpdateTime'
 > & { type: number };
 
-interface IrAlbumDetail extends IrMeta, Pick<IrTime, "publishTime"> {
+interface IrAlbumDetail extends IrMeta, Pick<IrTime, 'publishTime'> {
   alias: [];
   artist: IrArtistDetail;
   artists: IrArtistDetail[];
@@ -296,11 +296,7 @@ interface IrRecSongDetail
   extends IrMeta,
     Pick<
       IrSongDetail,
-      | "no"
-      | "copyright"
-      | "originCoverType"
-      | "originSongSimpleData"
-      | "noCopyrightRcmd"
+      'no' | 'copyright' | 'originCoverType' | 'originSongSimpleData' | 'noCopyrightRcmd'
     > {
   album: IrAlbumDetail;
   alias: [];
@@ -318,7 +314,7 @@ interface IrRecSongDetail
     volumeDelta: number;
   };
   commentThreadId: string;
-  copyFrom: "";
+  copyFrom: '';
   copyrightId: number;
   crbt: null;
   dayPlays: number;
@@ -514,8 +510,8 @@ interface IrCover {
 interface IrMVDetail
   extends IrMeta,
     IrCover,
-    Pick<IrCount, "commentCount" | "playCount" | "shareCount" | "subCount">,
-    Pick<IrTime, "publishTime"> {
+    Pick<IrCount, 'commentCount' | 'playCount' | 'shareCount' | 'subCount'>,
+    Pick<IrTime, 'publishTime'> {
   artistId: number;
   artistName: string;
   artists: IrArtistDetail[];
@@ -531,8 +527,8 @@ interface IrMVDetail
 
 interface IrRecMV
   extends IrMeta,
-    Pick<IrCount, "playCount">,
-    Pick<IrTime, "trackNumberUpdateTime"> {
+    Pick<IrCount, 'playCount'>,
+    Pick<IrTime, 'trackNumberUpdateTime'> {
   alg: string;
   artistId: number;
   artistName: string;
@@ -545,7 +541,7 @@ interface IrRecMV
   type: number;
 }
 
-interface IrSimilarMV extends IrMeta, Pick<IrCount, "playCount"> {
+interface IrSimilarMV extends IrMeta, Pick<IrCount, 'playCount'> {
   alg: string;
   artistId: number;
   artistName: string;
@@ -557,23 +553,20 @@ interface IrSimilarMV extends IrMeta, Pick<IrCount, "playCount"> {
   mark: number;
 }
 
-interface IrArtistMV
-  extends IrMeta,
-    Pick<IrTime, "publishTime">,
-    Pick<IrCount, "playCount"> {
+interface IrArtistMV extends IrMeta, Pick<IrTime, 'publishTime'>, Pick<IrCount, 'playCount'> {
   artist: Pick<
     IrArtistDetail,
-    | "briefDesc"
-    | "id"
-    | "img1v1Id"
-    | "img1v1Id_str"
-    | "img1v1Url"
-    | "musicSize"
-    | "name"
-    | "picId"
-    | "picUrl"
-    | "topicPerson"
-    | "trans"
+    | 'briefDesc'
+    | 'id'
+    | 'img1v1Id'
+    | 'img1v1Id_str'
+    | 'img1v1Url'
+    | 'musicSize'
+    | 'name'
+    | 'picId'
+    | 'picUrl'
+    | 'topicPerson'
+    | 'trans'
   >;
   artistName: string;
   duration: number;

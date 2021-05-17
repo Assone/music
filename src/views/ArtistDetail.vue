@@ -177,7 +177,7 @@ export default defineComponent({
 @include b(container) {
   @include e(mv) {
     display: grid;
-    gap: 50px 20px;
+    gap: 20px;
 
     width: 100%;
 

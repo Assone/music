@@ -27,4 +27,9 @@ export default defineComponent({
   color: #2c3e50;
   margin-top: 60px;
 } */
+
+#app {
+  font-family: 'Barlow', -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC,
+    Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
+}
 </style>

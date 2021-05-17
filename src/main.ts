@@ -6,9 +6,17 @@ import router from './router';
 import store, { key } from './store';
 
 import './plugins/interceptors';
-
-import './styles/index.scss';
 import i18n from './plugins/i18n';
 
-createApp(App).use(router).use(store, key).use(i18n).mount('#app');
+import './styles/index.scss';
+import * as api from './apis';
+import { isDev } from './utils';
 
+const app = createApp(App);
+
+app.config.globalProperties.$api = api;
+app.use(router).use(store, key).use(i18n).mount('#app');
+
+if (isDev) {
+  import('./plugins/devtools').then(({ addDevtools }) => addDevtools(app, store));
+}

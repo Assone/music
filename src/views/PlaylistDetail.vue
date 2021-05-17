@@ -4,14 +4,14 @@
       :cover="cover"
       :meta="{ title: name, description, type: 'playlist', user: creator }"
     >
-      <AppButton @click="handlePlay"> play</AppButton>
+      <AppButton @click="handlePlay">play</AppButton>
     </SourceHead>
     <TrackList
       v-if="tracks"
       type="playlist"
       :track-ids="tracks"
       :activeTrack="activeTrack"
-      @dbclick="handleDoubleClick"
+      @play="handleDoubleClick"
     />
   </div>
 </template>
@@ -24,7 +24,7 @@ import { usePlaylistDetailData } from '@/hooks/playlist';
 
 import AppButton from '@/components/common/AppButton.vue';
 import SourceHead from '@/components/SourceHead.vue';
-import TrackList from '@/components/TrackList.vue';
+import TrackList from '@/containers/TrackList.vue';
 
 export default defineComponent({
   components: {
@@ -51,6 +51,8 @@ export default defineComponent({
       handleDoubleClick,
     } = await usePlaylistDetailData(id.value);
 
+    document.title = name.value;
+
     done();
 
     return {
@@ -68,5 +70,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style></style>

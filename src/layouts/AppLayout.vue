@@ -1,30 +1,23 @@
 <template>
-  <Suspense>
-    <template #default>
-      <component :is="`AppLayout${model}`">
-        <template #head>
-          <NavBarTitle :logo="logo" :title="title" />
-          <NavBarLinks :links="nav" />
-        </template>
-        <router-view v-slot="{ Component, route }">
-          <transition :name="route.meta.transition || 'fade'" mode="out-in">
-            <!-- <component
-              v-if="route.meta.keepAlive"
-              :is="Component"
-              :key="route.meta.usePathKey ? route.path : undefined"
-            /> -->
-            <keep-alive>
-              <component
-                :is="Component"
-                :key="route.meta.usePathKey ? route.path : undefined"
-                class="view-container"
-              />
-            </keep-alive>
-          </transition>
-        </router-view>
-      </component>
+  <component :is="`AppLayout${model}`">
+    <template #head>
+      <NavBarTitle :logo="logo" :title="title" />
+      <NavBarLinks :links="nav" />
     </template>
-  </Suspense>
+    <router-view v-slot="{ Component, route }">
+      <transition :name="route.meta.transition || 'fade'" mode="out-in">
+        <!-- <keep-alive> -->
+        <suspense>
+          <component
+            :is="Component"
+            :key="route.meta.usePathKey ? route.path : undefined"
+            class="view-container"
+          />
+        </suspense>
+        <!-- </keep-alive> -->
+      </transition>
+    </router-view>
+  </component>
 </template>
 
 <script lang="ts">
@@ -59,7 +52,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @include b(view, container) {
   margin-bottom: $--nav-bar-height + 30px;
 }

@@ -4,7 +4,6 @@
       <TrackListItem
         v-for="({ album, artists, duration, id, name, playable }, index) in data"
         :key="id"
-        :class="{ 'is-active': id === activeTrack }"
         :index="index + 1"
         :type="type"
         :album="album"
@@ -13,7 +12,9 @@
         :id="id"
         :name="name"
         :disabled="!playable"
-        @dblclick="playable ? $emit('dbclick', { index, track: id }) : ''"
+        :active="id === activeTrack"
+        @click="isMobile && playable ? $emit('play', { index, track: id }) : ''"
+        @dblclick="playable ? $emit('play', { index, track: id }) : ''"
       />
     </div>
     <div class="track-list__foot">
@@ -23,12 +24,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRefs } from 'vue';
+import { computed, defineComponent, PropType, toRefs } from 'vue';
 
 import MSong from '@/models/Song';
 
-import TrackListItem from './TrackListItem.vue';
+import TrackListItem from '@/components/TrackListItem.vue';
 import { useTrackListData } from '@/hooks/track';
+import { useStore } from '@/store';
 
 export default defineComponent({
   components: {
@@ -49,9 +51,14 @@ export default defineComponent({
   setup(props) {
     const { songs, trackIds } = toRefs(props);
     const { data } = useTrackListData({ songs, trackIds });
+    const store = useStore();
+
+    const isMobile = computed(() => store.getters.isMobile);
 
     return {
       data,
+
+      isMobile,
     };
   },
 });
@@ -59,16 +66,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @include b(track, list) {
-  @include e(item) {
-    &:nth-child(2n) {
-      background: rgb(240, 240, 240);
-    }
-
-    @include when(active) {
-      background: #ff0 !important;
-    }
-  }
-
   @include e(foot) {
     padding: 5px 10px;
   }

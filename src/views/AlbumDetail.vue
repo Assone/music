@@ -6,7 +6,7 @@
     >
       <AppButton @click="handlePlay"> play</AppButton>
     </SourceHead>
-    <TrackList :songs="songs" type="album" :activeTrack="activeTrack" @dbclick="handleDoubleClick">
+    <TrackList :songs="songs" type="album" :activeTrack="activeTrack" @play="handleDoubleClick">
       <template #foot>
         <p>共{{ songs.length }}首，{{ duration }}</p>
         <p>&copy; {{ company }}</p>
@@ -24,7 +24,7 @@ import { useAlbumDetailData } from '@/hooks/album';
 
 import AppButton from '@/components/common/AppButton.vue';
 import SourceHead from '@/components/SourceHead.vue';
-import TrackList from '@/components/TrackList.vue';
+import TrackList from '@/containers/TrackList.vue';
 
 export default defineComponent({
   components: {

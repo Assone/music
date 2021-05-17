@@ -27,11 +27,16 @@ export default class MPlaylist extends MMetaSource {
 
   track?: MTrack[];
 
+  title: null | string;
+
+  updateFrequency: null | string;
+
   constructor(data: IrPlaylistDetail) {
     super(data);
 
-    const { tags, backgroundCoverUrl, creator, trackIds, description, coverImgUrl } = data;
+    const { tags, backgroundCoverUrl, creator, trackIds, description, coverImgUrl, updateFrequency, englishTitle,  } = data;
 
+    this.title = englishTitle;
     this.description = description;
     this.tags = tags;
     this.background = backgroundCoverUrl;
@@ -40,6 +45,7 @@ export default class MPlaylist extends MMetaSource {
     this.count = new MCount(data);
     this.time = new MTime(data);
     this.trackIds = trackIds.map(({ id }) => id);
+    this.updateFrequency = updateFrequency;
   }
 
   updateName(name: string): void {

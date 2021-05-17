@@ -1,3 +1,5 @@
+import store from '@/store';
+
 interface IPlayableInfo {
   fee?: 1 | 4;
   noCopyrightRcmd?: null;
@@ -10,7 +12,12 @@ export default class MPlayable {
   constructor(info: IPlayableInfo) {
     switch (info.fee) {
       case 1:
-        this.playable = true;
+        if (store.getters.isAccountLogin && store.state.account?.vipType === 11) {
+          this.playable = true;
+        } else {
+          this.playable = false;
+          this.reason = 'need VIP';
+        }
         break;
       case 4:
         this.playable = false;

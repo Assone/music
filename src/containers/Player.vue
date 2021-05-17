@@ -12,7 +12,7 @@
     <div class="player__controls">
       <MediaControl />
       <MediaAudioInfo />
-      <MediaVolume />
+      <MediaVolume v-if="devicesType === 'pc'" />
     </div>
   </article>
 </template>
@@ -27,6 +27,7 @@ import MediaAudioInfo from './MediaAudioInfo.vue';
 import MediaControl from './MediaControl.vue';
 import MediaVolume from './MediaVolume.vue';
 import PlayerView from './PlayerView.vue';
+import { useDevicesType } from '@/hooks/devices';
 
 export default defineComponent({
   components: {
@@ -38,20 +39,21 @@ export default defineComponent({
   },
   setup() {
     const { show } = useMediaState();
+    const { devicesType } = useDevicesType();
 
     const currentTime = ref(0);
     const duration = ref(0);
+    const { setCurrentPlayTime } = useMediaAudioCore({ currentTime, duration });
 
     const formatCurrentTime = computed(() => formatTime(currentTime.value * 1000));
     const formatDuration = computed(() => formatTime(duration.value * 1000));
 
-    const { setCurrentPlayTime } = useMediaAudioCore({ currentTime, duration });
-
     return {
+      show,
+      devicesType,
+
       currentTime,
       duration,
-
-      show,
 
       formatCurrentTime,
       formatDuration,

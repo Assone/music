@@ -6,7 +6,7 @@ export enum ConfigLayout {
 import logo from '@/assets/logo.png';
 
 const config: IAppConfig = {
-  title: 'SJBB',
+  title: 'MUSIC',
   layout: 'Default',
   theme: 'auto',
   nav: [
