@@ -1,7 +1,8 @@
-import { InjectionKey, Ref } from 'vue';
+import { InjectionKey } from 'vue';
 import { createLogger, createStore, Store, useStore as baseUseStore } from 'vuex';
 import { get } from 'js-cookie';
 import { useLocalStorage } from '@vueuse/core';
+
 import { useDevicesType } from '@/hooks/devices';
 import { isDev } from '@/utils';
 
