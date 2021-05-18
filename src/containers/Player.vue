@@ -1,5 +1,5 @@
 <template>
-  <article class="player">
+  <article class="player" v-show="showPlayer">
     <teleport to="#app">
       <PlayerView :show="show" />
     </teleport>
@@ -9,7 +9,7 @@
       :duration="duration"
       @update="setCurrentPlayTime"
     />
-    <div class="player__controls">
+    <div class="player__controls" @click.self="show ? closePlayer() : openPlayer()">
       <MediaControl />
       <MediaAudioInfo />
       <MediaVolume v-if="devicesType === 'pc'" />
@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { useMediaAudioCore, useMediaState } from '@/hooks/media';
+import { useMediaAudioCore, useMediaControls, useMediaState } from '@/hooks/media';
 import { formatTime } from '@/utils';
 
 import MediaProgress from '@/components/MediaProgress.vue';
@@ -38,11 +38,13 @@ export default defineComponent({
     PlayerView,
   },
   setup() {
-    const { show } = useMediaState();
+    const { show, tracks } = useMediaState();
+    const { openPlayer, closePlayer } = useMediaControls();
     const { devicesType } = useDevicesType();
 
     const currentTime = ref(0);
     const duration = ref(0);
+    const showPlayer = computed(() => tracks.value.length !== 0);
     const { setCurrentPlayTime } = useMediaAudioCore({ currentTime, duration });
 
     const formatCurrentTime = computed(() => formatTime(currentTime.value * 1000));
@@ -50,6 +52,7 @@ export default defineComponent({
 
     return {
       show,
+      showPlayer,
       devicesType,
 
       currentTime,
@@ -59,6 +62,8 @@ export default defineComponent({
       formatDuration,
 
       setCurrentPlayTime,
+      openPlayer,
+      closePlayer,
     };
   },
 });
@@ -90,6 +95,17 @@ export default defineComponent({
     padding: 10px;
 
     background-color: $--player-bg-color;
+  }
+
+  @include when(mobile) {
+    .media-control {
+      order: 2;
+      flex-shrink: 0;
+    }
+
+    .media-audio__info {
+      order: 1;
+    }
   }
 }
 </style>

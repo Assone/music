@@ -1,22 +1,29 @@
 <template>
-  <AppLayout />
-  <ReloadPrompt />
-  <Player />
+  <AppLayout :class="[`is-${devicesType}`]" />
+  <Player :class="[`is-${devicesType}`]" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 
 import AppLayout from '@/layouts/AppLayout.vue';
 import Player from '@/containers/Player.vue';
-import ReloadPrompt from '@/components/ReloadPrompt.vue';
+import { useStore } from './store';
 
 export default defineComponent({
   name: 'App',
   components: {
     AppLayout,
     Player,
-    ReloadPrompt,
+  },
+  setup() {
+    const store = useStore();
+
+    const devicesType = computed<'pc' | 'mobile'>(() => store.getters.devicesType);
+
+    return {
+      devicesType,
+    };
   },
 });
 </script>

@@ -4,19 +4,21 @@
       <NavBarTitle :logo="logo" :title="title" />
       <NavBarLinks :links="nav" />
     </template>
-    <router-view v-slot="{ Component, route }">
-      <transition :name="route.meta.transition || 'fade'" mode="out-in">
-        <!-- <keep-alive> -->
-        <suspense>
-          <component
-            :is="Component"
-            :key="route.meta.usePathKey ? route.path : undefined"
-            class="view-container"
-          />
-        </suspense>
-        <!-- </keep-alive> -->
-      </transition>
-    </router-view>
+    <suspense>
+      <template #default>
+        <router-view v-slot="{ Component, route }">
+          <transition :name="route.meta.transition || 'fade'" mode="out-in">
+            <!-- <keep-alive> -->
+            <component
+              :is="Component"
+              :key="route.meta.usePathKey ? route.path : undefined"
+              class="view-container"
+            />
+            <!-- </keep-alive> -->
+          </transition>
+        </router-view>
+      </template>
+    </suspense>
   </component>
 </template>
 

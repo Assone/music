@@ -24,6 +24,7 @@ const store = createStore<SRootState>({
   getters: {
     isLogin: () => get('MUSIC_U') !== undefined,
     isAccountLogin: ({ account }, getters) => (getters.isLogin && account ? true : false),
+    devicesType: () => useDevicesType().devicesType,
     isMobile: () => useDevicesType().devicesType === 'mobile',
   },
   mutations: {},

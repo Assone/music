@@ -7,7 +7,6 @@
       :type="status ? 'media-pause' : 'media-play'"
     />
     <AppIcon class="media-control__next" @click="next" type="media-next" />
-    <AppIcon type="arrow" @click="show ? closePlayer() : openPlayer()" />
   </article>
 </template>
 
@@ -23,7 +22,7 @@ export default defineComponent({
   },
   setup() {
     const { status, show } = useMediaState();
-    const { play, pause, prev, next, openPlayer, closePlayer } = useMediaControls();
+    const { play, pause, prev, next } = useMediaControls();
 
     return {
       status,
@@ -33,8 +32,6 @@ export default defineComponent({
       prev,
       next,
       show,
-      openPlayer,
-      closePlayer,
     };
   },
 });

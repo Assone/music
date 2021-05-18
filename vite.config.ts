@@ -23,7 +23,12 @@ export default defineConfig({
       ext: '.br',
       algorithm: 'brotliCompress',
     }),
-    VitePWA(),
+    VitePWA({
+      manifest: {
+        display: 'fullscreen',
+      },
+      registerType: 'autoUpdate',
+    }),
     vueI18n({
       include: resolve(cwd(), 'src/locales/**'),
     }),
@@ -33,6 +38,7 @@ export default defineConfig({
   },
   server: {
     port: 8080,
+    https: true,
     proxy: {
       '^/api': {
         target: 'http://localhost:3000',

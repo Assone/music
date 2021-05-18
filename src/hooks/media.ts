@@ -24,6 +24,7 @@ export const useMediaState = (id?: number) => {
   const mute = computed(() => store.state.media.mute);
   const volume = computed(() => store.state.media.volume);
   const show = computed(() => store.state.media.show);
+  const tracks = computed(() => store.state.media.tracks);
 
   return {
     sourceId,
@@ -33,6 +34,7 @@ export const useMediaState = (id?: number) => {
     mute,
     volume,
     show,
+    tracks,
   };
 };
 

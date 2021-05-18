@@ -8,5 +8,6 @@ declare module 'vue-router' {
     requiresAuth?: boolean;
     keepAlive?: boolean;
     transition?: string;
+    title?: string;
   }
 }
