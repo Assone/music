@@ -3,7 +3,7 @@
     <AppSection>
       <SectionHead title="推荐歌单" />
       <AppBanner :options="options" :data="playlist" #default="{ id, name, cover }">
-        <Cover :id="id" :src="cover" type="playlist">
+        <Cover :id="id" :src="cover" :alt="name" type="playlist">
           <CoverMeta :path="`/playlist/${id}`" :name="name" />
         </Cover>
       </AppBanner>
@@ -16,6 +16,7 @@
           :key="id"
           :id="id"
           :src="cover"
+          :alt="name"
           type="album"
         >
           <CoverMeta :path="`/album/${id}`" :name="name" :artists="artists" />
@@ -99,7 +100,7 @@ export default defineComponent({
       grid-template-columns: repeat(4, minmax(100px, 1fr));
     }
 
-    @include media(xl) {
+    @include media(lg) {
       grid-template-columns: repeat(6, minmax(100px, 1fr));
     }
   }

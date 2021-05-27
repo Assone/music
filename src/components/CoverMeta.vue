@@ -1,10 +1,12 @@
 <template>
   <article class="cover-meta">
-    <router-link class="cover-meta__name" v-if="path" :to="path"> {{ name }}</router-link>
+    <router-link class="link cover-meta__name" v-if="path" :to="path" :title="name">
+      {{ name }}</router-link
+    >
     <span class="cover-meta__name" v-else> {{ name }}</span>
     <div class="cover-meta__artists" v-if="artists">
       <span class="artists-item" v-for="{ id, name } in artists" :key="id">
-        <router-link class="artists-item__link" :to="`/artist/${id}`"> {{ name }}</router-link>
+        <router-link class="link artists-item__link" :to="`/artist/${id}`"> {{ name }}</router-link>
       </span>
     </div>
     <div class="cover-meta__info" v-if="date || type">
@@ -66,6 +68,14 @@ export default defineComponent({
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.link {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 @include b(cover, meta) {

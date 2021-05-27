@@ -13,6 +13,8 @@
         :name="name"
         :disabled="!playable"
         :active="id === activeTrack"
+        :show-album="type !== 'album' && !isMobile"
+        :show-time="!isMobile"
         @click="isMobile && playable ? $emit('play', { index, track: id }) : ''"
         @dblclick="playable ? $emit('play', { index, track: id }) : ''"
       />
@@ -29,13 +31,14 @@ import { computed, defineComponent, PropType, toRefs } from 'vue';
 import MSong from '@/models/Song';
 
 import TrackListItem from '@/components/TrackListItem.vue';
-import { useTrackListData } from '@/hooks/track';
+import { useTrackListData } from '@/composition/track';
 import { useStore } from '@/store';
 
 export default defineComponent({
   components: {
     TrackListItem,
   },
+  emits: ['play'],
   props: {
     trackIds: Array as PropType<number[]>,
     type: {

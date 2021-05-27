@@ -3,15 +3,15 @@
     <SourceHead
       :cover="cover"
       :meta="{ title: name, description, time, type: 'album', user: artist }"
+      ><AppButton v-if="songs.filter((s) => s.playable).length !== 0" @click="handlePlay"
+        >play</AppButton
+      ></SourceHead
+    ><TrackList :songs="songs" type="album" :activeTrack="activeTrack" @play="handleDoubleClick"
+      ><template #foot
+        ><p>共{{ songs.length }}首，{{ duration }}</p>
+        <p>© {{ company }}</p></template
+      ></TrackList
     >
-      <AppButton @click="handlePlay"> play</AppButton>
-    </SourceHead>
-    <TrackList :songs="songs" type="album" :activeTrack="activeTrack" @play="handleDoubleClick">
-      <template #foot>
-        <p>共{{ songs.length }}首，{{ duration }}</p>
-        <p>&copy; {{ company }}</p>
-      </template>
-    </TrackList>
   </div>
 </template>
 
@@ -19,8 +19,8 @@
 import { defineComponent, toRefs } from 'vue';
 import { done } from 'nprogress';
 
-import { useMediaState, useMediaControlsByView } from '@/hooks/media';
-import { useAlbumDetailData } from '@/hooks/album';
+import { useMediaState, useMediaControlsByView } from '@/composition/media';
+import { useAlbumDetailData } from '@/composition/album';
 
 import AppButton from '@/components/common/AppButton.vue';
 import SourceHead from '@/components/SourceHead.vue';

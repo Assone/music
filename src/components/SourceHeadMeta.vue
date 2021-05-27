@@ -2,21 +2,47 @@
   <article class="source-meta">
     <h1 class="source-meta__title">{{ title }}</h1>
     <div class="source-meta__info">
-      <router-link
-        class="source-meta__creator"
-        :to="`/${type === 'album' ? 'artist' : 'user'}/${user.id}`"
-      >
-        {{ user.name }}</router-link
-      >
+      <div>
+        <span>{{ type === 'playlist' ? 'Playlist' : 'Album' }} By </span>
+        <a
+          class="source-meta__creator"
+          :href="`https://music.163.com/#/user/home?id=${user.id}`"
+          v-if="type === 'playlist'"
+        >
+          {{ user.name }}</a
+        >
+        <router-link
+          v-else
+          class="source-meta__creator"
+          :to="`/${type === 'album' ? 'artist' : 'user'}/${user.id}`"
+        >
+          {{ user.name }}</router-link
+        >
+      </div>
       <time class="source-meta__time" v-if="time"> {{ time }}</time>
     </div>
-    <p class="source-meta__description" v-html="formatDescription" />
+    <div class="source-meta__content">
+      <p
+        class="source-meta__description"
+        :class="{ 'is-more': showMore }"
+        v-html="formatDescription"
+        @click="switchMoreState"
+      />
+      <AppButton
+        v-if="more"
+        :class="$style.more"
+        style="line-height: 1.5; height: 1.5em"
+        @click="switchMoreState"
+        type="text"
+        >{{ showMore ? '收起' : '更多' }}</AppButton
+      >
+    </div>
     <slot />
   </article>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue';
+import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
 import AppButton from './common/AppButton.vue';
 
 export interface Props {
@@ -49,11 +75,22 @@ export default defineComponent({
   },
   setup(props) {
     const { description } = toRefs(props);
+    const showMore = ref(false);
 
     const formatDescription = computed(() => description?.value?.replaceAll('\n', '<br>'));
+    const more = computed(() => (description?.value?.split('\n').length || 0) > 3);
+
+    const switchMoreState = () => {
+      showMore.value = !showMore.value;
+    };
 
     return {
+      showMore,
+
       formatDescription,
+      more,
+
+      switchMoreState,
     };
   },
 });
@@ -67,8 +104,32 @@ export default defineComponent({
     }
   }
 
-  @include e(description) {
-    text-align: start;
+  @include e(content) {
+    position: relative;
   }
+
+  @include e(description) {
+    max-height: 4.5em;
+
+    text-align: start;
+    line-height: 1.5;
+    overflow: hidden;
+
+    transition: 0.3s max-height;
+
+    @include when(more) {
+      max-height: 500px;
+    }
+  }
+}
+</style>
+
+<style lang="scss" module>
+.more {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  background-color: $--color-white !important;
 }
 </style>

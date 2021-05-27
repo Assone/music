@@ -5,14 +5,18 @@
     :disabled="disabled"
     :type="nativeType"
   >
+    <AppIcon v-if="icon" :type="icon" style="margin-right: 5px" />
     <slot />
   </button>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, PropType, toRefs } from 'vue';
 
 export default defineComponent({
+  components: {
+    AppIcon: defineAsyncComponent(() => import('./AppIcon.vue')),
+  },
   props: {
     round: Boolean,
     circle: Boolean,
@@ -27,6 +31,7 @@ export default defineComponent({
       type: String as PropType<'button' | 'submit' | 'reset'>,
       validator: (type: string) => ['button', 'submit', 'reset'].includes(type),
     },
+    icon: String,
   },
   setup(props) {
     const { round, circle, disabled, loading } = toRefs(props);
@@ -49,8 +54,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @include b(app, button) {
-  display: inline-block;
+  display: inline-flex;
   cursor: pointer;
+  align-items: center;
 
   padding: 5px 10px;
   border: 1px solid #dcdfe6;

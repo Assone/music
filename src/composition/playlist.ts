@@ -6,7 +6,7 @@ import { useMediaState, useMediaControlsByView } from './media';
 export const usePlaylistDetailData = async (id: number) => {
   const { activeTrack, sourceId } = useMediaState(id);
   const { play, playSpecific } = useMediaControlsByView();
-  const { name, cover, description, creator, track, trackIds } = toRefs(
+  const { name, cover, description, creator, track, trackIds, time } = toRefs(
     reactive(await getPlaylistDetail(id)),
   );
 
@@ -23,6 +23,7 @@ export const usePlaylistDetailData = async (id: number) => {
     creator,
     track,
     trackIds,
+    time,
 
     activeTrack,
 

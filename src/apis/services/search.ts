@@ -9,17 +9,40 @@ import http from '@/libs/http';
  * @param options.offset 偏移位置
  * @param options.type 搜索类型
  */
-export const getSearch = (
+export const getSearch = <T extends 1 | 10 | 100 | 1000 | 1002 | 1004 | 1006 | 1009 | 1014 | 1018>(
   keywords: string,
   options?: {
     limit?: number;
     offset?: number;
-    type?: 1 | 10 | 100 | 1000 | 1002 | 1004 | 1006 | 1009 | 1014 | 1018;
+    type?: T;
   },
 ) =>
-  http.get(SEARCH.index, {
-    params: { keywords, limit: options?.limit, offset: options?.offset, type: options?.type },
-  });
+  http
+    .get<{
+      result: T extends 1
+        ? { songCount: number; songs: IrSongDetail[] }
+        : T extends 10
+        ? { albumCount: number; albums: IrAlbumDetail[] }
+        : T extends 100
+        ? { artistCount: number; artists: IrArtistDetail[] }
+        : T extends 1000
+        ? { playlistCount: number; playlists: IrPlaylistDetail[] }
+        : T extends 1002
+        ? { userprofileCount: number; userprofiles: IrUserProfile[] }
+        : T extends 1004
+        ? // ? { videoCount: number; videos: [] }
+          { mvCount: number; mvs: IrMVDetail[] }
+        : T extends 1006
+        ? { songsCount: number; songs: IrSongDetail[] }
+        : T extends 1009
+        ? { djRadiosCount: number; djRadios: [] }
+        : T extends 1014
+        ? { mvCount: number; mvs: IrMVDetail[] }
+        : {};
+    }>(SEARCH.index, {
+      params: { keywords, limit: options?.limit, offset: options?.offset, type: options?.type },
+    })
+    .then(({ result }) => ({ result, type: options?.type }));
 
 /**
  * 获取默认搜索关键字

@@ -23,7 +23,7 @@ import { defineComponent, ref } from 'vue';
 import AppSlider from '@/components/common/AppSlider.vue';
 
 import AppIcon from '@/components/common/AppIcon.vue';
-import { useMediaControls, useMediaState, useMediaVolume } from '@/hooks/media';
+import { useMediaControls, useMediaState, useMediaVolume } from '@/composition/media';
 
 export default defineComponent({
   components: {

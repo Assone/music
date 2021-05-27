@@ -1,20 +1,16 @@
 export default class Queue<T> {
-  #element: T[];
+  element: T[];
 
   constructor() {
-    this.#element = [];
+    this.element = [];
   }
 
   in(element: T): number {
-    return this.#element.push(element);
+    return this.element.push(element);
   }
 
   out(): T | undefined {
-    return this.#element.shift();
-  }
-
-  get element(): T[] {
-    return [...this.#element];
+    return this.element.shift();
   }
 
   get top(): T | undefined {
@@ -30,6 +26,6 @@ export default class Queue<T> {
   }
 
   clear(): void {
-    this.#element = [];
+    this.element = [];
   }
 }

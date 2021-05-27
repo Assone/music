@@ -3,7 +3,7 @@ import MSong from '@/models/Song';
 import Queue from '@/models/tools/Queue';
 import { throttle } from 'lodash-es';
 import { Ref, getCurrentInstance, reactive, watch, onDeactivated, onMounted } from 'vue';
-import { useReachBottom } from '.';
+import { useReachBottom } from '@/hooks';
 
 export const useTrackListData = ({
   songs,

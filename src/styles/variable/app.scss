@@ -1,7 +1,7 @@
 :root {
-  --theme-color-h: 147;
-  --theme-color-s: 93%;
-  --theme-color-l: 38%;
+  --theme-color-h: 0;
+  --theme-color-s: 0%;
+  --theme-color-l: 100%;
   --theme-color-raw: var(--theme-color-h), var(--theme-color-s), var(--theme-color-l);
   --theme-color: hsl(var(--theme-color-raw));
 }

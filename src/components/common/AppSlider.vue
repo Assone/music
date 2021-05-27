@@ -12,7 +12,7 @@
     <div class="app-slider__track"></div>
     <div
       class="app-slider__dot"
-      :class="{ 'is-hover': hovering, dragging: dragging }"
+      :class="{ 'is-hover': hovering || dragging, dragging: dragging }"
       tabindex="0"
       @mouseenter="handleMouseEnter"
       @mouseleave="handleMouseLeave"
@@ -85,10 +85,6 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    height: {
-      type: String,
-      default: '100px',
-    },
     background: {
       type: String,
       default: '#ccc',
@@ -97,6 +93,7 @@ export default defineComponent({
       type: String,
       default: '#3498db',
     },
+    height: Number,
     width: Number,
   },
   emits: ['update:modelValue', 'input'],
@@ -150,7 +147,7 @@ export default defineComponent({
 
     const style = computed(() => ({
       width: width?.value ? `${width.value}px` : vertical.value ? '5px' : '100%',
-      height: vertical.value ? height.value : '5px',
+      height: height?.value ? `${height.value}px` : vertical.value ? '100%' : '5px',
       background: background.value,
       trackBackground: trackBackground.value,
       trackWidth: vertical.value
@@ -289,6 +286,12 @@ export default defineComponent({
 
   background: v-bind('style.background');
 
+  &:hover {
+    @include e(dot) {
+      display: block;
+    }
+  }
+
   @include when(vertical) {
     flex-direction: column-reverse;
   }
@@ -296,6 +299,7 @@ export default defineComponent({
   @include e(track) {
     width: v-bind('style.trackWidth');
     height: v-bind('style.trackHeight');
+    border-radius: 4px;
 
     transition: all 0.5s;
 
@@ -304,12 +308,17 @@ export default defineComponent({
 
   @include e(dot) {
     position: relative;
+    display: none;
 
     width: 14px;
     height: 14px;
+    margin-left: -5px;
+
     transition: left 0.5s ease 0s;
 
     @include when(hover) {
+      display: block;
+
       .tip {
         display: block;
       }

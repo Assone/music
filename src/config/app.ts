@@ -11,6 +11,7 @@ const config: IAppConfig = {
   theme: 'auto',
   nav: [
     { text: 'Home', link: '/' },
+    { text: 'Search', link: '/search' },
     // { text: 'Setting', link: '/setting' },
   ],
   logo,

@@ -11,15 +11,17 @@
     />
     <div class="player__controls" @click.self="show ? closePlayer() : openPlayer()">
       <MediaControl />
-      <MediaAudioInfo />
-      <MediaVolume v-if="devicesType === 'pc'" />
+      <teleport to=".player-view" :disabled="!show">
+        <MediaAudioInfo />
+        <MediaVolume v-if="devicesType === 'pc'" />
+      </teleport>
     </div>
   </article>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { useMediaAudioCore, useMediaControls, useMediaState } from '@/hooks/media';
+import { useMediaAudioCore, useMediaControls, useMediaState } from '@/composition/media';
 import { formatTime } from '@/utils';
 
 import MediaProgress from '@/components/MediaProgress.vue';
@@ -95,6 +97,8 @@ export default defineComponent({
     padding: 10px;
 
     background-color: $--player-bg-color;
+    // background-color: $--nav-bar-bg-color;
+    backdrop-filter: saturate(180%) blur(20px);
   }
 
   @include when(mobile) {

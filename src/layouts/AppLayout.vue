@@ -1,8 +1,14 @@
 <template>
   <component :is="`AppLayout${model}`">
     <template #head>
-      <NavBarTitle :logo="logo" :title="title" />
-      <NavBarLinks :links="nav" />
+      <template v-if="isMobile">
+        <NavBarTitle :logo="logo" :title="title" />
+      </template>
+      <template v-else>
+        <NavBarTitle :logo="logo" :title="title" />
+        <NavBarLinks :links="nav" />
+        <Search />
+      </template>
     </template>
     <suspense>
       <template #default>
@@ -29,12 +35,14 @@ import { useStore } from '@/store';
 
 import NavBarTitle from '@/components/NavBarTitle.vue';
 import NavBarLinks from '@/components/NavBarLinks.vue';
+import Search from '@/components/Search.vue';
 
 export default defineComponent({
   components: {
     AppLayoutDefault: defineAsyncComponent(() => import(`./AppLayoutDefault.vue`)),
     NavBarTitle,
     NavBarLinks,
+    Search,
   },
   setup() {
     const store = useStore();
@@ -43,12 +51,14 @@ export default defineComponent({
     const model = computed(() => store.state.config.layout);
     const nav = computed(() => store.state.config.nav);
     const logo = computed(() => store.state.config.logo);
+    const isMobile = computed(() => store.getters.isMobile);
 
     return {
       logo,
       title,
       model,
       nav,
+      isMobile,
     };
   },
 });
@@ -65,6 +75,17 @@ export default defineComponent({
   }
 
   @include direction(enter, leave-to) {
+    opacity: 0;
+  }
+}
+
+@include transition(slide) {
+  @include direction(enter-active, leave-active) {
+    transition: all 0.75s ease-out;
+  }
+
+  @include direction(leave-to) {
+    transform: translateX(-100%);
     opacity: 0;
   }
 }

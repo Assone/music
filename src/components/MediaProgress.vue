@@ -5,6 +5,7 @@
     :min="0"
     :max="duration"
     :format-tooltip="format"
+    :height="4"
   />
 </template>
 
@@ -49,5 +50,7 @@ export default defineComponent({
 <style lang="scss">
 @include b(media, progress) {
   position: absolute;
+
+  z-index: 100;
 }
 </style>

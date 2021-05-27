@@ -10,8 +10,9 @@
       <div class="app-image__error">Error</div>
     </slot>
     <img
-      class="app-image__inner"
       v-else
+      :style="style"
+      class="app-image__inner"
       :src="src"
       :loading="lazy ? 'lazy' : 'eager'"
       v-bind="$attrs"

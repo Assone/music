@@ -1,57 +1,75 @@
-import { h, resolveComponent } from "vue";
-import { RouteRecordRaw } from "vue-router";
+import { h, resolveComponent } from 'vue';
+import { RouteRecordRaw } from 'vue-router';
 
 const SHUTTLE = {
-  name: "Shuttle",
-  render: () => h(resolveComponent("router-view")),
+  name: 'Shuttle',
+  render: () => h(resolveComponent('router-view')),
 };
 
 const rules: RouteRecordRaw[] = [
   {
-    path: "/album",
+    path: '/album',
     component: SHUTTLE,
     children: [
       {
-        path: ":id",
-        name: "Album Detail",
+        path: ':id',
+        name: 'Album Detail',
+        meta: {
+          transition: 'slide',
+        },
         props: (router) => ({ id: Number(router.params.id) }),
-        component: () => import("@/views/AlbumDetail.vue"),
+        component: () => import('@/views/AlbumDetail.vue'),
       },
     ],
   },
   {
-    path: "/playlist",
+    path: '/playlist',
     component: SHUTTLE,
     children: [
       {
-        path: ":id",
-        name: "Playlist Detail",
+        path: ':id',
+        name: 'Playlist Detail',
+        meta: {
+          transition: 'slide',
+        },
         props: (router) => ({ id: Number(router.params.id) }),
-        component: () => import("@/views/PlaylistDetail.vue"),
+        component: () => import('@/views/PlaylistDetail.vue'),
       },
     ],
   },
   {
-    path: "/mv",
+    path: '/mv',
     component: SHUTTLE,
     children: [
       {
-        path: ":id",
-        name: "MV Detail",
+        path: ':id',
+        name: 'MV Detail',
         props: (router) => ({ id: Number(router.params.id) }),
-        component: () => import("@/views/MvDetail.vue"),
+        component: () => import('@/views/MvDetail.vue'),
       },
     ],
   },
   {
-    path: "/artist",
+    path: '/artist',
     component: SHUTTLE,
     children: [
       {
-        path: ":id",
-        name: "Artist Detail",
+        path: ':id',
+        name: 'Artist Detail',
         props: (router) => ({ id: Number(router.params.id) }),
-        component: () => import("@/views/ArtistDetail.vue"),
+        component: () => import('@/views/ArtistDetail.vue'),
+      },
+    ],
+  },
+  {
+    path: '/search',
+    component: SHUTTLE,
+    children: [
+      {
+        path: ':keyword',
+        name: 'Search Detail',
+        props: (router) => ({ keyword: router.params.keyword }),
+        component: () => import('@/views/Search.vue'),
       },
     ],
   },

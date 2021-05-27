@@ -17,6 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+import { RouteLocationRaw } from 'vue-router';
 
 import AppAvatar from './common/AppAvatar.vue';
 
@@ -29,7 +30,7 @@ export default defineComponent({
     title: String,
     description: String,
     next: {
-      type: Object as PropType<{ link: string; text: string }>,
+      type: Object as PropType<{ link: RouteLocationRaw; text: string }>,
     },
   },
 });
@@ -43,7 +44,13 @@ export default defineComponent({
 
   @include e(meta) {
     display: flex;
+
+    flex-grow: 1;
     align-items: center;
+  }
+
+  @include e(info) {
+    flex-grow: 1;
   }
 }
 </style>

@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useMediaControls, useMediaState } from '@/hooks/media';
+import { useMediaControls, useMediaState } from '@/composition/media';
 
 import AppIcon from '@/components/common/AppIcon.vue';
 
@@ -36,5 +36,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style></style>

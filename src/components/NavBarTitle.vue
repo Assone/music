@@ -1,6 +1,6 @@
 <template>
   <router-link class="nav-bar__title" to="/" :aria-label="`${title}, back to home`">
-    <img class="logo" v-if="logo" :src="logo" alg="logo" />
+    <img class="logo" v-if="logo" :src="logo" alt="logo" />
     {{ title }}
   </router-link>
 </template>

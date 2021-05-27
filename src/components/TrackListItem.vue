@@ -5,21 +5,21 @@
     v-bind="$attrs"
   >
     <div class="track-item__index" v-if="type === 'album'">{{ index }}</div>
-    <div class="track-item__cover" v-else>
-      <Cover :src="cover" />
-    </div>
+    <div class="track-item__cover" v-else><Cover :src="cover" :alt="name"></Cover></div>
     <div class="track-item__info">
       <div class="track-item__name">{{ name }}</div>
       <div class="track-item__artists" v-if="type !== 'album'">
-        <span class="track-item__artists-item" v-for="{ id, name } in artists" :key="id">
-          <router-link class="track-item__link" :to="`/artist/${id}`"> {{ name }}</router-link>
-        </span>
+        <span class="track-item__artists-item" v-for="{ id, name } in artists" :key="id"
+          ><router-link class="track-item__link" :to="`/artist/${id}`">{{
+            name
+          }}</router-link></span
+        >
       </div>
     </div>
-    <div class="track-item__album" v-if="type !== 'album' && devicesType === 'pc'">
-      <router-link class="track-item__link" :to="`/album/${albumId}`"> {{ albumName }}</router-link>
+    <div class="track-item__album" v-if="showAlbum">
+      <router-link class="track-item__link" :to="`/album/${albumId}`">{{ albumName }}</router-link>
     </div>
-    <div class="track-item__time" v-if="devicesType === 'pc'">{{ time }}</div>
+    <div class="track-item__time" v-if="showTime">{{ time }}</div>
   </article>
 </template>
 
@@ -36,27 +36,17 @@ export default defineComponent({
     Cover,
   },
   props: {
-    album: {
-      type: Object as PropType<MSong['album']>,
-    },
-    artists: {
-      type: Array as PropType<MSong['artists']>,
-    },
-    duration: {
-      type: Number as PropType<MSong['duration']>,
-    },
-    id: {
-      type: Number as PropType<MSong['id']>,
-    },
-    name: {
-      type: String as PropType<MSong['name']>,
-    },
-    type: {
-      type: String as PropType<'playlist' | 'album'>,
-    },
+    album: Object as PropType<MSong['album']>,
+    artists: Array as PropType<MSong['artists']>,
+    duration: Number as PropType<MSong['duration']>,
+    id: Number as PropType<MSong['id']>,
+    name: String as PropType<MSong['name']>,
+    type: String as PropType<'playlist' | 'album'>,
     index: Number,
     disabled: Boolean,
     active: Boolean,
+    showAlbum: Boolean,
+    showTime: Boolean,
   },
   setup(props) {
     const { album, duration } = toRefs(props);
@@ -89,11 +79,11 @@ export default defineComponent({
     color: $--color-text;
 
     padding: 5px 10px;
+    border-radius: 4px;
 
     transition: 0.1s;
 
     &:hover {
-      border-radius: 4px;
       background-color: hsl(var(--theme-color-h), var(--theme-color-s), 60%);
     }
 

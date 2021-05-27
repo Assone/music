@@ -8,7 +8,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { useMediaAudioInfo } from '@/hooks/media';
+import { useMediaAudioInfo } from '@/composition/media';
 
 import AppImage from '@/components/common/AppImage.vue';
 import CoverMeta from '@/components/CoverMeta.vue';

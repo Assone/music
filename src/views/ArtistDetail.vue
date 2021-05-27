@@ -50,7 +50,7 @@ import { defineComponent, reactive, toRefs } from 'vue';
 import { onBeforeRouteUpdate } from 'vue-router';
 import { done } from 'nprogress';
 
-import { useArtistDetailData } from '@/hooks/artist';
+import { useArtistDetailData } from '@/composition/artist';
 
 import AppBanner, { Options } from '@/components/common/AppBanner.vue';
 import AppSection from '@/components/common/AppSection.vue';

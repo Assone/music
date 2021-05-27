@@ -31,7 +31,7 @@ import { done } from 'nprogress';
 import Cover from '@/components/Cover.vue';
 import CoverMeta from '@/components/CoverMeta.vue';
 
-import { useMvData } from '@/hooks/mv';
+import { useMvData } from '@/composition/mv';
 
 export default defineComponent({
   components: {

@@ -4,12 +4,12 @@
       :cover="cover"
       :meta="{ title: name, description, type: 'playlist', user: creator }"
     >
-      <AppButton @click="handlePlay">play</AppButton>
+      <AppButton @click="handlePlay" icon="media-play">Play</AppButton>
     </SourceHead>
     <TrackList
-      v-if="tracks"
+      v-if="trackIds"
       type="playlist"
-      :track-ids="tracks"
+      :track-ids="trackIds"
       :activeTrack="activeTrack"
       @play="handleDoubleClick"
     />
@@ -20,7 +20,7 @@
 import { defineComponent, toRefs } from 'vue';
 import { done } from 'nprogress';
 
-import { usePlaylistDetailData } from '@/hooks/playlist';
+import { usePlaylistDetailData } from '@/composition/playlist';
 
 import AppButton from '@/components/common/AppButton.vue';
 import SourceHead from '@/components/SourceHead.vue';
@@ -46,7 +46,10 @@ export default defineComponent({
       description,
       creator,
       trackIds,
+      time,
+
       activeTrack,
+
       handlePlay,
       handleDoubleClick,
     } = await usePlaylistDetailData(id.value);
@@ -60,7 +63,8 @@ export default defineComponent({
       cover,
       description,
       creator,
-      tracks: trackIds,
+      trackIds,
+      time,
 
       activeTrack,
 

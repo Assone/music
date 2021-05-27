@@ -1,8 +1,8 @@
 $--theme-color: var(--theme-color);
 
-$--color-text: #000 !default;
-$--color-primary: #409eff !default;
-$--color-white: #ffffff !default;
+$--color-text: hsl(0, 0%, 0%) !default;
+$--color-primary: hsl(226, 81%, 56%) !default;
+$--color-white: hsl(0, 0%, 100%) !default;
 
 // app button
 $--button-hover-tint-percent: 20% !default;
@@ -16,4 +16,4 @@ $--nav-bar-bg-color: hsla(var(--theme-color-raw), 0.8);
 
 // player
 $--player-height: 64px;
-$--player-bg-color: $--theme-color;
+$--player-bg-color: $--nav-bar-bg-color;
