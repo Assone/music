@@ -30,6 +30,7 @@ import {
   ref,
   toRefs,
   watch,
+  HTMLAttributes,
 } from 'vue';
 
 type SizeType = { width: number; height: number };
@@ -74,12 +75,13 @@ export default defineComponent({
     const width = ref(0);
     const height = ref(0);
 
-    const style = computed(() =>
-      fit?.value
-        ? isSupperObjectFit()
-          ? { 'object-fit': fit.value }
-          : getImageStyle(fit.value)
-        : {},
+    const style = computed(
+      () =>
+        (fit?.value
+          ? isSupperObjectFit()
+            ? { 'object-fit': fit.value }
+            : getImageStyle(fit.value)
+          : {}) as HTMLAttributes['style'],
     );
 
     watch(
