@@ -1,0 +1,13 @@
+{
+  "nav": {
+    "home": "Home",
+    "explore": "Explore",
+    "library": "Library",
+    "dynamic": "Dynamic",
+    "setting": "Setting"
+  },
+  "home": {
+    "recommend playlist": "Recommend Playlist",
+    "new album": "New Album"
+  }
+}

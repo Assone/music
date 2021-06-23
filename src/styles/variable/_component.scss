@@ -1,0 +1,19 @@
+$--theme-color: var(--theme-color);
+
+$--color-text: hsl(0, 0%, 0%) !default;
+$--color-primary: hsl(226, 81%, 56%) !default;
+$--color-white: hsl(0, 0%, 100%) !default;
+
+// app button
+$--button-hover-tint-percent: 20% !default;
+$--button-active-shade-percent: 10% !default;
+
+// nav bar
+$--nav-bar-width: 100%;
+$--nav-bar-height: 50px;
+// $--nav-bar-max-height:
+$--nav-bar-bg-color: hsla(var(--theme-color-raw), 0.8);
+
+// player
+$--player-height: 64px;
+$--player-bg-color: $--nav-bar-bg-color;

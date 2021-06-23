@@ -1,0 +1,18 @@
+{
+  "nav": {
+    "home": "首页",
+    "explore": "探索",
+    "library": "媒体库",
+    "dynamic": "动态",
+    "setting": "设置"
+  },
+  "home": {
+    "recommend playlist": "推荐歌单",
+    "new album": "专辑上新"
+  },
+  "artist": {
+    "songs": "首歌",
+    "albums": "张专辑",
+    "mvs": "个MV"
+  }
+}
