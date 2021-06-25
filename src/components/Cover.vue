@@ -1,8 +1,8 @@
 <template>
-  <div class="cover">
+  <div class="cover" :class="$attrs.class">
     <div class="cover__container" @click="toDetail">
       <AppImage
-        :class="['cover__image', { 'can-click': canClick }]"
+        :class="['cover__image', { 'can-click': canClick, 'is-rectangle': rectangle }]"
         lazy
         fit="cover"
         v-bind="$attrs"
@@ -20,6 +20,7 @@ import { useRouter } from 'vue-router';
 import AppImage from './common/AppImage.vue';
 
 export default defineComponent({
+  inheritAttrs: false,
   components: {
     AppImage,
   },
@@ -29,6 +30,7 @@ export default defineComponent({
       type: String,
       validator: (type: string) => ['playlist', 'album', 'mv'].includes(type),
     },
+    rectangle: Boolean,
   },
   setup(props) {
     const router = useRouter();
@@ -62,6 +64,10 @@ export default defineComponent({
 
   @include e(image) {
     border-radius: 5px;
+
+    @include when(rectangle) {
+      aspect-ratio: 16/9;
+    }
 
     @include can(click) {
       cursor: pointer;

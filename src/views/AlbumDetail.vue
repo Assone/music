@@ -1,22 +1,20 @@
 <template>
   <div class="view-album-detail">
-    <SourceHead
-      :cover="cover"
-      :meta="{ title: name, description, time, type: 'album', user: artist }"
-      ><AppButton v-if="songs.filter((s) => s.playable).length !== 0" @click="handlePlay"
-        >play</AppButton
-      ></SourceHead
-    ><TrackList :songs="songs" type="album" :activeTrack="activeTrack" @play="handleDoubleClick"
-      ><template #foot
-        ><p>共{{ songs.length }}首，{{ duration }}</p>
-        <p>© {{ company }}</p></template
-      ></TrackList
-    >
+    <SourceHead :cover="cover" :meta="{ title: name, description, type: 'album', user: artist }">
+      <AppButton v-if="canPlay" @click="handlePlay">play</AppButton>
+    </SourceHead>
+    <TrackList :songs="songs" type="album" :activeTrack="activeTrack" @play="handleDoubleClick">
+      <template #foot>
+        <p>{{ publishTime }}</p>
+        <p>共{{ songs.length }}首歌曲，{{ duration }}</p>
+        <p>© {{ company }}</p>
+      </template>
+    </TrackList>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs } from 'vue';
+import { computed, defineComponent, toRefs } from 'vue';
 import { done } from 'nprogress';
 
 import { useMediaState, useMediaControlsByView } from '@/composition/media';
@@ -42,9 +40,11 @@ export default defineComponent({
     const { id } = toRefs(props);
     const { activeTrack } = useMediaState(id.value);
     const { play, playSpecific } = useMediaControlsByView();
-    const { name, cover, description, company, artist, publish, duration, ids, songs } =
+    const { name, cover, description, company, artist, publishTime, duration, ids, songs } =
       await useAlbumDetailData(id.value);
     done();
+
+    const canPlay = computed(() => songs.filter((s) => s.playable).length !== 0);
 
     const handlePlay = () => play({ id: id.value, ids });
     const handleDoubleClick = ({ track }: { track: number }) => {
@@ -53,6 +53,8 @@ export default defineComponent({
     };
 
     return {
+      canPlay,
+
       activeTrack,
       songs,
       name,
@@ -60,7 +62,7 @@ export default defineComponent({
       description,
       company,
       artist,
-      time: publish,
+      publishTime,
       duration,
       handlePlay,
       handleDoubleClick,

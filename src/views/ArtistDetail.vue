@@ -28,7 +28,14 @@
     <AppSection v-if="mv.length !== 0">
       <SectionHead title="Video" />
       <div class="container__mv">
-        <Cover v-for="{ id, cover, name } in mv" :key="id" :src="cover" :id="id" type="mv">
+        <Cover
+          v-for="{ id, cover, name } in mv"
+          :key="id"
+          :src="cover"
+          :id="id"
+          type="mv"
+          rectangle
+        >
           <CoverMeta :path="`/mv/${id}`" :name="name" />
         </Cover>
       </div>

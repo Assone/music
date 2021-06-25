@@ -66,10 +66,16 @@ const rules: RouteRecordRaw[] = [
     component: SHUTTLE,
     children: [
       {
+        path: '',
+        name: 'Search',
+        props: (router) => ({ keyword: router.query.keyword }),
+        component: () => import('@/views/SearchDetail.vue'),
+      },
+      {
         path: ':keyword',
         name: 'Search Detail',
         props: (router) => ({ keyword: router.params.keyword }),
-        component: () => import('@/views/Search.vue'),
+        component: () => import('@/views/SearchDetail.vue'),
       },
     ],
   },

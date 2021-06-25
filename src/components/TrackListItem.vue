@@ -5,19 +5,19 @@
     v-bind="$attrs"
   >
     <div class="track-item__index" v-if="type === 'album'">{{ index }}</div>
-    <div class="track-item__cover" v-else><Cover :src="cover" :alt="name"></Cover></div>
+    <div class="track-item__cover" v-else>
+      <Cover :src="cover" :alt="name" />
+    </div>
     <div class="track-item__info">
       <div class="track-item__name">{{ name }}</div>
       <div class="track-item__artists" v-if="type !== 'album'">
-        <span class="track-item__artists-item" v-for="{ id, name } in artists" :key="id"
-          ><router-link class="track-item__link" :to="`/artist/${id}`">{{
-            name
-          }}</router-link></span
-        >
+        <span class="track-item__artists-item" v-for="{ id, name } in artists" :key="id">
+          <AppLink class="track-item__link" :to="`/artist/${id}`">{{ name }}</AppLink>
+        </span>
       </div>
     </div>
     <div class="track-item__album" v-if="showAlbum">
-      <router-link class="track-item__link" :to="`/album/${albumId}`">{{ albumName }}</router-link>
+      <AppLink class="track-item__link" :to="`/album/${albumId}`">{{ albumName }}</AppLink>
     </div>
     <div class="track-item__time" v-if="showTime">{{ time }}</div>
   </article>
@@ -25,14 +25,18 @@
 
 <script lang="ts">
 import { computed, defineComponent, toRefs, PropType } from 'vue';
-import { formatTime } from '@/utils/format';
+
+import AppLink from './common/AppLink.vue';
+import Cover from './Cover.vue';
+
 import MSong from '@/models/Song';
 
-import Cover from './Cover.vue';
 import { useDevicesType } from '@/hooks/devices';
+import { formatTime } from '@/utils/format';
 
 export default defineComponent({
   components: {
+    AppLink,
     Cover,
   },
   props: {
@@ -76,9 +80,11 @@ export default defineComponent({
     align-items: center;
     user-select: none;
 
+    gap: 10px;
+
     color: $--color-text;
 
-    padding: 5px 10px;
+    padding: 10px;
     border-radius: 4px;
 
     transition: 0.1s;
@@ -114,8 +120,7 @@ export default defineComponent({
   }
 
   @include e(cover) {
-    width: 3vw;
-    margin-right: 10px;
+    width: 5vw;
 
     @include media(xs) {
       width: 15vw;
@@ -131,16 +136,13 @@ export default defineComponent({
   }
 
   @include e(name) {
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
   }
 
   @include e(link) {
-    text-decoration: none;
-    color: inherit;
-
-    &:hover {
-      text-decoration: underline;
-    }
+    @include component-link;
   }
 
   @include e(artists) {

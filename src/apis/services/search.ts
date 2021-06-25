@@ -20,24 +20,24 @@ export const getSearch = <T extends 1 | 10 | 100 | 1000 | 1002 | 1004 | 1006 | 1
   http
     .get<{
       result: T extends 1
-        ? { songCount: number; songs: IrSongDetail[] }
+        ? { songCount: number; songs?: IrSongDetail[] }
         : T extends 10
-        ? { albumCount: number; albums: IrAlbumDetail[] }
+        ? { albumCount: number; albums?: IrAlbumDetail[] }
         : T extends 100
-        ? { artistCount: number; artists: IrArtistDetail[] }
+        ? { artistCount: number; artists?: IrArtistDetail[] }
         : T extends 1000
-        ? { playlistCount: number; playlists: IrPlaylistDetail[] }
+        ? { playlistCount: number; playlists?: IrPlaylistDetail[] }
         : T extends 1002
-        ? { userprofileCount: number; userprofiles: IrUserProfile[] }
+        ? { userprofileCount: number; userprofiles?: IrUserProfile[] }
         : T extends 1004
         ? // ? { videoCount: number; videos: [] }
-          { mvCount: number; mvs: IrMVDetail[] }
+          { mvCount: number; mvs?: IrMVDetail[] }
         : T extends 1006
-        ? { songsCount: number; songs: IrSongDetail[] }
+        ? { songsCount: number; songs?: IrSongDetail[] }
         : T extends 1009
-        ? { djRadiosCount: number; djRadios: [] }
+        ? { djRadiosCount: number; djRadios?: [] }
         : T extends 1014
-        ? { mvCount: number; mvs: IrMVDetail[] }
+        ? { mvCount: number; mvs?: IrMVDetail[] }
         : {};
     }>(SEARCH.index, {
       params: { keywords, limit: options?.limit, offset: options?.offset, type: options?.type },

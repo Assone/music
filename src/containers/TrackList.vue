@@ -15,7 +15,7 @@
         :active="id === activeTrack"
         :show-album="type !== 'album' && !isMobile"
         :show-time="!isMobile"
-        @click="isMobile && playable ? $emit('play', { index, track: id }) : ''"
+        @click.self="isMobile && playable ? $emit('play', { index, track: id }) : ''"
         @dblclick="playable ? $emit('play', { index, track: id }) : ''"
       />
     </div>

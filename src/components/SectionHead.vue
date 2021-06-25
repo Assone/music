@@ -7,9 +7,7 @@
         <p v-if="description">{{ description }}</p>
       </div>
       <div class="section-head__link" v-if="next">
-        <router-link :to="next.link">
-          {{ next.text }}
-        </router-link>
+        <AppLink :to="next.link">{{ next.text }}</AppLink>
       </div>
     </div>
   </article>
@@ -20,10 +18,12 @@ import { defineComponent, PropType } from 'vue';
 import { RouteLocationRaw } from 'vue-router';
 
 import AppAvatar from './common/AppAvatar.vue';
+import AppLink from './common/AppLink.vue';
 
 export default defineComponent({
   components: {
     AppAvatar,
+    AppLink,
   },
   props: {
     avatar: String,

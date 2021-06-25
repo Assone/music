@@ -1,8 +1,6 @@
 <template>
   <transition name="player-page">
-    <div class="player-view" v-show="show">
-      <p>1111</p>
-    </div>
+    <div class="player-view" v-show="show"></div>
   </transition>
 </template>
 

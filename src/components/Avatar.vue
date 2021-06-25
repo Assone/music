@@ -1,7 +1,7 @@
 <template>
   <div class="avatar">
     <AppAvatar v-bind="$attrs" />
-    <router-link v-if="id && name" :to="`/artist/${id}`">{{ name }}</router-link>
+    <AppLink class="avatar__name" v-if="path" :to="path">{{ name }}</AppLink>
   </div>
 </template>
 
@@ -9,15 +9,17 @@
 import { defineComponent } from 'vue';
 
 import AppAvatar from './common/AppAvatar.vue';
+import AppLink from './common/AppLink.vue';
 
 export default defineComponent({
   inheritAttrs: false,
   components: {
     AppAvatar,
+    AppLink,
   },
   props: {
-    id: Number,
     name: String,
+    path: String,
   },
 });
 </script>
@@ -28,5 +30,11 @@ export default defineComponent({
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @include e(name) {
+    margin-top: 1rem;
+
+    @include component-link;
+  }
 }
 </style>

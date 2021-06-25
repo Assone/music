@@ -1,12 +1,10 @@
 <template>
   <article class="cover-meta">
-    <router-link class="link cover-meta__name" v-if="path" :to="path" :title="name">
-      {{ name }}</router-link
-    >
+    <AppLink class="link cover-meta__name" v-if="path" :to="path" :title="name">{{ name }}</AppLink>
     <span class="cover-meta__name" v-else> {{ name }}</span>
     <div class="cover-meta__artists" v-if="artists">
       <span class="artists-item" v-for="{ id, name } in artists" :key="id">
-        <router-link class="link artists-item__link" :to="`/artist/${id}`"> {{ name }}</router-link>
+        <AppLink class="link artists-item__link" :to="`/artist/${id}`"> {{ name }}</AppLink>
       </span>
     </div>
     <div class="cover-meta__info" v-if="date || type">
@@ -17,10 +15,15 @@
 </template>
 
 <script lang="ts">
-import { isString } from '@/utils';
 import { computed, defineComponent, PropType, toRefs } from 'vue';
+import AppLink from './common/AppLink.vue';
+
+import { isString } from '@/utils';
 
 export default defineComponent({
+  components: {
+    AppLink,
+  },
   props: {
     path: String,
     name: String,
@@ -63,19 +66,11 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 %text {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.link {
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 @include b(cover, meta) {

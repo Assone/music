@@ -4,19 +4,13 @@
     <div class="source-meta__info">
       <div>
         <span>{{ type === 'playlist' ? 'Playlist' : 'Album' }} By </span>
-        <a
-          class="source-meta__creator"
-          :href="`https://music.163.com/#/user/home?id=${user.id}`"
-          v-if="type === 'playlist'"
-        >
-          {{ user.name }}</a
-        >
-        <router-link
-          v-else
-          class="source-meta__creator"
-          :to="`/${type === 'album' ? 'artist' : 'user'}/${user.id}`"
-        >
-          {{ user.name }}</router-link
+        <AppLink
+          :to="
+            type === 'playlist'
+              ? `https://music.163.com/#/user/home?id=${user.id}`
+              : `/${type === 'album' ? 'artist' : 'user'}/${user.id}`
+          "
+          >{{ user.name }}</AppLink
         >
       </div>
       <time class="source-meta__time" v-if="time"> {{ time }}</time>
@@ -34,8 +28,8 @@
         style="line-height: 1.5; height: 1.5em"
         @click="switchMoreState"
         type="text"
-        >{{ showMore ? '收起' : '更多' }}</AppButton
-      >
+        >{{ showMore ? '收起' : '更多' }}
+      </AppButton>
     </div>
     <slot />
   </article>
@@ -44,6 +38,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
 import AppButton from './common/AppButton.vue';
+import AppLink from './common/AppLink.vue';
 
 export interface Props {
   title: string;
@@ -59,6 +54,7 @@ export interface Props {
 export default defineComponent({
   components: {
     AppButton,
+    AppLink,
   },
   props: {
     title: {
@@ -106,6 +102,10 @@ export default defineComponent({
 
   @include e(content) {
     position: relative;
+  }
+
+  @include e(creator) {
+    @include component-link;
   }
 
   @include e(description) {
