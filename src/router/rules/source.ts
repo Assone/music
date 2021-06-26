@@ -31,6 +31,11 @@ const rules: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    path: "/search",
+    name: "Search",
+    component: () => import("@/views/Search.vue"),
+  },
 ];
 
 export default rules;

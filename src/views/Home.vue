@@ -1,14 +1,12 @@
 <template>
   <div class="view-home">
+    <router-link :to="{ name: 'Search', params: { keyword: 'J.flm' } }">search</router-link>
     <ContentContainer
       v-if="playlist.length !== 0"
       :title="t('home.recommend playlist')"
       :container-class="isMobile ? '' : $style.container"
     >
-      <ContainerList
-        v-bind="{ isMobile, options, data: playlist }"
-        #default="{ cover, id, name }"
-      >
+      <ContainerList v-bind="{ isMobile, options, data: playlist }" #default="{ cover, id, name }">
         <Cover :src="cover" :id="id" type="playlist">
           <CoverMeta v-bind="{ name }" />
         </Cover>

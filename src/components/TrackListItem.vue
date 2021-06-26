@@ -60,7 +60,6 @@ export default defineComponent({
   },
   setup(props) {
     const { album, duration } = toRefs(props);
-    // const { devicesType } = useDevicesType();
 
     const cover = computed(() => album?.value?.cover);
     const albumId = computed(() => album?.value?.id);
@@ -68,8 +67,6 @@ export default defineComponent({
     const time = computed(() => formatTime(duration?.value as number));
 
     return {
-      // devicesType,
-
       cover,
       albumId,
       albumName,

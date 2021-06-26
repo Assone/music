@@ -1,6 +1,16 @@
 <template>
-  <div class="cover" :class="$attrs.class">
+  <div
+    class="cover relative"
+    :class="$attrs.class"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
+  >
     <div class="cover__inner hover:shadow-lg relative">
+      <MaskShadow
+        :src="`${$attrs.src}`"
+        class="hidden"
+        :class="[hover ? $style['mask-shadow'] : '']"
+      />
       <AppImage
         class="cover__image rounded-lg"
         :class="[{ 'is-rectangle': rectangle }]"
@@ -10,30 +20,33 @@
       />
       <Mask
         :class="[canTo ? 'cursor-pointer' : '']"
-        @click="$emit('play', { type, id })"
+        @click-inner="$emit('play', { type, id })"
+        @click="canTo ? toNextView() : ''"
       />
       <!-- @click="canTo ? toNextView() : ''" -->
 
       <slot name="inner" />
     </div>
-    <slot />
+    <slot class="z-10" />
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, provide, toRefs } from "vue";
+import { computed, defineComponent, PropType, provide, ref, toRefs } from "vue";
+import { useRouter } from "vue-router";
 
 import AppImage from "./common/AppImage.vue";
 import Mask from "./Mask.vue";
+import MaskShadow from "./MaskShadow.vue";
 
 import { isUndefined } from "@/utils";
-import { useRouter } from "vue-router";
 
 export default defineComponent({
   inheritAttrs: false,
   components: {
     AppImage,
     Mask,
+    MaskShadow,
   },
   emits: ["play"],
   props: {
@@ -47,6 +60,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const { id, type, useEvent } = toRefs(props);
     const { push } = useRouter();
+    const hover = ref(false);
 
     const canTo = computed(
       () => !isUndefined(id?.value) && !isUndefined(type?.value)
@@ -58,12 +72,22 @@ export default defineComponent({
         push(`/${type?.value}/${id?.value}`);
       }
     };
+    const handleMouseEnter = () => {
+      hover.value = true;
+    };
+    const handleMouseLeave = () => {
+      hover.value = false;
+    };
 
     provide("id", id);
     provide("type", type);
 
     return {
       canTo,
+
+      hover,
+      handleMouseEnter,
+      handleMouseLeave,
 
       toNextView,
     };
@@ -78,5 +102,11 @@ export default defineComponent({
       aspect-ratio: 16/9;
     }
   }
+}
+</style>
+
+<style module>
+.mask-shadow {
+  display: block;
 }
 </style>

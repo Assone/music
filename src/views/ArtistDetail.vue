@@ -1,6 +1,6 @@
 <template>
   <div class="view-artist-detail">
-    <div class="flex gap-4">
+    <div class="flex gap-4 h-60 xs:h-40">
       <AppAvatar class="!w-60 !h-full xs:!w-40" :src="avatar" />
       <div>
         <h1 class="font-bold text-4xl py-8 xs:text-2xl xs:py-4">{{ name }}</h1>
@@ -151,7 +151,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, toRefs, toRaw } from "vue";
+import { defineComponent, computed, toRefs, toRaw, reactive } from "vue";
 import { useI18n } from "vue-i18n";
 
 import AppAvatar from "@/components/common/AppAvatar.vue";
@@ -161,8 +161,20 @@ import Cover from "@/components/Cover.vue";
 import CoverMeta from "@/components/CoverMeta.vue";
 import ContainerList from "@/components/ContainerList.vue";
 
+import { onBeforeRouteUpdate } from "vue-router";
+
+import {
+  getArtistAlbum,
+  getArtistInfo,
+  getArtistMV,
+  getSimilarArtist,
+} from "@/apis";
+
+import MAlbum from "@/models/Album";
+import MArtist from "@/models/Artist";
+import MArtistMV from "@/models/ArtistMV";
+import MSong from "@/models/Song";
 import useStore from "@/composables/useStore";
-import useArtistDetail from "@/composables/useArtistDetail";
 
 export default defineComponent({
   components: {
@@ -184,38 +196,73 @@ export default defineComponent({
 
     const { id } = toRefs(props);
 
-    const {
-      song,
-      artist,
-      albums,
-      mv,
-      similar,
-      album,
-      epAndSingle,
-      name,
-      avatar,
-      size,
-      isMobile,
-      handlePlayVideo,
-    } = useArtistDetail(id);
+    const { isMobile, setMvTracks } = useStore();
+
+    const data = reactive<{
+      mv: MArtistMV[];
+      similar: MArtist[];
+      song: MSong[];
+      albums: MAlbum[];
+      artist: MArtist | null;
+    }>({
+      mv: [],
+      similar: [],
+      song: [],
+      albums: [],
+      artist: null,
+    });
+
+    const album = computed(() =>
+      data.albums.filter((album) => album.type === "专辑")
+    );
+    const epAndSingle = computed(() =>
+      data.albums.filter((album) =>
+        ["EP/Single", "EP", "Single"].includes(album.type)
+      )
+    );
+    const name = computed(() => data.artist?.name);
+    const avatar = computed(() => data.artist?.avatar);
+    const size = computed(() => data.artist?.size);
+
+    const fetch = (id: number) =>
+      getArtistInfo(id).then(({ artist, songs }) => {
+        data.song = songs;
+        data.artist = artist;
+
+        getArtistAlbum(id, 200).then(({ albums }) => {
+          data.albums = albums;
+
+          getArtistMV(id).then(({ mv }) => {
+            data.mv = mv;
+          });
+          getSimilarArtist(id).then((res) => {
+            data.similar = res;
+          });
+        });
+      });
+    const handlePlayVideo = (e: { type: string; id: number }) => {
+      if (e.type === "mv") {
+        setMvTracks(toRaw(data.mv).map((m) => m.id));
+      }
+    };
+
+    onBeforeRouteUpdate((to, _from, next) => {
+      fetch(Number(to.params.id)).then(next);
+    });
+
+    fetch(id.value);
 
     return {
       t,
 
-      song,
-      artist,
-      albums,
-      mv,
-      similar,
+      ...toRefs(data),
       album,
       epAndSingle,
       name,
       avatar,
       size,
-
-      isMobile,
-
       handlePlayVideo,
+      isMobile,
     };
   },
 });
