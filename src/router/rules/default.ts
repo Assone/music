@@ -7,6 +7,9 @@ const rules: RouteRecordRaw[] = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: {
+      keepAlive: true,
+    },
   },
   {
     path: "/setting",

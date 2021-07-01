@@ -170,10 +170,6 @@ import {
   getSimilarArtist,
 } from "@/apis";
 
-import MAlbum from "@/models/Album";
-import MArtist from "@/models/Artist";
-import MArtistMV from "@/models/ArtistMV";
-import MSong from "@/models/Song";
 import useStore from "@/composables/useStore";
 
 export default defineComponent({
@@ -199,11 +195,11 @@ export default defineComponent({
     const { isMobile, setMvTracks } = useStore();
 
     const data = reactive<{
-      mv: MArtistMV[];
-      similar: MArtist[];
-      song: MSong[];
-      albums: MAlbum[];
-      artist: MArtist | null;
+      mv: Model.ArtistMV[];
+      similar: Model.Artist[];
+      song: Model.Song[];
+      albums: Model.Album[];
+      artist: Model.Artist | null;
     }>({
       mv: [],
       similar: [],

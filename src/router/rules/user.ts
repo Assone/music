@@ -19,6 +19,12 @@ const rules: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    path: "/user/:id",
+    name: "User Detail",
+    props: (router) => ({ id: Number(router.params.id) }),
+    component: () => import("@/views/UserDetail.vue"),
+  },
 ];
 
 export default rules;

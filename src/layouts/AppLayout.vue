@@ -19,9 +19,12 @@
         <div>Loading...</div>
       </template>
       <router-view v-slot="{ Component }">
-        <keep-alive>
-          <component :is="Component" />
-        </keep-alive>
+        <template v-if="keepAlive">
+          <keep-alive>
+            <component :is="Component" />
+          </keep-alive>
+        </template>
+        <component v-else :is="Component" />
       </router-view>
     </suspense>
   </component>
@@ -34,6 +37,7 @@ import NavBarTitle from "@/components/NavBarTitle.vue";
 import NavBarLinks from "@/components/NavBarLinks.vue";
 
 import { useStore } from "@/store";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
   components: {
@@ -43,12 +47,15 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const route = useRoute();
 
     const logo = computed(() => store.state.config.logo);
     const links = computed(() => store.state.config.nav);
     const title = computed(() => store.state.config.title);
     const layout = computed(() => store.state.config.layout || "Default");
     const color = computed(() => store.state.config.color);
+
+    const keepAlive = computed(() => route.meta.keepAlive);
 
     const themeColorRaw = computed(() => {
       switch (color.value) {
@@ -80,7 +87,16 @@ export default defineComponent({
       };
     });
 
-    return { logo, title, links, layout, color, themeColorRaw, themeColorHSL };
+    return {
+      logo,
+      title,
+      links,
+      layout,
+      color,
+      themeColorRaw,
+      themeColorHSL,
+      keepAlive,
+    };
   },
 });
 </script>

@@ -10,7 +10,8 @@
         <AppLink
           :to="
             type === 'playlist'
-              ? `https://music.163.com/#/user/home?id=${creator.id}`
+              ? // ? `https://music.163.com/#/user/home?id=${creator.id}`
+                `/user/${creator.id}`
               : `/artist/${creator.id}`
           "
           >{{ creator.name }}</AppLink

@@ -591,3 +591,28 @@ interface IrGetMVUrl extends IrURL {
   mvFree: number;
   msg: string;
 }
+
+declare module API {
+  namespace User {
+    interface detail {
+      adValid: boolean;
+      createDays: number;
+      createTime: number;
+      level: number;
+      listenSongs: number;
+      mobileSign: boolean;
+      pcSign: boolean;
+      peopleCanSeeMyPlayRecord: boolean;
+      bindings: [];
+      identify: {};
+      profile: IrUserProfile;
+      userPoint: {};
+    }
+
+    interface playlist {
+      more: boolean;
+      version: string;
+      playlist: IrPlaylistDetail[];
+    }
+  }
+}

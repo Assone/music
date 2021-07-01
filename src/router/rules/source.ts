@@ -10,6 +10,9 @@ const rules: RouteRecordRaw[] = [
   {
     path: "/playlist",
     component: SHUTTLE,
+    meta: {
+      keepAlive: true,
+    },
     children: [
       {
         path: ":id",

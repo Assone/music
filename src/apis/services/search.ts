@@ -31,19 +31,16 @@ export const getSearch = <T extends SearchType>(
     type?: T;
   }
 ) =>
-  http
-    .get<{
-      result: SearchRespond<T>;
-    }>(SEARCH.index, {
-      params: {
-        keywords,
-        limit: options?.limit,
-        offset: options?.offset,
-        type: options?.type,
-      },
-    })
-    .then(({ result }) => ({ result, type: options?.type }));
-
+  http.get<{
+    result: SearchRespond<T>;
+  }>(SEARCH.index, {
+    params: {
+      keywords,
+      limit: options?.limit,
+      offset: options?.offset,
+      type: options?.type,
+    },
+  });
 /**
  * 获取默认搜索关键字
  */
