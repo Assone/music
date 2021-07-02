@@ -25,6 +25,9 @@ const rules: RouteRecordRaw[] = [
   {
     path: "/album",
     component: SHUTTLE,
+    meta: {
+      keepAlive: true,
+    },
     children: [
       {
         path: ":id",
@@ -37,6 +40,9 @@ const rules: RouteRecordRaw[] = [
   {
     path: "/search",
     name: "Search",
+    meta: {
+      keepAlive: true,
+    },
     component: () => import("@/views/Search.vue"),
   },
 ];

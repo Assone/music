@@ -14,6 +14,9 @@ const rules: RouteRecordRaw[] = [
   {
     path: "/setting",
     name: "Setting",
+    meta: {
+      keepAlive: true,
+    },
     component: () => import("@/views/Setting.vue"),
   },
 ];

@@ -14,6 +14,7 @@
         dark:bg-gray-800
         bg-opacity-90
         transition
+        duration-700
       "
       height="50px"
     >

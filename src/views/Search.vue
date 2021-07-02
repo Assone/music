@@ -21,7 +21,12 @@
             :key="id"
           >
             <AppAvatar
-              class="!h-full xs:!w-20 xs:!h-20 sm:!w-40"
+              class="
+                xs:!w-32 xs:!h-32
+                sm:!w-32 sm:!h-32
+                xl:!w-40 xl:!h-40
+                2xl:!w-52 2xl:!h-52
+              "
               :src="avatar"
             />
             <router-link :to="`/artist/${id}`">{{ name }}</router-link>
