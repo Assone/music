@@ -1,7 +1,7 @@
 <template>
   <div class="view-user-detail">
     <div v-if="info" class="flex gap-8">
-      <AppAvatar class="!w-40 !h-40" :src="info.avatar" />
+      <AppAvatar class="!w-40 !h-40 flex-shrink-0" :src="info.avatar" />
       <div>
         <h1 class="text-2xl">{{ info.name }}</h1>
         <p>{{ info.signature }}</p>

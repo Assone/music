@@ -1,6 +1,9 @@
 <template>
   <div class="view-playlist-detail">
-    <SourceMeta v-bind="{ cover, name, description, creator: artist }" type="album"></SourceMeta>
+    <SourceMeta
+      v-bind="{ cover, name, description, creator: artist }"
+      type="album"
+    ></SourceMeta>
     <TrackList type="album" v-bind="{ songs, isMobile }" #foot>
       <div class="text-xs leading-5">
         <p>{{ publishTime }}</p>
@@ -17,7 +20,7 @@ import { defineComponent, reactive, toRefs } from "vue";
 import SourceMeta from "@/components/SourceMeta.vue";
 import TrackList from "@/components/TrackList.vue";
 
-import useStore from "@/composables/useStore";
+import useStoreState from "@/composables/useStoreState";
 import { getAlbumDetail } from "@/apis";
 import { formatDate, formatTime } from "@/utils";
 
@@ -33,7 +36,7 @@ export default defineComponent({
     },
   },
   async setup(props) {
-    const { isMobile } = useStore();
+    const { isMobile } = useStoreState();
     const { id } = toRefs(props);
 
     const { album, songs } = reactive(await getAlbumDetail(id.value));

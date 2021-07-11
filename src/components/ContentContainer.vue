@@ -1,8 +1,8 @@
 <template>
   <div class="content-container overflow-auto" :class="$attrs.class">
-    <slot name="head">
-      <ContentContainerHead v-bind="{ ...$attrs, class: {} }" />
-    </slot>
+    <ContentContainerHead v-bind="{ ...$attrs, class: {} }">
+      <slot name="head" />
+    </ContentContainerHead>
     <AppSection :class="containerClass">
       <slot />
     </AppSection>

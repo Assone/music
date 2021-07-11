@@ -2,7 +2,7 @@
   <component
     :is="layout"
     :style="[
-      `--theme-color-raw: ${themeColorRaw}`,
+      `--theme-color-raw: ${color}`,
       `--theme-color-h: ${themeColorHSL.h}`,
       `--theme-color-s: ${themeColorHSL.s}`,
       `--theme-color-l: ${themeColorHSL.l}`,
@@ -14,19 +14,11 @@
       <NavBarTitle v-bind="{ title, logo }" />
       <NavBarLinks :links="links" />
     </template>
-    <suspense>
-      <template #fallback>
-        <div>Loading...</div>
-      </template>
-      <router-view v-slot="{ Component }">
-        <template v-if="keepAlive">
-          <keep-alive>
-            <component :is="Component" />
-          </keep-alive>
-        </template>
-        <component v-else :is="Component" />
-      </router-view>
-    </suspense>
+    <router-view v-slot="{ Component }">
+      <suspense>
+        <component :is="Component" />
+      </suspense>
+    </router-view>
   </component>
 </template>
 
@@ -36,8 +28,9 @@ import { defineComponent, defineAsyncComponent, computed } from "vue";
 import NavBarTitle from "@/components/NavBarTitle.vue";
 import NavBarLinks from "@/components/NavBarLinks.vue";
 
-import { useStore } from "@/store";
 import { useRoute } from "vue-router";
+import useStoreState from "@/composables/useStoreState";
+import { useThemeColorHSL } from "@/composables/useTheme";
 
 export default defineComponent({
   components: {
@@ -46,46 +39,12 @@ export default defineComponent({
     NavBarLinks,
   },
   setup() {
-    const store = useStore();
     const route = useRoute();
-
-    const logo = computed(() => store.state.config.logo);
-    const links = computed(() => store.state.config.nav);
-    const title = computed(() => store.state.config.title);
-    const layout = computed(() => store.state.config.layout || "Default");
-    const color = computed(() => store.state.config.color);
+    const { color, logo, layout, title, links } = useStoreState();
 
     const keepAlive = computed(() => route.meta.keepAlive);
 
-    const themeColorRaw = computed(() => {
-      switch (color.value) {
-        case "gray":
-          return "220, 9%, 46%";
-        case "red":
-          return "0, 84%, 60%";
-        case "yellow":
-          return "38, 92%, 50%";
-        case "green":
-          return "160, 84%, 39%";
-        case "blue":
-          return "217, 91%, 60%";
-        case "indigo":
-          return "239, 84%, 67%";
-        case "purple":
-          return "258, 90%, 66%";
-      }
-
-      return "";
-    });
-    const themeColorHSL = computed(() => {
-      const [h, s, l] = themeColorRaw.value.split(", ");
-
-      return {
-        h,
-        s,
-        l,
-      };
-    });
+    const themeColorHSL = useThemeColorHSL(color);
 
     return {
       logo,
@@ -93,7 +52,6 @@ export default defineComponent({
       links,
       layout,
       color,
-      themeColorRaw,
       themeColorHSL,
       keepAlive,
     };

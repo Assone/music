@@ -592,7 +592,23 @@ interface IrGetMVUrl extends IrURL {
   msg: string;
 }
 
+interface SourceGeneralResponse {
+  more: boolean;
+  total: number;
+}
+
 declare module API {
+  namespace Auth {
+    interface login {
+      token: string;
+      loginType: number;
+      cookie: string;
+      profile: IrUserProfile;
+      account: {};
+      bindings: {}[];
+    }
+  }
+
   namespace User {
     interface detail {
       adValid: boolean;
@@ -613,6 +629,22 @@ declare module API {
       more: boolean;
       version: string;
       playlist: IrPlaylistDetail[];
+    }
+  }
+
+  namespace Playlist {
+    interface index extends SourceGeneralResponse {
+      more: boolean;
+      total: number;
+      cat: string;
+      playlists: IrPlaylistDetail[];
+    }
+  }
+
+  namespace Album {
+    interface index {
+      total: number;
+      albums: IrAlbumDetail[];
     }
   }
 }

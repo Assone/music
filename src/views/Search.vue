@@ -5,6 +5,7 @@
       type="search"
       placeholder="place input the search keyword"
       v-model.lazy="keyword"
+      v-focus
     />
 
     <div class="view-result">
@@ -13,19 +14,26 @@
           v-if="artists.length !== 0"
           title="Artists"
           class="flex-1"
-          container-class="flex gap-4 "
+          container-class="flex gap-4"
         >
           <div
-            class="flex flex-col justify-center items-center gap-4 h-full"
+            class="
+              flex flex-col
+              justify-center
+              items-center
+              gap-4
+              h-full
+              xs:w-full xs:justify-between
+            "
             v-for="{ id, avatar, name } in artists"
             :key="id"
           >
             <AppAvatar
               class="
-                xs:!w-32 xs:!h-32
+                xs:!w-28 xs:!h-28
                 sm:!w-32 sm:!h-32
                 xl:!w-40 xl:!h-40
-                2xl:!w-52 2xl:!h-52
+                2xl:!w-48 2xl:!h-48
               "
               :src="avatar"
             />
@@ -49,6 +57,17 @@
           </Cover>
         </ContentContainer>
       </div>
+      <ContentContainer
+        v-if="songs.length !== 0"
+        title="Songs"
+        container-class="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+      >
+        <TrackListItem
+          v-for="{ album, artists, duration, id, name } in songs"
+          :key="id"
+          v-bind="{ album, artists, duration, id, name }"
+        />
+      </ContentContainer>
       <ContentContainer
         v-if="mvs.length !== 0"
         title="Playlist"
@@ -92,6 +111,7 @@ import { TypeIDSearch } from "@/config/code";
 
 import AppAvatar from "@/components/common/AppAvatar.vue";
 import ContentContainer from "@/components/ContentContainer.vue";
+import TrackListItem from "@/components/TrackListItem.vue";
 import Cover from "@/components/Cover.vue";
 import CoverMeta from "@/components/CoverMeta.vue";
 
@@ -105,6 +125,7 @@ export default defineComponent({
   components: {
     AppAvatar,
     ContentContainer,
+    TrackListItem,
     Cover,
     CoverMeta,
   },
@@ -146,7 +167,7 @@ export default defineComponent({
         }
       );
 
-      getSearch(keyword.value, { type: TypeIDSearch.song }).then(
+      getSearch(keyword.value, { type: TypeIDSearch.song, limit: 12 }).then(
         ({ result: { songCount, songs } }) => {
           total.songs = songCount;
           result.songs = songs?.map((song) => new MSong(song)) || [];

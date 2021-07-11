@@ -10,9 +10,9 @@ import { isString } from "@/utils";
 export const login = (
   account: string | number,
   password: string
-): Promise<IrLoginEmail> =>
+): Promise<API.Auth.login> =>
   isString(account)
-    ? http.post<IrLoginEmail>(AUTH.loginEmail, { email: account, password })
+    ? http.post<API.Auth.login>(AUTH.loginEmail, { email: account, password })
     : http.post(AUTH.loginPhone, { phone: account, password });
 
 /**

@@ -1,0 +1,6 @@
+<template>
+  <div class="view-error">
+    <h1>404</h1>
+    <p>Page Not Found.</p>
+  </div>
+</template>

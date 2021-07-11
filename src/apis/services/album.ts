@@ -48,7 +48,10 @@ export const getAlbumNew = (options?: {
         area: options?.area,
       },
     })
-    .then(({ albums }) => albums.map((album) => new MAlbum(album)));
+    .then(({ albums, total }) => ({
+      total,
+      albums: albums.map((album) => new MAlbum(album)),
+    }));
 
 /**
  * 获取最新专辑

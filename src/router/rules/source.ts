@@ -10,10 +10,12 @@ const rules: RouteRecordRaw[] = [
   {
     path: "/playlist",
     component: SHUTTLE,
-    meta: {
-      keepAlive: true,
-    },
     children: [
+      {
+        path: "",
+        name: "Playlists",
+        component: () => import("@/views/Playlists.vue"),
+      },
       {
         path: ":id",
         name: "Playlist Detail",
@@ -25,10 +27,12 @@ const rules: RouteRecordRaw[] = [
   {
     path: "/album",
     component: SHUTTLE,
-    meta: {
-      keepAlive: true,
-    },
     children: [
+      {
+        path: "",
+        name: "Albums",
+        component: () => import("@/views/Albums.vue"),
+      },
       {
         path: ":id",
         name: "Album Detail",
@@ -40,9 +44,6 @@ const rules: RouteRecordRaw[] = [
   {
     path: "/search",
     name: "Search",
-    meta: {
-      keepAlive: true,
-    },
     component: () => import("@/views/Search.vue"),
   },
 ];

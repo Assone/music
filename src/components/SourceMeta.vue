@@ -8,12 +8,7 @@
       <p v-if="creator" class="font-medium xs:text-center">
         <span>{{ formatType }} By </span>
         <AppLink
-          :to="
-            type === 'playlist'
-              ? // ? `https://music.163.com/#/user/home?id=${creator.id}`
-                `/user/${creator.id}`
-              : `/artist/${creator.id}`
-          "
+          :to="`/${type === 'playlist' ? 'user' : 'artist'}/${creator.id}`"
           >{{ creator.name }}</AppLink
         >
       </p>

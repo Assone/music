@@ -7,10 +7,16 @@ import "./styles/index.scss";
 import store, { key } from "./store";
 import router from "./router";
 import i18n from "./plugins/i18n";
+import directive from "./plugins/directive";
 import "./plugins/interceptors";
 import { isDev, isMobile } from "./utils";
 
-createApp(App).use(router).use(store, key).use(i18n).mount("#app");
+createApp(App)
+  .use(router)
+  .use(store, key)
+  .use(i18n)
+  .use(directive)
+  .mount("#app");
 
 if (isDev && isMobile) {
   import("vconsole").then((VConsole) => {

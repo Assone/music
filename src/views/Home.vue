@@ -1,12 +1,15 @@
 <template>
   <div class="view-home">
-    <router-link :to="{ name: 'Search', params: { keyword: 'J.flm' } }">search</router-link>
     <ContentContainer
       v-if="playlist.length !== 0"
       :title="t('home.recommend playlist')"
       :container-class="isMobile ? '' : $style.container"
+      :link="{ href: '/playlist', name: 'more' }"
     >
-      <ContainerList v-bind="{ isMobile, options, data: playlist }" #default="{ cover, id, name }">
+      <ContainerList
+        v-bind="{ isMobile, options, data: playlist }"
+        #default="{ cover, id, name }"
+      >
         <Cover :src="cover" :id="id" type="playlist">
           <CoverMeta v-bind="{ name }" />
         </Cover>
@@ -16,6 +19,7 @@
       v-if="album.length !== 0"
       :title="t('home.new album')"
       :container-class="isMobile ? '' : $style.container"
+      :link="{ href: '/album', name: 'more' }"
     >
       <ContainerList
         v-bind="{ isMobile, options, data: album }"
@@ -37,10 +41,13 @@ import ContainerList from "@/components/ContainerList.vue";
 import Cover from "@/components/Cover.vue";
 import CoverMeta from "@/components/CoverMeta.vue";
 
-import MRecPlaylist from "@/models/RecPlaylist";
-import MAlbum from "@/models/Album";
-
-import { getAlbumNew, getRecPlaylist } from "@/apis";
+import {
+  getAlbumNew,
+  getRadioHot,
+  getRadioToDayPreferred,
+  getRecPlaylist,
+  getRecRadio,
+} from "@/apis";
 import { useStore } from "@/store";
 import { useI18n } from "vue-i18n";
 
@@ -54,8 +61,8 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
     const store = useStore();
-    const playlist = ref<MRecPlaylist[]>([]);
-    const album = ref<MAlbum[]>([]);
+    const playlist = ref<Model.RecPlaylist[]>([]);
+    const album = ref<Model.Album[]>([]);
 
     const options = {
       slidesPerView: 2,
@@ -76,13 +83,17 @@ export default defineComponent({
       },
     };
 
+    const isMobile = computed(() => store.getters.isMobile);
+
     getRecPlaylist(12).then((res) => {
       playlist.value = res;
     });
     getAlbumNew({ area: "EA", limit: 12 }).then((res) => {
-      album.value = res;
+      album.value = res.albums;
     });
-    const isMobile = computed(() => store.getters.isMobile);
+    getRecRadio().then((res) => {
+      console.log(res);
+    });
 
     return {
       t,

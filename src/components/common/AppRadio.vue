@@ -3,8 +3,9 @@
     <!-- :aria-disabled="isDisabled" -->
     <span class="inline-flex align-middle cursor-pointer">
       <span
+        :style="[`background: ${pointColor}`]"
         class="app-radio__inner relative inline-block h-4 w-4 rounded-3xl"
-        :class="[`bg-${pointColor}-500`, { 'is-checked': model === label }]"
+        :class="[`bg-green-500`, { 'is-checked': model === label }]"
       />
       <input
         class="hidden"
@@ -36,19 +37,7 @@ export default defineComponent({
       default: "",
     },
     disabled: Boolean,
-    pointColor: {
-      type: String as PropType<
-        | "gray"
-        | "red"
-        | "yellow"
-        | "green"
-        | "blue"
-        | "indigo"
-        | "purple"
-        | "pink"
-      >,
-      default: "blue",
-    },
+    pointColor: String,
     showLabel: Boolean,
   },
   setup(props, { emit }) {
@@ -104,42 +93,4 @@ export default defineComponent({
     }
   }
 }
-
-@include b(safe-list) {
-  @apply bg-gray-500 bg-red-500 bg-yellow-500 bg-green-500 bg-blue-500 bg-indigo-500 bg-purple-500 bg-pink-500;
-}
-
-// @include b(point) {
-//   @include e(gray) {
-//     @apply bg-gray-500;
-//   }
-
-//   @include e(red) {
-//     @apply bg-red-500;
-//   }
-
-//   @include e(yellow) {
-//     @apply bg-yellow-500;
-//   }
-
-//   @include e(green) {
-//     @apply bg-green-500;
-//   }
-
-//   @include e(blue) {
-//     @apply bg-blue-500;
-//   }
-
-//   @include e(indigo) {
-//     @apply bg-indigo-500;
-//   }
-
-//   @include e(purple) {
-//     @apply bg-purple-500;
-//   }
-
-//   @include e(pink) {
-//     @apply bg-pink-500;
-//   }
-// }
 </style>

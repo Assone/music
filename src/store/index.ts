@@ -3,9 +3,12 @@ import {
   createLogger,
   Store,
   useStore as baseUseStore,
+  DispatchOptions,
+  CommitOptions,
 } from "vuex";
 import { InjectionKey } from "vue";
 
+import { useSetTheme } from "@/composables/useTheme";
 import { isDev, isMobile } from "@/utils";
 
 import config from "./module/config";
@@ -17,7 +20,31 @@ const modules = {
   media,
 };
 
-export type CommitType = `${keyof typeof modules}/${keyof typeof type}`;
+type CommitType =
+  | `${keyof typeof modules}/${keyof typeof type}`
+  | `${keyof typeof type}`;
+
+interface Payload {
+  type: CommitType;
+}
+
+interface DispatchExtends {
+  (type: CommitType, payload?: any, options?: DispatchOptions): Promise<any>;
+  <P extends Payload>(
+    payloadWithType: P,
+    options?: DispatchOptions
+  ): Promise<any>;
+}
+
+interface CommitExtends {
+  (type: CommitType, payload?: any, options?: CommitOptions): void;
+  <P extends Payload>(payloadWithType: P, options?: CommitOptions): void;
+}
+
+interface StoreExtends<S> extends Store<S> {
+  dispatch: DispatchExtends;
+  commit: CommitExtends;
+}
 
 const store = createStore<{ account: null | { vipType: number } }>({
   strict: isDev,
@@ -31,32 +58,17 @@ const store = createStore<{ account: null | { vipType: number } }>({
     isMobile: () => isMobile,
   },
   modules,
-}) as Store<{ account: null | { vipType: number }; config: IAppConfig }>;
+}) as StoreExtends<{ account: null | { vipType: number }; config: IAppConfig }>;
 
-export const key: InjectionKey<Store<{ config: IAppConfig }>> = Symbol();
-export const useStore = () => baseUseStore(key);
-
-const setTheme = (theme: "auto" | "dark" | "light") => {
-  if (theme === "auto") {
-    const dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-    if (dark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  } else {
-    document.documentElement.classList.remove("dark", "light");
-    document.documentElement.classList.add(theme);
-  }
-};
-
-setTheme(store.state.config.theme);
+useSetTheme(store.state.config.theme);
 
 window
   .matchMedia("(prefers-color-scheme: dark)")
   .addEventListener("change", () => {
-    setTheme(store.state.config.theme);
+    useSetTheme(store.state.config.theme);
   });
 
+export const key: InjectionKey<StoreExtends<{ config: IAppConfig }>> = Symbol();
+export const useStore = (): StoreExtends<{ config: IAppConfig }> =>
+  baseUseStore(key);
 export default store;

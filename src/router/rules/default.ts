@@ -7,17 +7,21 @@ const rules: RouteRecordRaw[] = [
     path: "/",
     name: "Home",
     component: Home,
-    meta: {
-      keepAlive: true,
-    },
   },
   {
     path: "/setting",
     name: "Setting",
-    meta: {
-      keepAlive: true,
-    },
     component: () => import("@/views/Setting.vue"),
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("@/views/Login.vue"),
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: () => import("@/views/Error.vue"),
   },
 ];
 

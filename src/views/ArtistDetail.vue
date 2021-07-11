@@ -170,7 +170,7 @@ import {
   getSimilarArtist,
 } from "@/apis";
 
-import useStore from "@/composables/useStore";
+import useStoreState from "@/composables/useStoreState";
 
 export default defineComponent({
   components: {
@@ -192,7 +192,7 @@ export default defineComponent({
 
     const { id } = toRefs(props);
 
-    const { isMobile, setMvTracks } = useStore();
+    const { isMobile, setMvTracks } = useStoreState();
 
     const data = reactive<{
       mv: Model.ArtistMV[];

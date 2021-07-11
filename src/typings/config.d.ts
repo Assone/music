@@ -1,18 +1,11 @@
 type IConfigNavLink = { text: string; to: string };
 
 interface IAppConfig {
-  title: string;
-  layout?: "Apple" | "Spotify" | "Default";
-  nav: IConfigNavLink[];
-  theme: "auto" | "dark" | "light";
-  color:
-    | "gray"
-    | "red"
-    | "yellow"
-    | "green"
-    | "blue"
-    | "indigo"
-    | "purple"
-    | "pink";
   logo: string;
+  title: string;
+  nav: IConfigNavLink[];
+  layout?: "Apple" | "Spotify" | "Default";
+  theme: "auto" | "dark" | "light";
+  themeColor: `${number}, ${number}%, ${number}%`[];
+  currentColorIndex: number;
 }

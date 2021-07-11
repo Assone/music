@@ -22,6 +22,7 @@ export default defineConfig({
     alias: [{ find: /^@\/(.*)/, replacement: "/src/$1" }],
   },
   server: {
+    host: true,
     port: 1212,
     proxy: {
       "^/api": {
