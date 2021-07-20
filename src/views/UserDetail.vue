@@ -12,13 +12,7 @@
         title="创建的歌单"
         container-class="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
       >
-        <Cover
-          v-for="{ id, cover, name } in playlist"
-          :key="id"
-          :id="id"
-          :src="cover"
-          type="playlist"
-        >
+        <Cover v-for="{ id, cover, name } in playlist" :id="id" :key="id" :src="cover" type="playlist">
           <CoverMeta v-bind="{ name }" />
         </Cover>
       </ContentContainer>
@@ -27,15 +21,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs } from "vue";
-import { onBeforeRouteUpdate } from "vue-router";
+import { defineComponent, reactive, ref, toRefs } from 'vue';
+import { onBeforeRouteUpdate } from 'vue-router';
 
-import { getUserDetail, getUserPlaylist } from "@/apis";
+import { getUserDetail, getUserPlaylist } from '@/apis';
 
-import AppAvatar from "@/components/common/AppAvatar.vue";
-import ContentContainer from "@/components/ContentContainer.vue";
-import Cover from "@/components/Cover.vue";
-import CoverMeta from "@/components/CoverMeta.vue";
+import AppAvatar from '@/components/common/AppAvatar.vue';
+import ContentContainer from '@/components/ContentContainer.vue';
+import Cover from '@/components/Cover.vue';
+import CoverMeta from '@/components/CoverMeta.vue';
 
 export default defineComponent({
   components: {

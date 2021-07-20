@@ -1,16 +1,14 @@
 <template>
   <nav>
-    <AppLink class="link" v-for="{ to, text } in links" :to="to">{{
-      t(text)
-    }}</AppLink>
+    <AppLink v-for="{ to, text } in links" class="link" :to="to">{{ t(text) }}</AppLink>
   </nav>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import { useI18n } from "vue-i18n";
+import { defineComponent, PropType } from 'vue';
+import { useI18n } from 'vue-i18n';
 
-import AppLink from "./common/AppLink.vue";
+import AppLink from './common/AppLink.vue';
 
 export default defineComponent({
   components: {

@@ -16,11 +16,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, inject, PropType, toRefs } from "vue";
+import { computed, defineComponent, inject, PropType, toRefs } from 'vue';
 
-import { isString } from "@/utils";
+import { isString } from '@/utils';
 
-import AppLink from "./common/AppLink.vue";
+import AppLink from './common/AppLink.vue';
 
 export default defineComponent({
   components: {
@@ -35,25 +35,21 @@ export default defineComponent({
   },
   setup(props) {
     const { date, size, albumType } = toRefs(props);
-    const id = inject("id");
-    const type = inject("type");
+    const id = inject('id');
+    const type = inject('type');
 
     const formatDate = computed(() => {
-      return date?.value
-        ? isString(date.value)
-          ? date.value
-          : new Date(date.value).getFullYear()
-        : undefined;
+      return date?.value ? (isString(date.value) ? date.value : new Date(date.value).getFullYear()) : undefined;
     });
 
     const formatType = computed(() => {
       if (albumType?.value) {
         switch (albumType.value) {
-          case "EP":
-          case "EP/Single":
-            return size?.value === 1 ? "Single" : "EP";
-          case "Single":
-            return "Single";
+          case 'EP':
+          case 'EP/Single':
+            return size?.value === 1 ? 'Single' : 'EP';
+          case 'Single':
+            return 'Single';
           default:
             return albumType.value;
         }
@@ -75,21 +71,21 @@ export default defineComponent({
 <style lang="scss">
 @include b(artists, item) {
   &::after {
-    content: ", ";
+    content: ', ';
   }
 
   &:last-child::after {
-    content: "";
+    content: '';
   }
 }
 
 @include b(album, info) {
   &::after {
-    content: " · ";
+    content: ' · ';
   }
 
   &:last-child::after {
-    content: "";
+    content: '';
   }
 }
 </style>

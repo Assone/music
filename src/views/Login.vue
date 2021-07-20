@@ -1,25 +1,19 @@
 <template>
   <div class="view-login">
     <div class="flex flex-col">
-      <label
-        >Email: <input class="text-black" type="text" v-model="account"
-      /></label>
-      <label
-        >Password: <input class="text-black" type="password" v-model="password"
-      /></label>
-      <AppButton :disabled="disabled" v-debounce.click="handleLogin"
-        >Login</AppButton
-      >
+      <label>Email: <input v-model="account" class="text-black" type="text" /></label>
+      <label>Password: <input v-model="password" class="text-black" type="password" /></label>
+      <AppButton v-debounce.click="handleLogin" :disabled="disabled"> Login </AppButton>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
-import AppButton from "@/components/common/AppButton.vue";
+import AppButton from '@/components/common/AppButton.vue';
 
-import useLogin from "@/composables/useLogin";
+import useLogin from '@/composables/useLogin';
 
 export default defineComponent({
   components: {

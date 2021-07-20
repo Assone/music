@@ -17,14 +17,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
-import AppIcon from "./common/AppIcon.vue";
+import AppIcon from './common/AppIcon.vue';
 
 export default defineComponent({
   components: {
     AppIcon,
   },
-  emits: ["click-inner"],
+  emits: ['click-inner'],
 });
 </script>

@@ -1,10 +1,7 @@
 <template>
   <div class="view-playlist-detail">
-    <SourceMeta
-      v-bind="{ cover, name, description, creator: artist }"
-      type="album"
-    ></SourceMeta>
-    <TrackList type="album" v-bind="{ songs, isMobile }" #foot>
+    <SourceMeta v-bind="{ cover, name, description, creator: artist }" type="album"></SourceMeta>
+    <TrackList #foot type="album" v-bind="{ songs, isMobile }">
       <div class="text-xs leading-5">
         <p>{{ publishTime }}</p>
         <p>共{{ songs.length }}首歌曲，{{ duration }}</p>
@@ -15,14 +12,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs } from 'vue';
 
-import SourceMeta from "@/components/SourceMeta.vue";
-import TrackList from "@/components/TrackList.vue";
+import SourceMeta from '@/components/SourceMeta.vue';
+import TrackList from '@/components/TrackList.vue';
 
-import useStoreState from "@/composables/useStoreState";
-import { getAlbumDetail } from "@/apis";
-import { formatDate, formatTime } from "@/utils";
+import useStoreState from '@/composables/useStoreState';
+import { getAlbumDetail } from '@/apis';
+import { formatDate, formatTime } from '@/utils';
 
 export default defineComponent({
   components: {
@@ -44,14 +41,14 @@ export default defineComponent({
     const publishTime = formatDate(time.publish as number, {
       locales: navigator.language,
       options: {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
       },
     });
     const duration = formatTime(
       songs.reduce((pre, cur) => pre + cur.duration, 0),
-      "mm分钟"
+      'mm分钟'
     );
 
     return {

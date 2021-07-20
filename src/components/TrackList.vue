@@ -1,17 +1,16 @@
 <template>
   <div class="track-list">
     <div>
+      <!-- playable -->
       <TrackListItem
-        v-for="(
-          { album, artists, duration, id, name, playable }, index
-        ) in data"
+        v-for="({ album, artists, duration, id, name, alia }, index) in data"
         :key="id"
         :index="index + 1"
         :show-index="type === 'album'"
         :show-album="type !== 'album' && !isMobile"
         :show-artists="type !== 'album'"
         :show-time="!isMobile"
-        v-bind="{ album, artists, duration, id, name }"
+        v-bind="{ album, artists, duration, id, name, alia }"
       />
     </div>
     <div class="track-list__foot">
@@ -30,16 +29,15 @@ import {
   getCurrentInstance,
   watchEffect,
   onDeactivated,
-} from "vue";
-import { throttle } from "lodash-es";
+} from 'vue';
+import { throttle } from 'lodash-es';
 
-import { getSongDetail } from "@/apis";
-import { useReachBottom } from "@/hooks";
+import { getSongDetail } from '@/apis';
+import { useReachBottom } from '@/hooks';
 
-import TrackListItem from "./TrackListItem.vue";
+import TrackListItem from './TrackListItem.vue';
 
-import Queue from "@/models/tools/Queue";
-import MSong from "@/models/Song";
+import Queue from '@/models/tools/Queue';
 
 export default defineComponent({
   components: {
@@ -48,12 +46,12 @@ export default defineComponent({
   props: {
     trackIds: Array as PropType<number[]>,
     songs: {
-      type: Array as PropType<MSong[]>,
+      type: Array as PropType<Model.Song[]>,
       default: () => [],
     },
     type: {
-      type: String as PropType<"playlist" | "album">,
-      default: "playlist",
+      type: String as PropType<'playlist' | 'album'>,
+      default: 'playlist',
     },
     isMobile: Boolean,
   },
@@ -74,7 +72,7 @@ export default defineComponent({
 
       if (isReachButton) {
         if (!ids.isEmpty) handleLoadingMore();
-        else window.removeEventListener("scroll", scrollListener);
+        else window.removeEventListener('scroll', scrollListener);
       }
     };
     const handleLoadingMore = async () => {
@@ -92,7 +90,7 @@ export default defineComponent({
           for (let i = 0; i < trackIds.value.length; i += 50) {
             ids.in(trackIds.value.slice(i, i + 50));
           }
-          window.addEventListener("scroll", scrollListener);
+          window.addEventListener('scroll', scrollListener);
         } else {
           ids.in(trackIds.value);
         }
@@ -100,7 +98,7 @@ export default defineComponent({
         handleLoadingMore();
       }
     });
-    onDeactivated(() => window.removeEventListener("scroll", scrollListener));
+    onDeactivated(() => window.removeEventListener('scroll', scrollListener));
 
     return {
       data,
