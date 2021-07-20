@@ -1,7 +1,6 @@
 type SizeType = { width: number; height: number };
 
-const scrollElement =
-  document.scrollingElement || document.body || document.documentElement;
+const scrollElement = document.scrollingElement || document.body || document.documentElement;
 
 /**
  * 获取视图大小
