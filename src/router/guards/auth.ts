@@ -14,8 +14,6 @@ const auth: NavigationGuard = (to) => {
   if (name === "Login" && token.value && profile.value && account.value) {
     return { name: "Home" };
   }
-
-  return true;
 };
 
 export default auth;

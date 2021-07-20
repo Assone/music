@@ -1,11 +1,12 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router';
 
-import defaultRouter from "./rules/default";
-import sourceRouter from "./rules/source";
-import userRouter from "./rules/user";
+import defaultRouter from './rules/default';
+import sourceRouter from './rules/source';
+import userRouter from './rules/user';
 
-import auth from "./guards/auth";
-import { startLoading, stopLoading } from "./guards/loading";
+import auth from './guards/auth';
+import transition from './guards/transition';
+import { startLoading, stopLoading } from './guards/loading';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -14,7 +15,7 @@ const router = createRouter({
     if (to.hash) {
       return {
         el: to.hash,
-        behavior: "smooth",
+        behavior: 'smooth',
       };
     }
 
@@ -24,6 +25,8 @@ const router = createRouter({
 
 router.beforeEach(auth);
 router.beforeEach(startLoading);
+
+router.afterEach(transition);
 router.afterEach(stopLoading);
 
 export default router;

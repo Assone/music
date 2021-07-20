@@ -4,7 +4,7 @@
       :class="$style.header"
       class="
         sticky
-        z-50
+        z-10
         top-0
         flex
         items-center
@@ -27,8 +27,8 @@
 </template>
 
 <script lang="ts" setup>
-import AppHeader from "@/components/common/AppHeader.vue";
-import AppMain from "@/components/common/AppMain.vue";
+import AppHeader from '@/components/common/AppHeader.vue';
+import AppMain from '@/components/common/AppMain.vue';
 </script>
 
 <style lang="scss" module>
