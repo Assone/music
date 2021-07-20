@@ -5,24 +5,20 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent } from 'vue';
 
-import { useStore } from "@/store";
-import PlayerVideoCore from "./PlayerVideoCore.vue";
+import { useStore } from '@/store';
+// import PlayerVideoCore from "./PlayerVideoCore.vue";
 
 export default defineComponent({
   components: {
-    PlayerVideoCore,
+    // PlayerVideoCore,
   },
   setup() {
     const store = useStore();
 
-    const currentTrack = computed(() => store.getters["media/currentTrack"]);
-    const isVideo = computed(
-      () =>
-        currentTrack.value?.type === "video" ||
-        currentTrack.value?.type === "mv"
-    );
+    const currentTrack = computed(() => store.getters['media/currentTrack']);
+    const isVideo = computed(() => currentTrack.value?.type === 'video' || currentTrack.value?.type === 'mv');
 
     return {
       currentTrack,

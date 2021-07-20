@@ -1,5 +1,5 @@
 <template>
-  <AppHeader height="" class="my-4 flex justify-between items-center">
+  <AppHeader height="40px" class="my-4 flex justify-between items-center">
     <div>
       <h1 class="font-bold text-2xl my-6">{{ title }}</h1>
     </div>
@@ -10,10 +10,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType } from 'vue';
 
-import AppHeader from "./common/AppHeader.vue";
-import AppLink from "./common/AppLink.vue";
+import AppHeader from './common/AppHeader.vue';
+import AppLink from './common/AppLink.vue';
 
 export default defineComponent({
   components: {

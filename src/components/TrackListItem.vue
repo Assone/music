@@ -5,13 +5,15 @@
       <Cover v-else class="w-12" :src="cover" :alt="name" />
     </div>
     <div class="flex-1 truncate">
-      <div class="font-bold truncate" :title="name">{{ name }}</div>
+      <div class="font-black truncate cursor-default">
+        <span :title="name">
+          {{ name }}
+        </span>
+        <span v-if="alia" class="text-gray-500"> ({{ alia }})</span>
+      </div>
+
       <div v-if="showArtists">
-        <span
-          class="track-item__artists-item"
-          v-for="{ id, name } in artists"
-          :key="id"
-        >
+        <span v-for="{ id, name } in artists" :key="id" class="track-item__artists-item">
           <AppLink class="track-item__link" :to="`/artist/${id}`">
             {{ name }}
           </AppLink>
@@ -19,11 +21,7 @@
       </div>
     </div>
     <div v-if="showAlbum" class="flex-1 truncate">
-      <AppLink
-        class="track-item__link"
-        :to="`/album/${albumId}`"
-        :title="albumName"
-      >
+      <AppLink class="track-item__link" :to="`/album/${albumId}`" :title="albumName">
         {{ albumName }}
       </AppLink>
     </div>
@@ -32,13 +30,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from "vue";
+import { computed, defineComponent, PropType, toRefs } from 'vue';
 
-import AppLink from "./common/AppLink.vue";
-import Cover from "./Cover.vue";
+import AppLink from './common/AppLink.vue';
+import Cover from './Cover.vue';
 
-import MSong from "@/models/Song";
-import { formatTime } from "@/utils";
+import { formatTime } from '@/utils';
 
 export default defineComponent({
   components: {
@@ -52,11 +49,12 @@ export default defineComponent({
     showAlbum: Boolean,
     showArtists: Boolean,
 
-    album: Object as PropType<MSong["album"]>,
-    artists: Array as PropType<MSong["artists"]>,
-    duration: Number as PropType<MSong["duration"]>,
-    id: Number as PropType<MSong["id"]>,
-    name: String as PropType<MSong["name"]>,
+    album: Object as PropType<Model.Song['album']>,
+    artists: Array as PropType<Model.Song['artists']>,
+    duration: Number as PropType<Model.Song['duration']>,
+    id: Number as PropType<Model.Song['id']>,
+    name: String as PropType<Model.Song['name']>,
+    alia: String as PropType<Model.Song['alia']>,
   },
   setup(props) {
     const { album, duration } = toRefs(props);
@@ -86,7 +84,7 @@ export default defineComponent({
 @include b(track, list) {
   @include e(item) {
     &:hover {
-      background-color: var(--theme-color);
+      background-color: hsla(var(--theme-color-raw), 0.3);
     }
   }
 }

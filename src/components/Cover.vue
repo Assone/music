@@ -1,16 +1,7 @@
 <template>
-  <div
-    class="cover relative"
-    :class="$attrs.class"
-    @mouseenter="handleMouseEnter"
-    @mouseleave="handleMouseLeave"
-  >
+  <div class="cover relative" :class="$attrs.class" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
     <div class="cover__inner hover:shadow-lg relative">
-      <MaskShadow
-        :src="`${$attrs.src}`"
-        class="hidden"
-        :class="[hover ? $style['mask-shadow'] : '']"
-      />
+      <MaskShadow :src="`${$attrs.src}`" class="hidden rounded-lg" :class="[hover ? $style['mask-shadow'] : '']" />
       <AppImage
         class="cover__image rounded-lg"
         :class="[{ 'is-rectangle': rectangle }]"
@@ -23,7 +14,6 @@
         @click-inner="$emit('play', { type, id })"
         @click="canTo ? toNextView() : ''"
       />
-      <!-- @click="canTo ? toNextView() : ''" -->
 
       <slot name="inner" />
     </div>
@@ -32,27 +22,27 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, provide, ref, toRefs } from "vue";
-import { useRouter } from "vue-router";
+import { computed, defineComponent, PropType, provide, ref, toRefs } from 'vue';
+import { useRouter } from 'vue-router';
 
-import AppImage from "./common/AppImage.vue";
-import Mask from "./Mask.vue";
-import MaskShadow from "./MaskShadow.vue";
+import AppImage from './common/AppImage.vue';
+import Mask from './Mask.vue';
+import MaskShadow from './MaskShadow.vue';
 
-import { isUndefined } from "@/utils";
+import { isUndefined } from '@/utils';
 
 export default defineComponent({
-  inheritAttrs: false,
   components: {
     AppImage,
     Mask,
     MaskShadow,
   },
-  emits: ["play"],
+  inheritAttrs: false,
+  emits: ['play'],
   props: {
     id: Number,
     type: {
-      type: String as PropType<"playlist" | "album" | "mv">,
+      type: String as PropType<'playlist' | 'album' | 'mv'>,
     },
     rectangle: Boolean,
     useEvent: Boolean,
@@ -62,12 +52,10 @@ export default defineComponent({
     const { push } = useRouter();
     const hover = ref(false);
 
-    const canTo = computed(
-      () => !isUndefined(id?.value) && !isUndefined(type?.value)
-    );
+    const canTo = computed(() => !isUndefined(id?.value) && !isUndefined(type?.value));
     const toNextView = () => {
       if (useEvent.value) {
-        emit("play", { type: type?.value, id: id?.value });
+        emit('play', { type: type?.value, id: id?.value });
       } else {
         push(`/${type?.value}/${id?.value}`);
       }
@@ -79,8 +67,8 @@ export default defineComponent({
       hover.value = false;
     };
 
-    provide("id", id);
-    provide("type", type);
+    provide('id', id);
+    provide('type', type);
 
     return {
       canTo,

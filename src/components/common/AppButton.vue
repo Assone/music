@@ -5,7 +5,6 @@
     :autofocus="autofocus"
     :disabled="disabled"
     :type="nativeType"
-    @click="$emit('click')"
   >
     <AppIcon v-if="icon" :type="icon" class="mr-1" />
     <slot />

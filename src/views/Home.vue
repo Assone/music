@@ -6,11 +6,8 @@
       :container-class="isMobile ? '' : $style.container"
       :link="{ href: '/playlist', name: 'more' }"
     >
-      <ContainerList
-        v-bind="{ isMobile, options, data: playlist }"
-        #default="{ cover, id, name }"
-      >
-        <Cover :src="cover" :id="id" type="playlist">
+      <ContainerList v-slot="{ cover, id, name }" v-bind="{ isMobile, options, data: playlist }">
+        <Cover :id="id" :src="cover" type="playlist">
           <CoverMeta v-bind="{ name }" />
         </Cover>
       </ContainerList>
@@ -21,11 +18,8 @@
       :container-class="isMobile ? '' : $style.container"
       :link="{ href: '/album', name: 'more' }"
     >
-      <ContainerList
-        v-bind="{ isMobile, options, data: album }"
-        #default="{ cover, id, name, artists }"
-      >
-        <Cover :src="cover" :id="id" type="album">
+      <ContainerList v-slot="{ cover, id, name, artists }" v-bind="{ isMobile, options, data: album }">
+        <Cover :id="id" :src="cover" type="album">
           <CoverMeta v-bind="{ name, artists }" />
         </Cover>
       </ContainerList>
@@ -34,22 +28,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from 'vue';
 
-import ContentContainer from "@/components/ContentContainer.vue";
-import ContainerList from "@/components/ContainerList.vue";
-import Cover from "@/components/Cover.vue";
-import CoverMeta from "@/components/CoverMeta.vue";
+import ContentContainer from '@/components/ContentContainer.vue';
+import ContainerList from '@/components/ContainerList.vue';
+import Cover from '@/components/Cover.vue';
+import CoverMeta from '@/components/CoverMeta.vue';
 
-import {
-  getAlbumNew,
-  getRadioHot,
-  getRadioToDayPreferred,
-  getRecPlaylist,
-  getRecRadio,
-} from "@/apis";
-import { useStore } from "@/store";
-import { useI18n } from "vue-i18n";
+import { getAlbumNew, getRadioHot, getRadioToDayPreferred, getRecPlaylist, getRecRadio } from '@/apis';
+import { useStore } from '@/store';
+import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
   components: {
@@ -88,7 +76,7 @@ export default defineComponent({
     getRecPlaylist(12).then((res) => {
       playlist.value = res;
     });
-    getAlbumNew({ area: "EA", limit: 12 }).then((res) => {
+    getAlbumNew({ area: 'EA', limit: 12 }).then((res) => {
       album.value = res.albums;
     });
     getRecRadio().then((res) => {

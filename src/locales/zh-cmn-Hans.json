@@ -12,8 +12,8 @@
     "new album": "专辑上新"
   },
   "artist": {
-    "songs": "首歌",
-    "albums": "张专辑",
-    "mvs": "个MV"
+    "song": "首歌",
+    "album": "张专辑",
+    "mv": "个MV"
   }
 }
