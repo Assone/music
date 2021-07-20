@@ -4,8 +4,8 @@ interface IAppConfig {
   logo: string;
   title: string;
   nav: IConfigNavLink[];
-  layout?: "Apple" | "Spotify" | "Default";
-  theme: "auto" | "dark" | "light";
+  layout?: 'Apple' | 'Spotify' | 'Default';
+  theme: 'auto' | 'dark' | 'light';
   themeColor: `${number}, ${number}%, ${number}%`[];
   currentColorIndex: number;
 }
