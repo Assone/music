@@ -6,6 +6,11 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
+    "lint": "eslint src/**/*.{ts,vue}",
+    "lint:style": "stylelint src/**/*.{html,vue,css,sass,scss}",
+    "format": "prettier --config --write src/**/*.{ts,vue}",
+    "changelog": "conventional-changelog -p angular -i ./CHANGELOG.md -s -r 0",
+    "commit": "cz",
     "electron": "electron ./dist/background.js",
     "electron:dev": "npm-run-all -p dev electron:prebuild-watch electron",
     "electron:build": "run-s build electron:prebuild && electron-builder build",
@@ -17,32 +22,61 @@
     "axios": "^0.21.1",
     "lodash-es": "^4.17.21",
     "swiper": "^6.7.0",
-    "vue": "^3.0.5",
-    "vue-i18n": "^9.1.6",
-    "vue-router": "4",
-    "vuex": "^4.0.1"
+    "vue": "^3.1.5",
+    "vue-i18n": "^9.1.7",
+    "vue-router": "^4.0.10",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "@intlify/vite-plugin-vue-i18n": "^2.1.2",
     "@types/lodash-es": "^4.17.4",
     "@types/node": "^15.6.1",
     "@types/nprogress": "^0.2.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
     "@vitejs/plugin-vue": "^1.2.2",
     "@vue/compiler-sfc": "^3.0.5",
     "@vueuse/integrations": "^5.1.3",
     "autoprefixer": "^10.2.6",
+    "commitizen": "^4.2.4",
+    "conventional-changelog-cli": "^2.1.1",
+    "cz-conventional-changelog": "^3.3.0",
     "electron": "^13.0.1",
     "electron-builder": "^22.10.5",
     "electron-devtools-installer": "^3.2.0",
     "electron-reload": "^1.5.0",
+    "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-vue": "^7.14.0",
+    "lint-staged": "^11.0.1",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.3.0",
+    "prettier": "^2.3.2",
     "sass": "^1.34.0",
     "tailwindcss": "^2.1.2",
     "typescript": "^4.1.3",
     "vconsole": "^3.7.0",
     "vite": "^2.3.4",
     "vite-plugin-svg-icons": "^0.6.2",
-    "vue-tsc": "^0.0.24"
+    "vue-tsc": "^0.0.24",
+    "yorkie": "^2.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -E GIT_PARAMS"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,json,vue}": [
+      "prettier --write",
+      "eslint",
+      "git add"
+    ]
   }
 }
