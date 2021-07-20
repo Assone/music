@@ -18,11 +18,14 @@ export default class MSong extends Mixins(MMeta, MPlayable) implements MMeta, MP
 
   playable!: boolean;
 
-  reason?: string | undefined;
+  reason?: string;
+
+  alia?: string;
 
   constructor({
     id,
     name,
+    alia,
     al: { id: alId, name: alName, picUrl: alCover },
     ar,
     mv,
@@ -32,12 +35,16 @@ export default class MSong extends Mixins(MMeta, MPlayable) implements MMeta, MP
   }: IrSongDetail) {
     super({ id, name, fee, noCopyrightRcmd });
 
+    this.alia = alia[0];
     this.album = {
       id: alId,
       name: alName,
       cover: usePhotoResize(244, 244)(alCover),
     };
-    this.artists = ar.map(({ id: artId, name: artName }) => ({ id: artId, name: artName }));
+    this.artists = ar.map(({ id: artId, name: artName }) => ({
+      id: artId,
+      name: artName,
+    }));
     this.mvId = mv;
     this.duration = dt;
   }

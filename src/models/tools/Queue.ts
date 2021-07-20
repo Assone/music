@@ -1,16 +1,12 @@
 export default class Queue<T> {
-  element: T[];
+  private element: T[];
 
   constructor() {
     this.element = [];
   }
 
-  in(element: T): number {
-    return this.element.push(element);
-  }
-
-  out(): T | undefined {
-    return this.element.shift();
+  get data() {
+    return [...this.element];
   }
 
   get top(): T | undefined {
@@ -25,7 +21,15 @@ export default class Queue<T> {
     return this.element.length;
   }
 
+  in(element: T): number {
+    return this.element.push(element);
+  }
+
+  out(): T | undefined {
+    return this.element.shift();
+  }
+
   clear(): void {
-    this.element = [];
+    this.element.length = 0;
   }
 }
