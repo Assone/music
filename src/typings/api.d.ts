@@ -149,7 +149,7 @@ interface IrPlaylistDetail extends IrMetaSource, IrTime, IrCount {
   videos: null;
 }
 
-interface IrArtistDetail extends IrMeta, Pick<IrTime, "publishTime"> {
+interface IrArtistDetail extends IrMeta, Pick<IrTime, 'publishTime'> {
   albumSize: number;
   alias: string[];
   briefDesc: string;
@@ -176,19 +176,19 @@ interface IrArtistDetail extends IrMeta, Pick<IrTime, "publishTime"> {
 
 type GetRecPlaylistResponse = Pick<
   IrPlaylistDetail,
-  | "alg"
-  | "canDislike"
-  | "copywriter"
-  | "highQuality"
-  | "id"
-  | "name"
-  | "picUrl"
-  | "playCount"
-  | "trackCount"
-  | "trackNumberUpdateTime"
+  | 'alg'
+  | 'canDislike'
+  | 'copywriter'
+  | 'highQuality'
+  | 'id'
+  | 'name'
+  | 'picUrl'
+  | 'playCount'
+  | 'trackCount'
+  | 'trackNumberUpdateTime'
 > & { type: number };
 
-interface IrAlbumDetail extends IrMeta, Pick<IrTime, "publishTime"> {
+interface IrAlbumDetail extends IrMeta, Pick<IrTime, 'publishTime'> {
   alias: [];
   artist: IrArtistDetail;
   artists: IrArtistDetail[];
@@ -250,7 +250,7 @@ interface IrAlbumDetail extends IrMeta, Pick<IrTime, "publishTime"> {
 interface IrSongDetail extends IrMeta {
   a: null;
   al: { id: number; name: string; picUrl: string; tns: []; pic_str: string };
-  alia: [];
+  alia: string[];
   ar: { id: number; name: string; tns: []; alias: [] }[];
   cd: string;
   cf: string;
@@ -294,14 +294,7 @@ interface IrSongDetail extends IrMeta {
 
 interface IrRecSongDetail
   extends IrMeta,
-    Pick<
-      IrSongDetail,
-      | "no"
-      | "copyright"
-      | "originCoverType"
-      | "originSongSimpleData"
-      | "noCopyrightRcmd"
-    > {
+    Pick<IrSongDetail, 'no' | 'copyright' | 'originCoverType' | 'originSongSimpleData' | 'noCopyrightRcmd'> {
   album: IrAlbumDetail;
   alias: [];
   artists: IrArtistDetail[];
@@ -318,7 +311,7 @@ interface IrRecSongDetail
     volumeDelta: number;
   };
   commentThreadId: string;
-  copyFrom: "";
+  copyFrom: '';
   copyrightId: number;
   crbt: null;
   dayPlays: number;
@@ -515,8 +508,8 @@ interface IrCover {
 interface IrMVDetail
   extends IrMeta,
     IrCover,
-    Pick<IrCount, "commentCount" | "playCount" | "shareCount" | "subCount">,
-    Pick<IrTime, "publishTime"> {
+    Pick<IrCount, 'commentCount' | 'playCount' | 'shareCount' | 'subCount'>,
+    Pick<IrTime, 'publishTime'> {
   artistId: number;
   artistName: string;
   artists: IrArtistDetail[];
@@ -530,10 +523,7 @@ interface IrMVDetail
   videoGroup: [];
 }
 
-interface IrRecMV
-  extends IrMeta,
-    Pick<IrCount, "playCount">,
-    Pick<IrTime, "trackNumberUpdateTime"> {
+interface IrRecMV extends IrMeta, Pick<IrCount, 'playCount'>, Pick<IrTime, 'trackNumberUpdateTime'> {
   alg: string;
   artistId: number;
   artistName: string;
@@ -546,7 +536,7 @@ interface IrRecMV
   type: number;
 }
 
-interface IrSimilarMV extends IrMeta, Pick<IrCount, "playCount"> {
+interface IrSimilarMV extends IrMeta, Pick<IrCount, 'playCount'> {
   alg: string;
   artistId: number;
   artistName: string;
@@ -558,23 +548,20 @@ interface IrSimilarMV extends IrMeta, Pick<IrCount, "playCount"> {
   mark: number;
 }
 
-interface IrArtistMV
-  extends IrMeta,
-    Pick<IrTime, "publishTime">,
-    Pick<IrCount, "playCount"> {
+interface IrArtistMV extends IrMeta, Pick<IrTime, 'publishTime'>, Pick<IrCount, 'playCount'> {
   artist: Pick<
     IrArtistDetail,
-    | "briefDesc"
-    | "id"
-    | "img1v1Id"
-    | "img1v1Id_str"
-    | "img1v1Url"
-    | "musicSize"
-    | "name"
-    | "picId"
-    | "picUrl"
-    | "topicPerson"
-    | "trans"
+    | 'briefDesc'
+    | 'id'
+    | 'img1v1Id'
+    | 'img1v1Id_str'
+    | 'img1v1Url'
+    | 'musicSize'
+    | 'name'
+    | 'picId'
+    | 'picUrl'
+    | 'topicPerson'
+    | 'trans'
   >;
   artistName: string;
   duration: number;
@@ -597,7 +584,42 @@ interface SourceGeneralResponse {
   total: number;
 }
 
-declare module API {
+type DJDetail = {
+  accountStatus: number;
+  anchor: boolean;
+  authStatus: number;
+  authenticationTypes: number;
+  authority: number;
+  avatarDetail: null;
+  avatarImgId: number;
+  avatarImgIdStr: string;
+  avatarImgId_str: string;
+  avatarUrl: string;
+  backgroundImgId: number;
+  backgroundImgIdStr: string;
+  backgroundUrl: string;
+  birthday: number;
+  brand: string;
+  city: number;
+  defaultAvatar: boolean;
+  description: string;
+  detailDescription: string;
+  djStatus: number;
+  expertTags: null;
+  experts: null;
+  followed: boolean;
+  gender: number;
+  mutual: boolean;
+  nickname: string;
+  province: number;
+  remarkName: null;
+  signature: string;
+  userId: number;
+  userType: number;
+  vipType: number;
+};
+
+declare namespace API {
   namespace Auth {
     interface login {
       token: string;
@@ -645,6 +667,62 @@ declare module API {
     interface index {
       total: number;
       albums: IrAlbumDetail[];
+    }
+  }
+
+  namespace Recommend {
+    interface radio {
+      category: number;
+      result: {
+        alg: string;
+        canDislike: boolean;
+        copywriter: string;
+        id: number;
+        name: string;
+        picUrl: string;
+        trackNumberUpdateTime: null;
+        type: number;
+        program: {
+          adjustedPlayCount: number;
+          auditStatus: number;
+          bdAuditStatus: number;
+          blurCoverUrl: string;
+          buyed: boolean;
+          canReward: boolean;
+          channels: string[];
+          commentCount: number;
+          commentThreadId: string;
+          coverId: number;
+          coverUrl: string;
+          createTime: number;
+          description: string;
+          dj: DJDetail;
+          duration: number;
+          hnumberLinks: [];
+          id: number;
+          isPublish: boolean;
+          likedCount: number;
+          listenerCount: number;
+          mainSong: {};
+          mainTrackId: number;
+          name: string;
+          programDesc: null;
+          programFeeType: number;
+          pubStatus: number;
+          publish: boolean;
+          radio: {};
+          reward: boolean;
+          serialNum: number;
+          shareCount: number;
+          songs: null;
+          subscribed: boolean;
+          subscribedCount: number;
+          titbitImages: null;
+          titbits: null;
+          trackCount: number;
+          userId: number;
+        };
+      }[];
     }
   }
 }
