@@ -15,7 +15,7 @@ class HTTPCore {
   static setInterceptorsRequest(
     core: HTTPCore,
     resolve: interceptorsRequest<AxiosRequestConfig>,
-    reject: interceptorsResponse,
+    reject: interceptorsResponse
   ) {
     core.instance.interceptors.request.use(resolve, reject);
   }
@@ -23,7 +23,7 @@ class HTTPCore {
   static setInterceptorsResponse(
     core: HTTPCore,
     resolve: interceptorsRequest<AxiosResponse>,
-    reject: interceptorsResponse,
+    reject: interceptorsResponse
   ) {
     core.instance.interceptors.response.use(resolve, reject);
   }
@@ -44,27 +44,15 @@ class HTTPCore {
     return this.instance.options(url, config);
   }
 
-  post<T = unknown>(
-    url: string,
-    data?: Record<string, unknown>,
-    config?: AxiosRequestConfig,
-  ): Promise<T> {
+  post<T = unknown>(url: string, data?: Record<string, unknown>, config?: AxiosRequestConfig): Promise<T> {
     return this.instance.post(url, data, config);
   }
 
-  put<T = unknown>(
-    url: string,
-    data?: Record<string, unknown>,
-    config?: AxiosRequestConfig,
-  ): Promise<T> {
+  put<T = unknown>(url: string, data?: Record<string, unknown>, config?: AxiosRequestConfig): Promise<T> {
     return this.instance.put(url, data, config);
   }
 
-  patch<T = unknown>(
-    url: string,
-    data?: Record<string, unknown>,
-    config?: AxiosRequestConfig,
-  ): Promise<T> {
+  patch<T = unknown>(url: string, data?: Record<string, unknown>, config?: AxiosRequestConfig): Promise<T> {
     return this.instance.patch(url, data, config);
   }
 }
@@ -73,10 +61,10 @@ const http = new HTTPCore(apiConfig);
 
 export const setInterceptorsRequest = (
   resolve?: interceptorsRequest<AxiosRequestConfig>,
-  reject?: interceptorsResponse,
+  reject?: interceptorsResponse
 ): void => HTTPCore.setInterceptorsRequest(http, resolve, reject);
 export const setInterceptorsResponse = (
   resolve?: interceptorsRequest<AxiosResponse>,
-  reject?: interceptorsResponse,
+  reject?: interceptorsResponse
 ): void => HTTPCore.setInterceptorsResponse(http, resolve, reject);
 export default http;

@@ -15,16 +15,7 @@ export default class MUser {
 
   province: number;
 
-  constructor({
-    avatarUrl,
-    birthday,
-    city,
-    province,
-    description,
-    gender,
-    nickname,
-    userId,
-  }: IrUser) {
+  constructor({ avatarUrl, birthday, city, province, description, gender, nickname, userId }: IrUser) {
     this.name = nickname;
     this.id = userId;
     this.gender = gender;

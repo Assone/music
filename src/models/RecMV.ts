@@ -11,18 +11,7 @@ export default class MRecMV extends MMetaSource {
 
   count: MCount;
 
-  constructor({
-    id,
-    name,
-    artists,
-    artistId,
-    artistName,
-    picUrl,
-    type,
-    duration,
-    copywriter,
-    playCount,
-  }: IrRecMV) {
+  constructor({ id, name, artists, artistId, artistName, picUrl, type, duration, copywriter, playCount }: IrRecMV) {
     super({ id, name, picUrl, type, copywriter });
 
     this.artists = artists.map((art) => new MArtist(art));

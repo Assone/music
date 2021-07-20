@@ -34,16 +34,8 @@ export default class MPlaylist extends MMetaSource {
   constructor(data: IrPlaylistDetail) {
     super(data);
 
-    const {
-      tags,
-      backgroundCoverUrl,
-      creator,
-      trackIds,
-      description,
-      coverImgUrl,
-      updateFrequency,
-      englishTitle,
-    } = data;
+    const { tags, backgroundCoverUrl, creator, trackIds, description, coverImgUrl, updateFrequency, englishTitle } =
+      data;
 
     this.title = englishTitle;
     this.description = description;

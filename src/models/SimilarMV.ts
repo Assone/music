@@ -14,16 +14,7 @@ export default class MSimilarMV extends MMeta {
 
   count: MCount;
 
-  constructor({
-    id,
-    name,
-    artists,
-    artistId,
-    artistName,
-    duration,
-    cover,
-    playCount,
-  }: IrSimilarMV) {
+  constructor({ id, name, artists, artistId, artistName, duration, cover, playCount }: IrSimilarMV) {
     super({ id, name });
 
     this.cover = usePhotoResize(512, 288)(cover);

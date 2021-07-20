@@ -1,4 +1,4 @@
-import { run } from ".";
+import { run } from '.';
 
 type TimeDate = {
   days: number;
@@ -34,41 +34,38 @@ const parseTime = (time: number) => {
 const parseFormat = (expression: string) => (time: TimeDate) => {
   const { days } = time;
   let { hours, minutes, seconds, milliseconds } = time;
-  const transformTimeToExp = (
-    searchKey: string,
-    replaceData: number,
-    mismatchProcess?: () => void
-  ) => (data: string) => {
-    let formatString = data;
+  const transformTimeToExp =
+    (searchKey: string, replaceData: number, mismatchProcess?: () => void) => (data: string) => {
+      let formatString = data;
 
-    if (formatString.indexOf(searchKey) !== -1) {
-      formatString = formatString.replace(searchKey, paddingZero(replaceData));
-    } else if (mismatchProcess) {
-      mismatchProcess();
-    }
+      if (formatString.indexOf(searchKey) !== -1) {
+        formatString = formatString.replace(searchKey, paddingZero(replaceData));
+      } else if (mismatchProcess) {
+        mismatchProcess();
+      }
 
-    return formatString;
-  };
+      return formatString;
+    };
 
   return run<string>(
     expression,
-    transformTimeToExp("DD", days, () => {
+    transformTimeToExp('DD', days, () => {
       hours += days * 24;
     }),
-    transformTimeToExp("HH", hours, () => {
+    transformTimeToExp('HH', hours, () => {
       minutes += hours * 60;
     }),
-    transformTimeToExp("mm", minutes, () => {
+    transformTimeToExp('mm', minutes, () => {
       seconds += minutes * 60;
     }),
-    transformTimeToExp("ss", seconds, () => {
+    transformTimeToExp('ss', seconds, () => {
       milliseconds += seconds * 1000;
     }),
-    transformTimeToExp("SSS", milliseconds)
+    transformTimeToExp('SSS', milliseconds)
   );
 };
 
-export const formatTime = (time: number, formatExpression = "mm:ss"): string =>
+export const formatTime = (time: number, formatExpression = 'mm:ss'): string =>
   run<string>(time, Math.floor, parseTime, parseFormat(formatExpression));
 
 export const formatDate = (
@@ -78,10 +75,7 @@ export const formatDate = (
     options?: Intl.DateTimeFormatOptions;
   } = {
     options: {
-      year: "numeric",
+      year: 'numeric',
     },
   }
-): string =>
-  new Intl.DateTimeFormat(options?.locales, options?.options).format(
-    new Date(time)
-  );
+): string => new Intl.DateTimeFormat(options?.locales, options?.options).format(new Date(time));

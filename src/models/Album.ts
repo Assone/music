@@ -20,18 +20,7 @@ export default class MAlbum extends MMeta {
 
   artists: MArtist[];
 
-  constructor({
-    id,
-    name,
-    company,
-    picUrl,
-    publishTime,
-    description,
-    artist,
-    artists,
-    type,
-    size,
-  }: IrAlbumDetail) {
+  constructor({ id, name, company, picUrl, publishTime, description, artist, artists, type, size }: IrAlbumDetail) {
     super({ id, name });
 
     this.company = company;

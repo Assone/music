@@ -6,9 +6,10 @@ import "./styles/index.scss";
 
 import store, { key } from "./store";
 import router from "./router";
+import "./plugins/interceptors";
 import i18n from "./plugins/i18n";
 import directive from "./plugins/directive";
-import "./plugins/interceptors";
+
 import { isDev, isMobile } from "./utils";
 
 createApp(App)

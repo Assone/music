@@ -11,14 +11,7 @@ export default class MCount {
 
   subscribed: number | undefined;
 
-  constructor({
-    commentCount,
-    cloudTrackCount,
-    playCount,
-    shareCount,
-    trackCount,
-    subscribedCount,
-  }: IrCount) {
+  constructor({ commentCount, cloudTrackCount, playCount, shareCount, trackCount, subscribedCount }: IrCount) {
     this.comment = commentCount;
     this.cloudTrack = cloudTrackCount;
     this.play = playCount;

@@ -3,22 +3,22 @@
 </template>
 
 <script lang="ts">
-import { getMVUrl, getVideoUrl } from "@/apis";
-import { defineComponent, PropType, ref, toRefs, watchEffect } from "vue";
+import { getMVUrl, getVideoUrl } from '@/apis';
+import { defineComponent, PropType, ref, toRefs, watchEffect } from 'vue';
 
 export default defineComponent({
   props: {
     track: {
-      type: Object as PropType<{ id: number; type: "mv" | "video" }>,
+      type: Object as PropType<{ id: number; type: 'mv' | 'video' }>,
       required: true,
     },
   },
   setup(props) {
     const { track } = toRefs(props);
-    const source = ref("");
+    const source = ref('');
 
     watchEffect(async () => {
-      if (track.value.type === "mv") {
+      if (track.value.type === 'mv') {
         const { url } = await getMVUrl(track.value.id);
         source.value = url;
       }

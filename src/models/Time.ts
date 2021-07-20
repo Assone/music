@@ -9,13 +9,7 @@ export default class MTime {
 
   publish: number | undefined;
 
-  constructor({
-    trackNumberUpdateTime,
-    trackUpdateTime,
-    createTime,
-    updateTime,
-    publishTime,
-  }: IrTime) {
+  constructor({ trackNumberUpdateTime, trackUpdateTime, createTime, updateTime, publishTime }: IrTime) {
     this.create = createTime;
     this.update = updateTime;
     this.updateTrack = trackUpdateTime;
