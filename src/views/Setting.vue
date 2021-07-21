@@ -14,8 +14,8 @@
     <div class="flex gap-8">
       <h2>语言设置</h2>
       <select v-model="locale">
-        <option v-for="locale in availableLocales" :key="`locale-${locale}`" :value="locale">
-          {{ locale }}
+        <option v-for="language in availableLocales" :key="`locale-${language}`" :value="language">
+          {{ language }}
         </option>
       </select>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <AppLink v-for="{ to, text } in links" class="link" :to="to">{{ t(text) }}</AppLink>
+    <AppLink v-for="{ to, text } in links" :key="`${text} ${to}`" class="link" :to="to">{{ t(text) }}</AppLink>
   </nav>
 </template>
 

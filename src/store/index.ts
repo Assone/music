@@ -13,19 +13,19 @@ const modules = {
   media,
 };
 
-type CommitType = `${keyof typeof modules}/${keyof typeof type}` | `${keyof typeof type}`;
+type ActionType = `${keyof typeof modules}/${keyof typeof type}` | `${keyof typeof type}`;
 
 interface Payload {
-  type: CommitType;
+  type: ActionType;
 }
 
 interface DispatchExtends {
-  (type: CommitType, payload?: any, options?: DispatchOptions): Promise<any>;
-  <P extends Payload>(payloadWithType: P, options?: DispatchOptions): Promise<any>;
+  (dispatchType: ActionType, payload?: unknown, options?: DispatchOptions): Promise<unknown>;
+  <P extends Payload>(payloadWithType: P, options?: DispatchOptions): Promise<unknown>;
 }
 
 interface CommitExtends {
-  (type: CommitType, payload?: any, options?: CommitOptions): void;
+  (commitType: ActionType, payload?: unknown, options?: CommitOptions): void;
   <P extends Payload>(payloadWithType: P, options?: CommitOptions): void;
 }
 
@@ -54,6 +54,6 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () 
   useSetTheme(store.state.config.theme);
 });
 
-export const key: InjectionKey<StoreExtends<{ config: IAppConfig }>> = Symbol();
+export const key: InjectionKey<StoreExtends<{ config: IAppConfig }>> = Symbol('store');
 export const useStore = (): StoreExtends<{ config: IAppConfig }> => baseUseStore(key);
 export default store;

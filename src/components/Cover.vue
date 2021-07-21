@@ -25,11 +25,10 @@
 import { computed, defineComponent, PropType, provide, ref, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { isUndefined } from '@/utils';
 import AppImage from './common/AppImage.vue';
 import Mask from './Mask.vue';
 import MaskShadow from './MaskShadow.vue';
-
-import { isUndefined } from '@/utils';
 
 export default defineComponent({
   components: {
@@ -38,7 +37,6 @@ export default defineComponent({
     MaskShadow,
   },
   inheritAttrs: false,
-  emits: ['play'],
   props: {
     id: Number,
     type: {
@@ -47,6 +45,7 @@ export default defineComponent({
     rectangle: Boolean,
     useEvent: Boolean,
   },
+  emits: ['play'],
   setup(props, { emit }) {
     const { id, type, useEvent } = toRefs(props);
     const { push } = useRouter();

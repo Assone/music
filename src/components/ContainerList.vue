@@ -17,7 +17,7 @@ export default defineComponent({
   },
   props: {
     data: {
-      type: Array as PropType<any[]>,
+      type: Array as PropType<unknown[]>,
       required: true,
     },
     options: {

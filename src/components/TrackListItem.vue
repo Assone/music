@@ -13,9 +13,9 @@
       </div>
 
       <div v-if="showArtists">
-        <span v-for="{ id, name } in artists" :key="id" class="track-item__artists-item">
-          <AppLink class="track-item__link" :to="`/artist/${id}`">
-            {{ name }}
+        <span v-for="{ id: artId, name: artName } in artists" :key="artId" class="track-item__artists-item">
+          <AppLink class="track-item__link" :to="`/artist/${artId}`">
+            {{ artName }}
           </AppLink>
         </span>
       </div>
@@ -32,10 +32,9 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue';
 
+import { formatTime } from '@/utils';
 import AppLink from './common/AppLink.vue';
 import Cover from './Cover.vue';
-
-import { formatTime } from '@/utils';
 
 export default defineComponent({
   components: {

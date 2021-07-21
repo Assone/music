@@ -1,4 +1,6 @@
-import { run } from '.';
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const run = <T = unknown>(data: unknown, ...fns: Function[]): T =>
+  fns.reduce((result, current) => current(result), data) as T;
 
 type TimeDate = {
   days: number;

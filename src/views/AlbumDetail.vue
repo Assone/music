@@ -1,12 +1,14 @@
 <template>
   <div class="view-playlist-detail">
     <SourceMeta v-bind="{ cover, name, description, creator: artist }" type="album"></SourceMeta>
-    <TrackList #foot type="album" v-bind="{ songs, isMobile }">
-      <div class="text-xs leading-5">
-        <p>{{ publishTime }}</p>
-        <p>共{{ songs.length }}首歌曲，{{ duration }}</p>
-        <p>© {{ company }}</p>
-      </div>
+    <TrackList type="album" v-bind="{ songs, isMobile }">
+      <template #foot>
+        <div class="text-xs leading-5">
+          <p>{{ publishTime }}</p>
+          <p>共{{ songs.length }}首歌曲，{{ duration }}</p>
+          <p>© {{ company }}</p>
+        </div>
+      </template>
     </TrackList>
   </div>
 </template>

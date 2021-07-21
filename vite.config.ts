@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { resolve } from 'path';
 import { cwd } from 'process';
 
@@ -44,6 +45,7 @@ export default defineConfig(({ command }) => ({
   server: {
     https: true,
     host: true,
+    port: 1212,
     proxy: {
       '^/api': {
         target: 'http://localhost:3000',

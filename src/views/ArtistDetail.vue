@@ -19,7 +19,7 @@
         :container-class="isMobile ? '' : 'grid gap-4 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6'"
       >
         <ContainerList
-          v-slot="{ id, cover, name, time: { publish } }"
+          v-slot="{ id: albumId, cover: albumCover, name: albumName, time: { publish } }"
           :options="{
             slidesPerView: 5,
             spaceBetween: 30,
@@ -40,8 +40,8 @@
           }"
           v-bind="{ isMobile, data: album }"
         >
-          <Cover :id="id" :src="cover" type="album">
-            <CoverMeta v-bind="{ name }" :date="publish" />
+          <Cover :id="albumId" :src="albumCover" type="album">
+            <CoverMeta v-bind="{ name: albumName }" :date="publish" />
           </Cover>
         </ContainerList>
       </ContentContainer>
@@ -51,7 +51,7 @@
         :container-class="isMobile ? '' : 'grid gap-4 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6'"
       >
         <ContainerList
-          v-slot="{ id, cover, name, time: { publish }, type }"
+          v-slot="{ id: esId, cover: esCover, name: esName, time: { publish }, type }"
           :options="{
             breakpoints: {
               320: {
@@ -70,8 +70,8 @@
           }"
           v-bind="{ isMobile, data: epAndSingle }"
         >
-          <Cover :id="id" :src="cover" type="album">
-            <CoverMeta v-bind="{ name }" :date="publish" :album-type="type" />
+          <Cover :id="esId" :src="esCover" type="album">
+            <CoverMeta v-bind="{ name: esName }" :date="publish" :album-type="type" />
           </Cover>
         </ContainerList>
       </ContentContainer>
@@ -82,16 +82,16 @@
         container-class="grid gap-4 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
       >
         <Cover
-          v-for="{ id, cover, name } in mv"
+          v-for="{ id: mvId, cover, name: mvName } in mv"
           :id="id"
-          :key="id"
+          :key="mvId"
           :src="cover"
           type="mv"
           rectangle
           use-event
           @play="handlePlayVideo"
         >
-          <CoverMeta :name="name" />
+          <CoverMeta :name="mvName" />
         </Cover>
       </ContentContainer>
       <ContentContainer
@@ -104,7 +104,7 @@
         "
       >
         <ContainerList
-          v-slot="{ id, avatar, name }"
+          v-slot="{ id: similarId, avatar: similarAvatar, name: similarName }"
           :options="{
             slidesPerView: 5,
             spaceBetween: 30,
@@ -126,8 +126,8 @@
           v-bind="{ isMobile, data: similar }"
         >
           <div class="flex flex-col justify-center items-center">
-            <AppAvatar :src="avatar" class="!w-40 !h-40 sm:!w-32 sm:!h-32 2xl:!w-24 2xl:!h-24" />
-            <AppLink class="truncate" :to="`/artist/${id}`">{{ name }}</AppLink>
+            <AppAvatar :src="similarAvatar" class="!w-40 !h-40 sm:!w-32 sm:!h-32 2xl:!w-24 2xl:!h-24" />
+            <AppLink class="truncate" :to="`/artist/${similarId}`">{{ similarName }}</AppLink>
           </div>
         </ContainerList>
       </ContentContainer>
@@ -188,26 +188,26 @@ export default defineComponent({
       artist: null,
     });
 
-    const album = computed(() => data.albums.filter((album) => album.type === '专辑'));
+    const album = computed(() => data.albums.filter((item) => item.type === '专辑'));
     const epAndSingle = computed(() =>
-      data.albums.filter((album) => ['EP/Single', 'EP', 'Single'].includes(album.type))
+      data.albums.filter((albumItem) => ['EP/Single', 'EP', 'Single'].includes(albumItem.type))
     );
     const name = computed(() => data.artist?.name);
     const avatar = computed(() => data.artist?.avatar);
     const size = computed(() => data.artist?.size);
 
-    const fetch = (id: number) =>
-      getArtistInfo(id).then(({ artist, songs }) => {
+    const fetch = (artId: number) =>
+      getArtistInfo(artId).then(({ artist, songs }) => {
         data.song = songs;
         data.artist = artist;
 
-        getArtistAlbum(id, 200).then(({ albums }) => {
+        getArtistAlbum(artId, 200).then(({ albums }) => {
           data.albums = albums;
 
-          getArtistMV(id).then(({ mv }) => {
+          getArtistMV(artId).then(({ mv }) => {
             data.mv = mv;
           });
-          getSimilarArtist(id).then((res) => {
+          getSimilarArtist(artId).then((res) => {
             data.similar = res;
           });
         });

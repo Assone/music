@@ -7,6 +7,7 @@ interface IPlayableInfo {
 
 export default class MPlayable {
   playable: boolean;
+
   reason?: string;
 
   constructor(info: IPlayableInfo) {

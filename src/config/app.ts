@@ -1,5 +1,12 @@
 import logo from '@/assets/logo.png';
 
+// eslint-disable-next-line no-shadow
+export enum ConfigLayout {
+  'Default',
+  'Apple',
+  'Spotify',
+}
+
 const config: IAppConfig = {
   logo,
   title: 'MUSIC',
@@ -22,11 +29,5 @@ const config: IAppConfig = {
   ],
   currentColorIndex: 3,
 };
-
-export enum ConfigLayout {
-  'Default',
-  'Apple',
-  'Spotify',
-}
 
 export default config;

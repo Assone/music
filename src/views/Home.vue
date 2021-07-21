@@ -35,7 +35,7 @@ import ContainerList from '@/components/ContainerList.vue';
 import Cover from '@/components/Cover.vue';
 import CoverMeta from '@/components/CoverMeta.vue';
 
-import { getAlbumNew, getRadioHot, getRadioToDayPreferred, getRecPlaylist, getRecRadio } from '@/apis';
+import { getAlbumNew, getRecPlaylist, getRecRadio } from '@/apis';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 

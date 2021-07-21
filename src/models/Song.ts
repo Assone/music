@@ -35,7 +35,7 @@ export default class MSong extends Mixins(MMeta, MPlayable) implements MMeta, MP
   }: IrSongDetail) {
     super({ id, name, fee, noCopyrightRcmd });
 
-    this.alia = alia[0];
+    [this.alia] = alia;
     this.album = {
       id: alId,
       name: alName,

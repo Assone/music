@@ -35,9 +35,8 @@ import { throttle } from 'lodash-es';
 import { getSongDetail } from '@/apis';
 import { useReachBottom } from '@/hooks';
 
-import TrackListItem from './TrackListItem.vue';
-
 import Queue from '@/models/tools/Queue';
+import TrackListItem from './TrackListItem.vue';
 
 export default defineComponent({
   components: {
@@ -67,21 +66,23 @@ export default defineComponent({
       data.value = songs.value;
     });
 
+    const handleLoadingMore = async () => {
+      const id = ids.out();
+      if (id) {
+        const { songs: newSongs } = await getSongDetail(id);
+        data.value.push(...newSongs);
+      }
+    };
     const handleScroll = () => {
       const isReachButton = useReachBottom(instance?.proxy?.$el as HTMLElement);
 
       if (isReachButton) {
         if (!ids.isEmpty) handleLoadingMore();
+        // eslint-disable-next-line no-use-before-define
         else window.removeEventListener('scroll', scrollListener);
       }
     };
-    const handleLoadingMore = async () => {
-      const id = ids.out();
-      if (id) {
-        const { songs } = await getSongDetail(id);
-        data.value.push(...songs);
-      }
-    };
+
     const scrollListener = throttle(handleScroll, 200);
 
     onMounted(() => {

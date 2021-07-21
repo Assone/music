@@ -39,7 +39,6 @@ export default defineComponent({
     AppButton,
     Cover,
   },
-  emits: ['play'],
   props: {
     cover: String,
     name: String,
@@ -47,6 +46,7 @@ export default defineComponent({
     type: String as PropType<'playlist' | 'album'>,
     creator: Object as PropType<{ name: string; id: number }>,
   },
+  emits: ['play'],
   setup(props) {
     const { description, type } = toRefs(props);
 

@@ -19,7 +19,7 @@ const router = createRouter({
       };
     }
 
-    return savedPosition ? savedPosition : { top: 0 };
+    return savedPosition || { top: 0 };
   },
 });
 

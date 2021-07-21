@@ -1,4 +1,5 @@
-const copyProperties = (target: any, source: Record<string, unknown>, isPrototype?: boolean) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const copyProperties = (target: any, source: Record<string, unknown>) => {
   Reflect.ownKeys(source).forEach((key) => {
     if (key !== 'constructor' && key !== 'prototype') {
       const desc = Reflect.getOwnPropertyDescriptor(source, key);
@@ -8,6 +9,7 @@ const copyProperties = (target: any, source: Record<string, unknown>, isPrototyp
   });
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Mixins(...mixins: any[]) {
   class Mixin {
     constructor(data: unknown) {
@@ -17,7 +19,7 @@ export default function Mixins(...mixins: any[]) {
 
   mixins.forEach((mixin) => {
     copyProperties(Mixin, mixin); // 拷贝静态属性
-    copyProperties(Mixin.prototype, mixin.prototype, true); // 拷贝原型属性
+    copyProperties(Mixin.prototype, mixin.prototype); // 拷贝原型属性
   });
 
   return Mixin;

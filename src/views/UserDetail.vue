@@ -12,7 +12,13 @@
         title="创建的歌单"
         container-class="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
       >
-        <Cover v-for="{ id, cover, name } in playlist" :id="id" :key="id" :src="cover" type="playlist">
+        <Cover
+          v-for="{ id: playlistId, cover, name } in playlist"
+          :id="playlistId"
+          :key="playlistId"
+          :src="cover"
+          type="playlist"
+        >
           <CoverMeta v-bind="{ name }" />
         </Cover>
       </ContentContainer>
@@ -51,11 +57,11 @@ export default defineComponent({
       playlist: [],
     });
 
-    const fetch = (id: number) => {
-      getUserDetail(id).then((res) => {
+    const fetch = (userId: number) => {
+      getUserDetail(userId).then((res) => {
         info.value = res;
       });
-      getUserPlaylist(id).then(({ playlist }) => {
+      getUserPlaylist(userId).then(({ playlist }) => {
         data.playlist = playlist;
       });
     };

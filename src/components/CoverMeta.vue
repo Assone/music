@@ -5,8 +5,8 @@
     </AppLink>
   </div>
   <div v-if="artists" class="truncate text-xs text-gray-500">
-    <span v-for="{ id, name } in artists" :key="id" class="artists-item">
-      <AppLink :to="`/artist/${id}`">{{ name }}</AppLink>
+    <span v-for="{ id: artId, name: artName } in artists" :key="artId" class="artists-item">
+      <AppLink :to="`/artist/${artId}`">{{ artName }}</AppLink>
     </span>
   </div>
   <div v-if="date || albumType" class="text-xs text-gray-500">
@@ -39,7 +39,12 @@ export default defineComponent({
     const type = inject('type');
 
     const formatDate = computed(() => {
-      return date?.value ? (isString(date.value) ? date.value : new Date(date.value).getFullYear()) : undefined;
+      // date?.value ? (isString(date.value) ? date.value : new Date(date.value).getFullYear()) : undefined
+      if (date.value) {
+        return isString(date.value) ? date.value : new Date(date.value).getFullYear();
+      }
+
+      return undefined;
     });
 
     const formatType = computed(() => {

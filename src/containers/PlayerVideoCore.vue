@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { getMVUrl, getVideoUrl } from '@/apis';
+import { getMVUrl } from '@/apis';
 import { defineComponent, PropType, ref, toRefs, watchEffect } from 'vue';
 
 export default defineComponent({
