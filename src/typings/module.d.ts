@@ -1,3 +1,7 @@
+declare module 'eruda' {
+  export const init: () => void;
+}
+
 declare module 'swiper/vue' {
   import { DefineComponent } from 'vue';
 

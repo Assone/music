@@ -31,11 +31,13 @@
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@intlify/vite-plugin-vue-i18n": "^2.1.2",
+    "@rollup/plugin-beep": "^0.2.0",
     "@types/lodash-es": "^4.17.4",
     "@types/node": "^15.6.1",
     "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
+    "@vitejs/plugin-legacy": "^1.4.4",
     "@vitejs/plugin-vue": "^1.2.2",
     "@vue/compiler-sfc": "^3.0.5",
     "@vueuse/integrations": "^5.1.3",
@@ -47,6 +49,7 @@
     "electron-builder": "^22.10.5",
     "electron-devtools-installer": "^3.2.0",
     "electron-reload": "^1.5.0",
+    "eruda": "^2.4.1",
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-vue": "^7.14.0",
@@ -57,9 +60,13 @@
     "sass": "^1.34.0",
     "tailwindcss": "^2.1.2",
     "typescript": "^4.1.3",
-    "vconsole": "^3.7.0",
     "vite": "^2.3.4",
+    "vite-imagetools": "^3.6.8",
+    "vite-plugin-compression": "^0.3.1",
+    "vite-plugin-mkcert": "^1.3.2",
+    "vite-plugin-pwa": "^0.8.1",
     "vite-plugin-svg-icons": "^0.6.2",
+    "vite-plugin-tips": "^1.0.2",
     "vue-tsc": "^0.0.24",
     "yorkie": "^2.0.0"
   },
@@ -74,9 +81,8 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,json,vue}": [
-      "prettier --config --write",
-      "eslint",
-      "git add"
+      "prettier --write",
+      "eslint --fix"
     ]
   }
 }
