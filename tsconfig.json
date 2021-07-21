@@ -8,13 +8,13 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": ["esnext", "dom"],
+    "lib": ["ESNext", "DOM"],
     "baseUrl": ".",
     "outDir": "./dist/",
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["vite/client", "@intlify/vite-plugin-vue-i18n/client"]
+    "types": ["vite/client", "@intlify/vite-plugin-vue-i18n/client", "vite-plugin-pwa/client"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
