@@ -14,11 +14,11 @@ import mkcert from 'vite-plugin-mkcert';
 import beep from '@rollup/plugin-beep';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [
     beep(),
     mkcert({ source: 'coding' }),
-    viteTips(),
+    command === 'serve' ? viteTips() : '',
     vue(),
     vueI18n({
       include: resolve(cwd(), 'src/locales/**'),
@@ -59,4 +59,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));
