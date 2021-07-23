@@ -8,16 +8,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import AppBanner, { Options } from './common/AppBanner.vue';
+import { defineComponent, PropType, defineAsyncComponent } from 'vue';
+import { Options } from './common/AppBanner.vue';
 
 export default defineComponent({
   components: {
-    AppBanner,
+    AppBanner: defineAsyncComponent(() => import('./common/AppBanner.vue')),
   },
   props: {
     data: {
-      type: Array as PropType<unknown[]>,
+      type: Array as PropType<any[]>,
       required: true,
     },
     options: {

@@ -30,16 +30,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue';
+import { computed, defineComponent, PropType, toRefs, defineAsyncComponent } from 'vue';
 
 import { formatTime } from '@/utils';
-import AppLink from './common/AppLink.vue';
-import Cover from './Cover.vue';
 
 export default defineComponent({
   components: {
-    AppLink,
-    Cover,
+    AppLink: defineAsyncComponent(() => import('./common/AppLink.vue')),
+    Cover: defineAsyncComponent(() => import('./Cover.vue')),
   },
   props: {
     index: Number,

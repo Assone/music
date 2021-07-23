@@ -28,12 +28,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, ref } from 'vue';
 
 import ContentContainer from '@/components/ContentContainer.vue';
-import ContainerList from '@/components/ContainerList.vue';
-import Cover from '@/components/Cover.vue';
-import CoverMeta from '@/components/CoverMeta.vue';
+// import ContainerList from '@/components/ContainerList.vue';
+// import Cover from '@/components/Cover.vue';
+// import CoverMeta from '@/components/CoverMeta.vue';
 
 import { getAlbumNew, getRecPlaylist, getRecRadio } from '@/apis';
 import { useStore } from '@/store';
@@ -42,9 +42,12 @@ import { useI18n } from 'vue-i18n';
 export default defineComponent({
   components: {
     ContentContainer,
-    ContainerList,
-    Cover,
-    CoverMeta,
+    // ContainerList,
+    // Cover,
+    // CoverMeta,
+    ContainerList: defineAsyncComponent(() => import('@/components/ContainerList.vue')),
+    Cover: defineAsyncComponent(() => import('@/components/Cover.vue')),
+    CoverMeta: defineAsyncComponent(() => import('@/components/CoverMeta.vue')),
   },
   setup() {
     const { t } = useI18n();

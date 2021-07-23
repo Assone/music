@@ -10,15 +10,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, defineAsyncComponent } from 'vue';
 
 import AppHeader from './common/AppHeader.vue';
-import AppLink from './common/AppLink.vue';
 
 export default defineComponent({
   components: {
     AppHeader,
-    AppLink,
+    AppLink: defineAsyncComponent(() => import('./common/AppLink.vue')),
   },
   props: {
     title: String,
